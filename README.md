@@ -1,7 +1,7 @@
-## lojaonlinecoach
+# lojaonlinecoach
 <p align="center">O projeto busca construir uma aplicação web no formato de uma loja online, na qual serão ofertados serviços de "coach de games"</p>
 
-# Requerimentos:
+## Requerimentos:
 
 O sistema deve permitir o login de usuários, que será definido a partir de um email único e senha.
 
@@ -37,7 +37,7 @@ Do ponto de vista do professor, seus horários serão armazenados em tabelas de 
  
 O sistema deve ser acessível, responsivo e constar com boa usabilidade.
 
-# Descrição do Projeto:
+## Descrição do Projeto:
 
 O projeto busca a elaboração e implementação de uma plataforma online que venderá serviços conhecidos como “coach de games”, uma forma de auxiliar novos jogadores a melhorar em um determinado jogo através de um conjunto de aulas, análises e conversas com os alunos de maneira a ajudá-lo a compreender e dominar o jogo em diferentes aspectos e situações.
 A plataforma, além de vender os cursos, também funcionará como suporte para a realização das aulas, armazenando materiais como vídeos e documentos e os disponibilizando aos alunos que adquirirem as respectivas aulas.
