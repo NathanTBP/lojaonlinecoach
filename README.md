@@ -42,8 +42,8 @@ O sistema deve ser acessível, responsivo e constar com boa usabilidade.
 O projeto busca a elaboração e implementação de uma plataforma online que venderá serviços conhecidos como “coach de games”, uma forma de auxiliar novos jogadores a melhorar em um determinado jogo através de um conjunto de aulas, análises e conversas com os alunos de maneira a ajudá-lo a compreender e dominar o jogo em diferentes aspectos e situações.
 A plataforma, além de vender os cursos, também funcionará como suporte para a realização das aulas, armazenando materiais como vídeos e documentos e os disponibilizando aos alunos que adquirirem as respectivas aulas.
 
-Diagramas de navegação  e mockups:
-
+Diagramas de navegação:
+![alt text](https://github.com/NathanTBP/lojaonlinecoach/blob/main/navdiagram.png?raw=true)
 Comentários sobre o código:
 
 A implementação do site foi feita através de html5 para o corpo do site, css3 para a estilização, javascript para as funcionalidades e automatização de email e gerência de dados.
