@@ -1,0 +1,230 @@
+* {
+    font-family: Roboto;
+    font-weight: Regular;
+}
+body,html {
+    height: 100%;
+}
+
+.w3-bar-item {
+    font-size: 2vw;
+}
+
+#menu_button {
+    width: 5%;
+    padding-left: 0.5%;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 0.5%;
+    margin-top: 0.5%;
+    cursor: pointer;
+  }
+
+#home_logo_coach {
+    width: 15%;
+}
+
+#button_entrar {
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+    cursor: pointer;
+}
+
+#menu_cart {
+    width: 4%;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 0.5%;
+    margin-top: 0.5%;
+    cursor: pointer;
+}
+
+.bar_item {
+    margin-top: 0.5%;
+}
+
+
+#login_header_text {
+    font-size: 2vw;
+    font-family: Roboto Condensed;
+}
+#login_logo_coach {
+    width: 30%;
+}
+#login_card {
+    width: 50%;
+}
+#button_enter {
+    border: none;
+    cursor: pointer;
+}
+#login_text {
+    font-size: 1.2vw;
+
+}
+
+#bg1 {
+    background-position: center;
+    background-size: cover;
+    background-image: url("../img/bg1img.png");
+    width: 100%;
+    height: 100%;
+}
+
+.backgrounddarken {
+    width: 100%;
+    height: 100%;
+    background:rgba(0, 0, 0, 0.7);
+    background-size: cover;
+}
+
+
+#elos_icon {
+    width: 30%;
+    padding-top: 2%;
+}
+
+#header_text {
+    font-family: Roboto Condensed;
+    font-weight: Bold;
+    font-size: 5vw;
+    white-space: nowrap;
+    padding-top: 13%;
+}
+
+#header_button {
+    font-size: 3vw;
+    padding-left: 5%;
+    padding-right: 5%;
+    border-radius: 8px;
+    text-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
+    margin-bottom: 3%;
+    cursor: pointer;
+}
+
+#bg2 {
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 70%;
+}
+
+#bg2color {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0,0,0,1), rgba(0,69,85,1));
+    filter: brightness(30%);
+}
+
+#bg2_text {
+    font-family: Roboto Condensed;
+    font-weight: Bold;
+    font-size: 4vw;
+    white-space: nowrap;
+    padding-top: 1%;
+    padding-left: 1%;
+}
+
+#img_lol  {
+    width: 25%;
+    border-radius: 15px;
+    opacity: 1;
+}
+  
+#img_tft {
+    width: 25%;
+    border-radius: 15px;
+    opacity: 1;
+}
+
+#img_kkoma {
+    height: 100%;
+    padding-left: 10%;
+    opacity: 1;
+}
+
+#bg3 {
+    background-position: center;
+    background-size: cover;
+    background: rgb(0, 0, 0);
+    width: 100%;
+    height: 25%;
+}
+
+#bg3_text1 {
+    color: rgba(249,255,0,1);
+    font-family: Roboto Condensed;
+    font-weight: Bold;
+    font-size: 4vw;
+}
+#bg3_text2 {
+    color: rgba(255,255,255,1);
+    font-family: Roboto Condensed;
+    font-weight: Bold;
+    font-size: 2.5vw;
+}
+
+.table {
+    position: absolute;
+    top: 30%;
+    width: 90%;
+    text-align: center;
+}
+.icon_items {
+    width: 85%;
+    filter: brightness(120%);
+    padding-top: 50%;
+  }
+.text_items {
+    width: 85%;
+    color: rgba(255,209,47,1);
+    font-family: Roboto Condensed;
+    font-weight: Bold;
+    font-size: 2.4vw;
+    text-align: left;
+}
+
+#bg4 {
+    background-position: center;
+    background-size: cover;
+    background-image: url("../img/bg4img.png");
+    width: 100%;
+    height: 100%;
+}
+#text_lol {
+    width: 20%;
+}
+
+#bg5 {
+    background-position: center;
+    background-size: cover;
+    background-image: url("../img/bg5img.png");
+    width: 100%;
+    height: 100%;
+}
+#text_tft {
+    width: 20%;
+    padding-top: 2%;
+}
+#table_tft {
+    top: 20%;
+}
+
+#bg6 {
+    background-position: center;
+    background-size: cover;
+    background-image: url("../img/bg6img.png");
+    width: 100%;
+    height: 40%;
+}
+#bg6_text {
+  color: rgba(249,255,0,1);
+  font-family: Roboto Condensed;
+  font-weight: Bold;
+  font-size: 5vw;
+  padding-right: 5%;
+}
+#img_yamato {
+    height: 100%;
+    transform: scaleX(-1);
+}
