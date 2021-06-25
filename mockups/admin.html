@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <link href="./css/admin.css" rel="stylesheet"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Admin - Home</title>
+</head>
+<body>
+    <div class="w3-container">
+        <div id="space"></div>
+        <div class="w3-row-padding">
+            <div class="w3-responsive w3-small">
+                <div class="w3-col s3 w3-card-4">
+                    <header class="w3-container w3-blue"><h2>Informações</h2></header>
+                    <div class="w3-container">
+                        <h6>Aulas vendidas no mês: 50</h6>
+                        <h6>Aulas vendidas total: 2000</h6>
+                        <h6>Video aulas vendidas Iniciante no mês: 2</h6>
+                        <h6>Video aulas vendidas Intermediário no mês: 4</h6>
+                        <h6>Video aulas vendidas Avançado no mês: 1</h6>
+                        <h6>Video aulas vendidas Iniciante no total: 2</h6>
+                        <h6>Video aulas vendidas Intermediário no total: 2</h6>
+                        <h6>Video aulas vendidas Avançado no total: 2</h6>
+                    </div>
+                    <footer class="w3-container w3-green">
+                        <h2>Lucro mês: R$200</h2>
+                        <h2>Lucro total: R$5000</h2>
+                    </footer>
+                </div>
+                <div class="w3-col s9 w3-container">
+                        <h4>Vídeo Aulas</h4>
+                        <table class="w3-table-all w3-hoverable">
+                            <tr>
+                                <th>Título</th>
+                                <th>Professor</th>
+                                <th>Jogo</th>
+                                <th>Link Iniciante</th>
+                                <th>Link Intermediáro</th>
+                                <th>Link Avançado</th>
+                                <th>Cancelar</th>
+                            </tr>
+                            <tr>
+                                <td>Como jogar Lane Phase</td>
+                                <td>Double Johnson</td>
+                                <td>Lol</td>
+                                <td>bit.ly/12345</td>
+                                <td>bit.ly/23456</td>
+                                <td>bit.ly/34567</td>
+                                <td><input id="cancel" type="button" value="  X  "></td>
+                            </tr>
+                            <tr>
+                                <td>Como decidir composição</td>
+                                <td>Double Johnson</td>
+                                <td>TFT</td>
+                                <td>bit.ly/abcde</td>
+                                <td>bit.ly/bcdef</td>
+                                <td>bit.ly/cdefg</td>
+                                <td><input id="cancel" type="button" value="  X  "></td>
+                            </tr>
+                        </table><br><br>
+                        <div class="w3-container">
+                            <h4>Professores</h4>
+                            <input type="button" class="w3-button w3-gray" value="Adicionar Professor">
+                            <input type="button" class="w3-button w3-gray" value="Editar Professor">
+                        </div><br>     
+                        <div class="w3-row-padding">
+                            <div class="w3-quarter">
+                                <input class="w3-input w3-border" type="text" placeholder="Nickname">
+                              </div>
+                              <div class="w3-quarter">
+                                <input class="w3-input w3-border" type="text" placeholder="Nome">
+                              </div>
+                              <div class="w3-quarter">
+                                <input class="w3-input w3-border" type="email" placeholder="Email">
+                              </div>
+                              <div class="w3-quarter">
+                                <input class="w3-input w3-border" type="tel" placeholder="Telefone">
+                              </div>
+                        </div><br>
+                        <table class="w3-table-all w3-hoverable">
+                            <tr>
+                                <th>Foto</th>
+                                <th>Nickname</th>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Telefone</th>
+                            </tr>
+                            <tr>
+                                <td><img src="img/photo.png" class="photo"></td>
+                                <td>WillSmithcraft123</td>
+                                <td>Will Smith</td>
+                                <td>will_smith123@hotmail.com</td>
+                                <td>(50)999999999</td>
+                            </tr>
+                            <tr>
+                                <td><img src="img/photo.png" class="photo"></td>
+                                <td>Cadinho de Michael</td>
+                                <td>Michael Jackson</td>
+                                <td>jackson_moonwalk@hotmail.com</td>
+                                <td>(10)123456789</td>
+                            </tr>
+                            <tr>
+                                <td><img src="img/photo.png" class="photo"></td>
+                                <td>Double Johnson</td>
+                                <td>Johnson e Johnson</td>
+                                <td>johnsonjonhson@gmail.com</td>
+                                <td>(11)111111111</td>
+                            </tr>
+                        </table> <br>
+                        <div class="w3-container">
+                            <h4>Alunos</h4>
+                            <input type="button" class="w3-button w3-gray" value="Editar Aluno">
+                        </div><br>
+                        
+                        <table class="w3-table-all w3-hoverable">
+                            <tr>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Telefone</th>
+                                <th>Nº Aulas Coach Dispon.</th>
+                                <th>Créditos Iniciante</th>
+                                <th>Créditos Intermediário</th>
+                                <th>Créditos Avançado</th>
+                            </tr>
+                            <tr>
+                                <td>Will Smith</td>
+                                <td>will_smith123@hotmail.com</td>
+                                <td>(50)999999999</td>
+                                <td>0</td>
+                                <td>2</td>
+                                <td>1</td>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <td>Michael Jackson</td>
+                                <td>jackson_moonwalk@hotmail.com</td>
+                                <td>(10)123456789</td>
+                                <td>10</td>
+                                <td>4</td>
+                                <td>6</td>
+                                <td>7</td>
+                            </tr>
+                            <tr>
+                                <td>Johnson e Johnson</td>
+                                <td>johnsonjonhson@gmail.com</td>
+                                <td>(11)111111111</td>
+                                <td>13</td>
+                                <td>1</td>
+                                <td>6</td>
+                                <td>0</td>
+                            </tr>
+                        </table><br>
+
+                        
+                </div>
+                <div class="w3-col s12 w3-container">
+                        <h4>Aulas Confirmadas</h4>
+                        <table class="w3-table-all w3-hoverable">
+                            <tr>
+                                <th>N° Pedido</th>
+                                <th>Email Aluno</th>
+                                <th>Data</th>
+                                <th>Horário</th>
+                                <th>Professor</th>
+                                <th>Jogo</th>
+                                <th>Nível</th>
+                                <th>Quant aulas</th>
+                                <th>Cancelar</th>
+                            </tr>
+                            <tr>
+                                <td>000002</td>
+                                <td>will_smith123@hotmail.com</td>
+                                <td>29/05/2021</td>
+                                <td>12:00</td>
+                                <td>Cadinho de Michael</td>
+                                <td>TFT</td>
+                                <td>Iniciante</td>
+                                <td>1</td>
+                                <td><input id="cancel" type="button" value="  X  "></td>
+                            </tr>
+                        </table>
+
+                        <h4>Aulas Canceladas</h4>
+                        <table class="w3-table-all w3-hoverable">
+                            <tr>
+                                <th>N° Pedido</th>
+                                <th>Email Aluno</th>
+                                <th>Data</th>
+                                <th>Horário</th>
+                                <th>Professor</th>
+                                <th>Jogo</th>
+                                <th>Nível</th>
+                                <th>Quant aulas</th>
+                                <th>Motivo</th>
+                            </tr>
+                            <tr>
+                                <td>000001</td>
+                                <td>will_smith123@hotmail.com</td>
+                                <td>28/05/2021</td>
+                                <td>12:00</td>
+                                <td>Cadinho de Michael</td>
+                                <td>TFT</td>
+                                <td>Intermediário</td>
+                                <td>1</td>
+                                <td>Solicitação errada</td>
+                            </tr>
+                        </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="black_bar">
+        <img src="img/menu_button.png" id="menu_button">
+        <img src="img/logo_coach.png" id="logo_coach">
+        <div id="container_menu_items">
+            <p class="menu_text" id="menu_text1">Início</p>
+            <p class="menu_text" id="menu_text2">Produtos</p>
+            <p class="menu_text" id="menu_text3">Quem Somos</p>
+            <p class="menu_text" id="menu_text4">Contato</p>
+            <img id="user_logo" src="img/user_white.png" alt="user_logo">
+            <p class="menu_text" id="login_text">Olá, ADMIN!</p>
+        </div>
+        <img src="img/cart.png" id="cart">
+    </div>
+    
+   
+</body>
+</html>
