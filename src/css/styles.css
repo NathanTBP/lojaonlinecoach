@@ -24,6 +24,20 @@ body,html {
     width: 15%;
 }
 
+#bar_inicio {
+    width:12%;
+}
+#bar_produtos {
+    width:14%;
+}
+#bar-quemsomos {
+    width:20%;
+}
+#bar-contato {
+    width:13%;
+}
+
+
 #button_entrar {
     padding-left: 2.5%;
     padding-right: 2.5%;
