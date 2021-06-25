@@ -37,7 +37,6 @@ body,html {
     width:13%;
 }
 
-
 #button_entrar {
     padding-left: 2.5%;
     padding-right: 2.5%;
@@ -57,7 +56,6 @@ body,html {
     margin-top: 0.5%;
 }
 
-
 #login_header_text {
     font-size: 2vw;
     font-family: Roboto Condensed;
@@ -65,17 +63,32 @@ body,html {
 #login_logo_coach {
     width: 30%;
 }
-#login_card {
+.loginreg_card {
     width: 50%;
+    margin-bottom: 15px;
 }
 #button_enter {
     width:15%;
+    background-color: white;
     border: none;
     cursor: pointer;
 }
-#login_text {
+.loginreg_text {
     font-size: 1.2vw;
 
+}
+#button_to_register {
+    background-color: white;
+    border: none;
+    cursor: pointer;
+}
+#button_register {
+    font-size: 2vw;
+}
+#button_to_login {
+    background-color: white;
+    border: none;
+    cursor: pointer;
 }
 
 #bg1 {

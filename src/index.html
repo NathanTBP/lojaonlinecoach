@@ -20,15 +20,15 @@
             <a href="#" class="w3-bar-item w3-button bar_item" id="bar_produtos">Produtos</a>
             <a href="#" class="w3-bar-item w3-button bar_item" id="bar_quemsomos">Quem Somos</a>
             <a href="#" class="w3-bar-item w3-button bar_item" id="bar_contato">Contato</a>
-            <button onclick="document.getElementById('id01').style.display='block'" class="w3-bar-item w3-button w3-blue bar_item" id="button_entrar">Entrar</button>
+            <button class="w3-bar-item w3-button w3-blue bar_item" id="button_entrar">Entrar</button>
             <img class="w3-image w3-right" id="menu_cart" src="img/cart.png" alt="Cart">
         </div>
     </div>
     <!--Login-->
-    <div id="id01" class="w3-modal">
-        <div class="w3-modal-content w3-animate-top w3-card-4" id="login_card">
+    <div id="card_login" class="w3-modal">
+        <div class="w3-modal-content w3-animate-top w3-card-4 loginreg_card">
             <header class="w3-container w3-center w3-indigo"> 
-                <span onclick="document.getElementById('id01').style.display='none'" class="w3-btn w3-xxlarge w3-display-topright">&times;</span>
+                <button class="w3-btn w3-xxlarge w3-display-topright" id="close_login">&times;</button>
                 <img class="w3-image" id="login_logo_coach" src="img/logo_coach.png" alt="Site logo">
                 <br><br>
                 <span class="w3-text-white" id="login_header_text">Faça o Login ou Registre-se</span>
@@ -37,27 +37,72 @@
                 <div class="w3-row w3-section">
                     <div class="w3-col s1 l1 w3-center"><i class="w3-xlarge flaticon-user"></i></div>
                     <div class="w3-col s8 l9">
-                        <input class="w3-input w3-border" name="email" type="text" placeholder="Email" required>
+                        <input class="w3-input w3-border" name="loginemail" type="text" placeholder="Email">
                     </div>
                 </div>
                 <div class="w3-row w3-section">
                     <div class="w3-col s1 l1 w3-center"><i class="w3-xlarge w3-center flaticon-lock"></i></div>
                     <div class="w3-col s8 l9">
-                        <input class="w3-input w3-border" name="senha" type="password" placeholder="Senha" required>
+                        <input class="w3-input w3-border" name="loginsenha" type="password" placeholder="Senha">
                     </div>
                 </div>
-                <div class="w3-row w3-section" id="login_text">
-                    <div class="w3-col l3 w3-margin-left w3-left"><input class="w3-check" type="checkbox" checked="checked"> Manter Login</div>
-                    <div class="w3-col l5 w3-center"><button id="button_enter"><i class="w3-xxxlarge flaticon-enter"></i></button></div>
-                    <span class="w3-col l3 w3-right">Esqueceu a senha?<br><a class="w3-text-blue" href="#" target="_self">Clique aqui!</a></span>
+                <div class="w3-row w3-section loginreg_text">
+                    <div class="w3-col s3 l3 w3-margin-left w3-left"><input class="w3-check" type="checkbox" checked="checked"> Manter Login</div>
+                    <div class="w3-col s5 l5 w3-center"><button id="button_enter"><i class="w3-xxxlarge flaticon-enter"></i></button></div>
+                    <span class="w3-col s3 l3 w3-right">Esqueceu a senha?<br><a class="w3-text-blue" href="#" target="_self">Clique aqui!</a></span>
                     <div class="w3-container w3-center w3-padding-small">
-                        <span>Não tem conta? <a class="w3-text-blue" href="#" target="_self">Registre-se aqui!</a></span>
+                        <span>Não tem conta? <button class="w3-text-blue" id="button_to_register">Registre-se aqui!</button></span>
                     </div>
                 </div>
             </form>
         </div>
     </div>
     
+    <!--Register-->
+    <div id="card_register" class="w3-modal">
+        <div class="w3-modal-content w3-animate-top w3-card-4 loginreg_card">
+            <header class="w3-container w3-center w3-indigo"> 
+                <button class="w3-btn w3-xxlarge w3-display-topright" id="close_register">&times;</button>
+                <img class="w3-image" id="login_logo_coach" src="img/logo_coach.png" alt="Site logo">
+                <br><br>
+                <span class="w3-text-white" id="login_header_text">Preencha os campos para se registrar!</span>
+            </header>
+            <form class="w3-container" action="">
+                <div class="w3-row w3-section">
+                    <span>Email:</span>
+                    <input class="w3-input w3-border" name="regemail" type="text" placeholder="Ex:example@email.com">
+                </div>
+                <div class="w3-row w3-section">
+                    <span>Confirmar Email:</span>
+                    <input class="w3-input w3-border" name="regemail2" type="text" placeholder="Repetir Email">
+                </div>
+                <div class="w3-row w3-section">
+                    <span>Nome Completo:</span>
+                    <input class="w3-input w3-border" type="text" name="nomecompleto" placeholder="Ex:Annie Hastur">
+                </div>
+                <div class="w3-row w3-section">
+                    <span>Celular:</span>
+                    <input class="w3-input w3-border" type="tel" name="regtel" placeholder="(xx)xxxxx-xxxx apenas número"id="regtel">
+                </div>
+                <div class="w3-row w3-section">
+                    <span>Senha:</span>
+                    <input class="w3-input w3-border" name="regsenha" type="password" placeholder="Senha">
+                </div>
+                <div class="w3-row w3-section">
+                    <span>Confirmar Senha:</span>
+                    <input class="w3-input w3-border" name="regsenha2" type="password" placeholder="Repetir Senha">
+                </div>
+                <div class="w3-row w3-section loginreg_text">
+                    <div class="w3-col s6 l6 w3-margin-left w3-left"><input class="w3-check" type="checkbox"> Li e concordo com os termos de uso</div>
+                    <button class="w3-button s4 l4 w3-blue" id="button_register">Registrar-se</button>
+                    <div class="w3-container w3-center w3-padding-small">
+                        <span>Já tem conta? <button class="w3-text-blue" id="button_to_login">Faça login aqui!</button></span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <br><br><br>
     <header class="w3-display-container" id="bg1">
         <div class="backgrounddarken"></div>
@@ -127,5 +172,7 @@
         <img class="w3-display-bottomleft"src="img/img_yamato.png" id="img_yamato">
         <span class="w3-display-right" id="bg6_text">E muito mais!!!</span>
     </div>
+
+    <script src="javascript/script.js"></script>
 </body>
 </html>
