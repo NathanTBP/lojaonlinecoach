@@ -69,6 +69,7 @@ body,html {
     width: 50%;
 }
 #button_enter {
+    width:15%;
     border: none;
     cursor: pointer;
 }
