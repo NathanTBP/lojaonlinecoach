@@ -1,0 +1,202 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "first_name": "Matheus",
+      "last_name": "Vellosa de Andrade",
+      "email": "mvellosa@usp.br",
+      "celular": "16998034087",
+      "shopping_cart": [
+        {
+          "product_id": 1,
+          "quantity": 3
+        },
+        {
+          "product_id": 2,
+          "quantity": 1
+        },
+        {
+          "product_id": 4,
+          "quantity": 2
+        }
+      ]
+    }
+  ],
+
+  "products": [
+    {
+      "id": 1,
+      "name": "iniciante",
+      "info": [
+        {
+          "price": 20
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "intermediário",
+      "info": [
+        {
+          "price": 25
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "avançado",
+      "info": [
+        {
+          "price": 30
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "coach",
+      "info": [
+        {
+          "price": 20
+        }
+      ]
+    }
+  ],
+
+  "aulas": [
+    {
+      "id" : 1,
+      "name": "League of Legends",
+      "link": "#",
+      "difficulty": [
+        {"name": "básico",
+          "videoaulas":[
+            {
+              "id": 1,
+              "title": "controle de lane I",
+              "thumbnail": "img/thumbnail_1",
+              "professor": "Pedro",
+              "description": "video mostrando como controlar a rota",
+              "link": "#"
+            },
+            {
+              "id": 2,
+              "title": "split push I",
+              "thumbnail": "img/thumbnail_2",
+              "professor": "Carlos",
+              "description": "video mostrando como fazer split push",
+              "link": "#"
+            }
+          ]
+        },
+        {"name": "intermediário",
+          "videoaulas":[
+            {
+              "id": 1,
+              "title": "controle de lane II",
+              "thumbnail": "img/thumbnail_1",
+              "professor": "Pedro",
+              "description": "video mostrando como controlar a rota",
+              "link": "#"
+            },
+            {
+              "id": 2,
+              "title": "split push II",
+              "thumbnail": "img/thumbnail_2",
+              "professor": "Carlos",
+              "description": "video mostrando como fazer split push",
+              "link": "#"
+            }
+          ]
+        },
+        {"name": "avançado",
+          "videoaulas":[
+            {
+              "id": 1,
+              "title": "controle de lane III",
+              "thumbnail": "img/thumbnail_1",
+              "professor": "Pedro",
+              "description": "video mostrando como controlar a rota",
+              "link": "#"
+            },
+            {
+              "id": 2,
+              "title": "split push II",
+              "thumbnail": "img/thumbnail_2",
+              "professor": "Carlos",
+              "description": "video mostrando como fazer split push",
+              "link": "#"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id" : 2,
+      "name": "Team Fight Tactics",
+      "link": "#",
+      "difficulty": [
+        {"name": "básico",
+          "videoaulas":[
+            {
+              "id": 1,
+              "title": "controle de lane I",
+              "thumbnail": "img/thumbnail_1",
+              "professor": "Pedro",
+              "description": "video mostrando como controlar a rota",
+              "link": "#"
+            },
+            {
+              "id": 2,
+              "title": "split push I",
+              "thumbnail": "img/thumbnail_2",
+              "professor": "Carlos",
+              "description": "video mostrando como fazer split push",
+              "link": "#"
+            }
+          ]
+        },
+        {"name": "intermediário",
+          "videoaulas":[
+            {
+              "id": 1,
+              "title": "controle de lane II",
+              "thumbnail": "img/thumbnail_1",
+              "professor": "Pedro",
+              "description": "video mostrando como controlar a rota",
+              "link": "#"
+            },
+            {
+              "id": 2,
+              "title": "split push II",
+              "thumbnail": "img/thumbnail_2",
+              "professor": "Carlos",
+              "description": "video mostrando como fazer split push",
+              "link": "#"
+            }
+          ]
+        },
+        {"name": "avançado",
+          "videoaulas":[
+            {
+              "id": 1,
+              "title": "controle de lane III",
+              "thumbnail": "img/thumbnail_1",
+              "professor": "Pedro",
+              "description": "video mostrando como controlar a rota",
+              "link": "#"
+            },
+            {
+              "id": 2,
+              "title": "split push II",
+              "thumbnail": "img/thumbnail_2",
+              "professor": "Carlos",
+              "description": "video mostrando como fazer split push",
+              "link": "#"
+            }
+          ]
+        }
+      ]
+    }
+
+  ]
+}
