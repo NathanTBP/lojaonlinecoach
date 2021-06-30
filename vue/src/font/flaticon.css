@@ -1,0 +1,29 @@
+@font-face {
+    font-family: "flaticon";
+    src: url("./flaticon.ttf?9a3e24d33ac56f6deacc9c10b29b1c01") format("truetype"),
+url("./flaticon.woff?9a3e24d33ac56f6deacc9c10b29b1c01") format("woff"),
+url("./flaticon.woff2?9a3e24d33ac56f6deacc9c10b29b1c01") format("woff2"),
+url("./flaticon.eot?9a3e24d33ac56f6deacc9c10b29b1c01#iefix") format("embedded-opentype"),
+url("./flaticon.svg?9a3e24d33ac56f6deacc9c10b29b1c01#flaticon") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-user:before {
+    content: "\f101";
+}
+.flaticon-lock:before {
+    content: "\f102";
+}
+.flaticon-enter:before {
+    content: "\f103";
+}
