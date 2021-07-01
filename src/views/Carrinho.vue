@@ -26,6 +26,18 @@
 
 <script>
 export default {
+  mounted(){
+    console.log(this.shopCart)
+    if(localStorage.getItem('shopCart')){
+      this.shopCart = JSON.parse(localStorage.getItem('shopCart'))
+    }
+  },
+  updated(){
+    if(localStorage.getItem('shopCart')){
+      let parsed = JSON.stringify(this.shopCart)
+      localStorage.setItem("shopCart", parsed)
+    }
+  },
   data: function() {
     return {
       
@@ -38,18 +50,7 @@ export default {
         quantity: 1
         },
       ],
-      shopCart:[{
-        name: "Aula iniciante",
-        productInfo: {price: 15, quantity: 1}
-      },
-      {
-        name: "Aula ao Vivo",
-        productInfo: {price: 25, quantity: 1}
-      },
-      {
-        name: "Aula avançada",
-        productInfo: {price: 20, quantity: 1}
-      }],
+      shopCart:[],
       total: 0,
     }
   },
