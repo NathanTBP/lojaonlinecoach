@@ -12,6 +12,7 @@
         <element class="w3-bar-item w3-margin-top" id="bar_logado_usr" v-if="tipodousuario==1">Bem Vindo(a) {{nomedousuario}}! </element>
         <element class="w3-bar-item" id="bar_logado_prof" v-if="tipodousuario==2">Bem Vindo(a) professor(a) {{nomedousuario}}! </element>
         <element class="w3-bar-item" id="bar_logado_adm" v-if="tipodousuario==3">Bem Vindo(a) {{nomedousuario}}! (adm) </element>
+        <router-link to="/usuario"><a class="w3-bar-item w3-button bar_item" id="bar_usuario_temp">User</a></router-link>
         <router-link to="/carrinho"><img class="w3-image w3-right" id="menu_cart" src="../img/cart.png" alt="Carrinho"></router-link>
       </div>
     </div>
