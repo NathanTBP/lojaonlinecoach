@@ -4,7 +4,7 @@
       <div class="backgrounddarken"></div>
       <img class="w3-image w3-display-topmiddle" id="elos_icon" src="../img/elos_icon.png" alt="Challenger/Grand/Master">
       <span class="w3-display-middle w3-center w3-text-white" id="header_text">Quer alcançar os maiores Elos?</span>
-      <a href="#" class="w3-display-bottommiddle w3-center w3-button w3-blue" id="header_button">Acesse a Loja!</a> 
+      <router-link to="/produtos"><a class="w3-display-bottommiddle w3-center w3-button w3-blue" id="header_button">Acesse a Loja!</a></router-link>
     </header>
   
     <div class="w3-display-container" id="bg2">
