@@ -1,0 +1,300 @@
+{
+  "users": [
+    {
+      "first_name": "Matheus",
+      "last_name": "Vellosa",
+      "email": "mvellosa@usp.br",
+      "celular": "16998034087",
+      "shop_cart": [],
+      "remaining_classes": [
+        {
+          "product_id": 1,
+          "quantity": 3
+        },
+        {
+          "product_id": 2,
+          "quantity": 1
+        },
+        {
+          "product_id": 4,
+          "quantity": 2
+        }
+      ],
+      "acquired_classes": [
+        {
+          "game_id": 1,
+          "difficulty_name": "basico",
+          "class_id": 1
+        },
+        {
+          "game_id": 1,
+          "difficulty_name": "avancado",
+          "class_id": 3
+        }
+      ],
+      "live_classes": [
+        {
+          "day": "02/07/2021",
+          "time": "19:00",
+          "teacher": "Carlos"
+        }
+      ],
+      "id": 1
+    },
+    {
+      "first_name": "Nathan",
+      "last_name": "Oliveira",
+      "celular": "11947988481",
+      "email": "nathanro@usp.br",
+      "shop_cart": [],
+      "remaining_classes": [
+        {
+          "product_id": 1,
+          "quantity": 0
+        },
+        {
+          "product_id": 2,
+          "quantity": 0
+        },
+        {
+          "product_id": 4,
+          "quantity": 1
+        }
+      ],
+      "acquired_classes": [
+        {
+          "game_id": 1,
+          "difficulty_name": "basico",
+          "class_id": 1
+        },
+        {
+          "game_id": 1,
+          "difficulty_name": "avancado",
+          "class_id": 3
+        }
+      ],
+      "live_classes": [],
+      "id": 2
+    },
+    {
+      "first_name": "Victor",
+      "last_name": "Kendi Araraki",
+      "celular": "",
+      "email": "kendi_victor@usp.br",
+      "shop_cart": [],
+      "remaining_classes": [
+        {
+          "product_id": 1,
+          "quantity": 3
+        },
+        {
+          "product_id": 4,
+          "quantity": 5
+        }
+      ],
+      "acquired_classes": [
+        {
+          "game_id": 1,
+          "difficulty_name": "basico",
+          "class_id": 2
+        },
+        {
+          "game_id": 2,
+          "difficulty_name": "intermediario",
+          "class_id": 1
+        }
+      ],
+      "live_classes": [
+        {
+          "day": "03/07/2021",
+          "time": "21:00",
+          "teacher": "Carlos"
+        }
+      ],
+      "id": 3
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "iniciante",
+      "info": {
+          "price": 20
+        }
+      
+    },
+    {
+      "id": 2,
+      "name": "intermediario",
+      "info": {
+          "price": 25
+        }
+    },
+    {
+      "id": 3,
+      "name": "avancado",
+      "info": {
+          "price": 30
+        }
+    },
+    {
+      "id": 4,
+      "name": "coach",
+      "info": {
+          "price": 20
+        }
+    }
+  ],
+  "aulas": [
+    {
+      "id": 1,
+      "name": "League of Legends",
+      "link": "#",
+      "difficulty": [
+        {
+          "name": "basico",
+          "videoaulas": [
+            {
+              "id": 1,
+              "title": "controle de lane I",
+              "thumbnail": "img/thumbnail_1",
+              "professor": "Pedro",
+              "description": "video mostrando como controlar a rota para iniciantes",
+              "link": "#"
+            },
+            {
+              "id": 2,
+              "title": "split push I",
+              "thumbnail": "img/thumbnail_2",
+              "professor": "Carlos",
+              "description": "video mostrando como fazer split push para iniciantes",
+              "link": "#"
+            }
+          ]
+        },
+        {
+          "name": "intermediario",
+          "videoaulas": [
+            {
+              "id": 1,
+              "title": "controle de lane II",
+              "thumbnail": "img/thumbnail_1",
+              "professor": "Pedro",
+              "description": "video mostrando como controlar a rota em nível médio",
+              "link": "#"
+            },
+            {
+              "id": 2,
+              "title": "split push II",
+              "thumbnail": "img/thumbnail_2",
+              "professor": "Carlos",
+              "description": "video mostrando como fazer split push em nível médio",
+              "link": "#"
+            }
+          ]
+        },
+        {
+          "name": "avancado",
+          "videoaulas": [
+            {
+              "id": 1,
+              "title": "controle de lane III",
+              "thumbnail": "img/thumbnail_1",
+              "professor": "Pedro",
+              "description": "video mostrando como controlar a rota de forma avançada",
+              "link": "#"
+            },
+            {
+              "id": 2,
+              "title": "split push II",
+              "thumbnail": "img/thumbnail_2",
+              "professor": "Carlos",
+              "description": "video mostrando como fazer split push de forma avançada",
+              "link": "#"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Team Fight Tactics",
+      "link": "#",
+      "difficulty": [
+        {
+          "name": "básico",
+          "videoaulas": [
+            {
+              "id": 1,
+              "title": "Antes do 1 neutral I",
+              "thumbnail": "img/thumbtft1",
+              "professor": "Pedro",
+              "description": "video mostrando como preparar seu early game para principiantes",
+              "link": "#"
+            },
+            {
+              "id": 2,
+              "title": "Escolhas do carrocel I",
+              "thumbnail": "img/thumbtft1",
+              "professor": "Carlos",
+              "description": "video mostrando como fazer as escolhas do carrocel para iniciantes",
+              "link": "#"
+            }
+          ]
+        },
+        {
+          "name": "intermediário",
+          "videoaulas": [
+            {
+              "id": 1,
+              "title": "Antes do 1 neutral II",
+              "thumbnail": "img/thumbtft2",
+              "professor": "Pedro",
+              "description": "video mostrando como preparar seu early game para jogadores medianos",
+              "link": "#"
+            },
+            {
+              "id": 2,
+              "title": "Escolhas do carrocel II",
+              "thumbnail": "img/thumbtft2",
+              "professor": "Carlos",
+              "description": "video mostrando como fazer as escolhas do carrocel para jogadores medianos",
+              "link": "#"
+            }
+          ]
+        },
+        {
+          "name": "avançado",
+          "videoaulas": [
+            {
+              "id": 1,
+              "title": "Antes do 1 neutral III",
+              "thumbnail": "img/thumbtft3",
+              "professor": "Pedro",
+              "description": "video mostrando como preparar seu early game para jogadores experientes",
+              "link": "#"
+            },
+            {
+              "id": 2,
+              "title": "Escolhas do carrocel III",
+              "thumbnail": "img/thumbtft3",
+              "professor": "Carlos",
+              "description": "video mostrando como fazer as escolhas do carrocel para jogadores experientes",
+              "link": "#"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "games": [
+    {
+      "id": 1,
+      "name": "League of Legends"
+    },
+    {
+      "id": 2,
+      "name": "League of Legends"
+    }
+  ]
+}
