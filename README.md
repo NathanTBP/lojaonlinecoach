@@ -50,10 +50,10 @@ A navbar está fixada em qualquer navegação da página, assim é possível o u
 * Comentários sobre o código:
 
 A implementação do site foi feita através de html5 para o corpo do site, css3 para a estilização com utilização da biblioteca w3s, uso do framework VUE para controle do javascript, 
-renderização de páginas para o modelo de Single Page Aplication e funcionalidades como automatização de email e gerência de dados e visões por diferentes usuários. Até o momento,
-os servidores do banco de dados são locais e contidos no arquivo db.json.
+renderização de páginas para o modelo de Single Page Aplication e funcionalidades como automatização de email e gerência de dados e visões por diferentes usuários. 
+Até o momento, os servidores do banco de dados são locais e contidos no arquivo db.json.
 
-Atualmente, ainda não foram implementadas algumas funcionalidades, como o lembre-me e o esqueci a senha do login, o encaminhamento de emails automático
+Atualmente, ainda não foram implementadas algumas funcionalidades, como o lembre-me, dados de uso e o esqueci a senha do login, o encaminhamento de emails automático que serão completamente resolvidos ao implementar o servidor.
 
 * Plano de testes:
 
