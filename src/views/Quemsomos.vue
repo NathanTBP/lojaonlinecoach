@@ -8,7 +8,7 @@
       <span class="developer_text">Matheus Velosa</span>
     </div>
       <div class="developer">
-        <img class="developer_photo" src="../img/photo.png" alt="">
+        <img class="developer_photo" src="../img/nathanquadrado.png" alt="">
         <br>
         <span class="developer_text">Nathan Rodrigues</span>
       </div>
