@@ -1,5 +1,6 @@
 <template>
   <div class="page" id="container-carrinho">
+    <br>
     <h1>Carrinho</h1>
     <ul class="w3-ul w3-hoverable">
       <li class="w3-bar" v-for="(product, index) in shopCart" :key="index">
