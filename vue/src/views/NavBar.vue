@@ -33,7 +33,7 @@ export default {
   data () {
     return {
       tipodousuario: 0,
-      nomedousuario: 0
+      nomedousuario: ''
     }
   },
   methods: {
