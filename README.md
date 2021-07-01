@@ -72,9 +72,12 @@ a primeira imagem é um print da ação feita no postman, e a segunda é a visua
 * Como rodar?:
 
 Para rodar o site, é preciso ter instalado o node.js (https://nodejs.org/en/) e o gerenciador de pacotes de node (npm) https://www.npmjs.com/package/npm
-Basta fazer download dos arquivos e, na pasta vue, executar os seguintes comandos:
+Basta fazer download dos arquivos e, na pasta principal, executar os seguintes comandos:
 npm install
 npm run serve
+
+Para windows, é necessário fornecer permissão para rodar o script não assinado, para isso basta rodar o comando na pasta com permissão de administrador
+Set-ExecutionPolicy RemoteSigned
 
 Lembrando que o site usa o framework vue.js (https://vuejs.org/)
 
