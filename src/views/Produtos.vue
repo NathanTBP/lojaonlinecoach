@@ -217,17 +217,13 @@ export default {
   },
   updated(){
     if(localStorage.getItem('shopCart')){
-      // for (let i = 0; i < this.cart.length; i++){
-      //   for (let item in this.shopCart){
-      //     if (item.productId == this.cart[i]["productId"]){
-      //       item.quantity += parseInt(this.cart[i]["quantity"])
-      //       console.log(this.cart[i]["quantity"])
-      //     }
-      //   } 
-      // }
       let parsed = JSON.stringify(this.shopCart)
       localStorage.setItem("shopCart", parsed)
+    }else{
+      const parsed = JSON.stringify(this.shopCart)
+      localStorage.setItem("shopCart", parsed)
     }
+    // this.mergeShopCart()
   },
   data: function () {
     return {
@@ -253,11 +249,20 @@ export default {
       clear_buy_cart: -1,
     }
   },
-
   methods: {
     getProductIndexById: function(productId){
       const result = this.products.find( ({id}) => id === productId )
       return result
+    },
+    mergeShopCart: function(cartIndex){
+
+      const res = this.shopCart.find(({productId}) => productId === this.cart[cartIndex].productId)
+      if (res){
+        res.quantity = parseInt(this.cart[cartIndex].quantity)
+      }else{
+        const temp = {productId: this.cart[cartIndex].productId, quantity: this.cart[cartIndex].quantity}
+        this.shopCart.push(temp)
+      }
     },
     buy_product: function(param) {
       if(param == 'ini' && this.cart[0].quantity > 0) {
@@ -267,6 +272,7 @@ export default {
         }
         setTimeout(() => this.btn_buy_ini= true, 100);
         this.clear_buy_ini = setTimeout(() => this.btn_buy_ini = false, 5000);
+        this.mergeShopCart(0)
       }
       else if(param == 'int' && this.cart[1].quantity > 0) {
         if(this.btn_buy_int) {
@@ -275,6 +281,7 @@ export default {
         }
         setTimeout(() => this.btn_buy_int= true, 100);
         this.clear_buy_int = setTimeout(() => this.btn_buy_int = false, 5000);
+        this.mergeShopCart(1)
       }
       else if(param == 'ava' && this.cart[2].quantity > 0) {
         if(this.btn_buy_ava) {
@@ -283,6 +290,7 @@ export default {
         }
         setTimeout(() => this.btn_buy_ava = true, 100);
         this.clear_buy_ava = setTimeout(() => this.btn_buy_ava = false, 5000);
+        this.mergeShopCart(2)
       }
       else if(param == 'cch' && this.cart[3].quantity > 0) {
         if(this.btn_buy_cch) {
@@ -291,6 +299,7 @@ export default {
         }
         setTimeout(() => this.btn_buy_cch = true, 100);
         this.clear_buy_cch = setTimeout(() => this.btn_buy_cch = false, 5000);
+        this.mergeShopCart(3)
       }
       else {
         if(this.buy_nothing) {
