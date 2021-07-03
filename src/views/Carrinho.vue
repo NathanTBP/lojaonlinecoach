@@ -25,12 +25,11 @@
         </span>
       </li>
     </ul>
-
+  
   <!--Aqui começa o card do cartão-->
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <div class="w3-display-container" >
-  <div class="w3-card w3-left w3-light-grey" style="width:30%;">
+  <div class="w3-card w3-left w3-light-grey">
     <div style="flex: 75%;">
       <div class="container">
         <div class="w3-margin  w3-bar">
@@ -95,7 +94,6 @@
       </div>
     </div>
     <button id="purchase-button" class="w3-button w3-middle w3-blue w3-round" type="submit">Finalizar Compra</button>
-  </div>
 
 
   </div>
@@ -103,12 +101,23 @@
 
 <script>
 export default {
+  computed: {
+    cartTotal: function() {
+      let accumulator = 0
+      for (let i = 0; i < this.shopCart.length; i++)
+      {
+        const currPrice = this.getProductIndexById(this.shopCart[i].productId)["info"]["price"]
+        accumulator += currPrice * this.shopCart[i].quantity
+      }
+      return accumulator
+    }
+  },
   mounted(){
-      fetch('http://localhost:3000/products')
+    fetch('http://localhost:3000/products')
       .then(res => res.json())
       .then(data => this.products = data)
 
-     if(localStorage.getItem('shopCart')){
+    if(localStorage.getItem('shopCart')){
       this.shopCart = JSON.parse(localStorage.getItem('shopCart'))
     }
   },
@@ -122,7 +131,6 @@ export default {
     return {
       products: [],
       shopCart:[],
-      total: 0,
     }
   },
   methods:{
