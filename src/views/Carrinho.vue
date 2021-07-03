@@ -24,7 +24,7 @@
         </span>
       </li>
     </ul>
-
+  
   <!--Aqui começa o card do cartão-->
 
     <div class="w3-container w3-row" id="credit_card_container">
@@ -90,13 +90,24 @@
 
 <script>
 export default {
+  computed: {
+    cartTotal: function() {
+      let accumulator = 0
+      for (let i = 0; i < this.shopCart.length; i++)
+      {
+        const currPrice = this.getProductIndexById(this.shopCart[i].productId)["info"]["price"]
+        accumulator += currPrice * this.shopCart[i].quantity
+      }
+      return accumulator
+    }
+  },
   mounted(){
-      fetch('http://localhost:3000/products')
+    fetch('http://localhost:3000/products')
       .then(res => res.json())
       .then(data => this.products = data)
 
-     if(localStorage.getItem('shopCart')){
-      this.shopCart = JSON.parse(localStorage.getItem('shopCart'));
+    if(localStorage.getItem('shopCart')){
+      this.shopCart = JSON.parse(localStorage.getItem('shopCart'))
     }
   },
   updated(){
@@ -109,7 +120,6 @@ export default {
     return {
       products: [],
       shopCart:[],
-      total: 0,
     }
   },
   methods:{
