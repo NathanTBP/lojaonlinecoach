@@ -10,22 +10,29 @@
 export default {
   name:"app",
   mounted(){
-    let parsed = JSON.stringify(this.shopCart)
-    localStorage.setItem("shopCart", parsed)
+    if(localStorage.getItem('shopCart')){
+      this.shopCart = JSON.parse(localStorage.getItem('shopCart'))
+      console.log("shopCart parsed")
+    }else{
+      const parsed = JSON.stringify(this.shopCart)
+      localStorage.setItem("shopCart", parsed)
+      console.log("shopCart created")
+    }
+
   },
   data: function(){
     return {
       shopCart:[{
-        name: "Aula iniciante",
-        productInfo: {price: 15, quantity: 1}
+        productId: 1,
+        quantity: 8
       },
       {
-        name: "Aula ao Vivo",
-        productInfo: {price: 25, quantity: 1}
+        productId: 4,
+        quantity: 2
       },
       {
-        name: "Aula avançada",
-        productInfo: {price: 20, quantity: 1}
+        productId: 3,
+        quantity: 1
       }],
     }
   }
