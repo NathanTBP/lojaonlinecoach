@@ -4,8 +4,7 @@
     <h1>Carrinho</h1>
     <ul class="w3-ul w3-hoverable">
       <li class="w3-bar" v-for="(item, index) in shopCart" :key="index">
-        <span @click="removeFromList(index)"
-        class="w3-bar-item w3-button w3-xlarge w3-right">&times;</span>
+        <span class="w3-bar-item w3-button w3-xlarge w3-right" @click.prevent="removeFromList(index)">&times;</span>
         <span class="w3-large w3-bar-item">
           Aula {{getProductIndexById(item.productId)["name"]}}
         </span>
@@ -38,13 +37,13 @@ export default {
       .then(data => this.products = data)
 
      if(localStorage.getItem('shopCart')){
-      this.shopCart = JSON.parse(localStorage.getItem('shopCart'))
+      this.shopCart = JSON.parse(localStorage.getItem('shopCart'));
     }
   },
   updated(){
     if(localStorage.getItem('shopCart')){
-      let parsed = JSON.stringify(this.shopCart)
-      localStorage.setItem("shopCart", parsed)
+      let parsed = JSON.stringify(this.shopCart);
+      localStorage.setItem("shopCart", parsed);
     }
   },
   data: function() {
@@ -56,11 +55,11 @@ export default {
   },
   methods:{
     getProductIndexById: function(productId){
-      const result = this.products.find( ({id}) => id === productId )
-      return result
+      const result = this.products.find( ({id}) => id === productId );
+      return result;
     },
     removeFromList: function(index){
-      this.shopCart.splice(index, 1)
+      this.shopCart.splice(index, 1);
     }
   }
 }
