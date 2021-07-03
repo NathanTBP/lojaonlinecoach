@@ -46,13 +46,14 @@ export default {
     return {
       errors: [],
       loginemail: null,
-      loginsenha: null
+      loginsenha: null,
+      tipousuario: null,
+      nomedousuario: null 
     }
   },
   methods: {
     closeLogin: function() {
       this.clearAll();
-      this.errors = [];
       document.getElementById('card_login').style.display='none';
     },
     toRegister: function() {
@@ -73,10 +74,12 @@ export default {
         this.errors.push('Digite a senha.');
       }
       if (!this.errors.length) {
+        this.verifyLogin();
         return true;
       }
       if(e)
         e.preventDefault();
+        
     },
     validEmail: function (email) {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -86,6 +89,56 @@ export default {
       this.errors = [];
       this.loginemail = null;
       this.loginsenha = null;
+    },
+    verifyLogin: function() {
+      const self = this;
+      let confirmEmail = false;
+      let confirmLogin = false;
+      let url = "http://localhost:3000/users";
+      let status;
+
+      this.errors = [];
+      fetch(url)
+        .then(function(response) {
+          status = response.ok;
+          if(status)
+            return response.json();
+          else
+            alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.');
+        })
+        .then(function(response) {
+          if(status) {
+            for(let i = 0; i < response.length; i++) {
+              let user = response[i];
+              if(self.loginemail == user.email) {
+                confirmEmail = true;
+                if(self.loginsenha == user.password) {
+                  confirmLogin = true;
+                  self.tipousuario = user.type_user;
+                  self.nomedousuario = user.first_name;
+                  break;
+                }
+              }
+            }
+            if(!confirmEmail) {
+              self.errors.push('Email inválido.');
+              return;
+            }
+            else if(!confirmLogin) {
+              self.errors.push('Senha inválida.');
+              return;
+            }
+            if(confirmLogin)
+              self.loginConfirmed();
+          }
+        })
+        .catch(function(error) {
+          console.log('Error ' + error.message)
+        })
+    },
+    loginConfirmed: function() {
+      this.closeLogin();
+      this.$emit('loginConfirmed', this.tipousuario, this.nomedousuario);
     }
   }
 }
