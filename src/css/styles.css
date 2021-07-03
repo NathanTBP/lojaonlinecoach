@@ -414,3 +414,7 @@
 .contato_error {
     text-align: left;
 }
+#credit_card_container {
+    width: 90%;
+    
+}
