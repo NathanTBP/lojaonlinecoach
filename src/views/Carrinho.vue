@@ -4,26 +4,29 @@
     <h1>Carrinho</h1>
     <ul class="w3-ul w3-hoverable">
       <li class="w3-bar" v-for="(item, index) in shopCart" :key="index">
-        <span @click="removeFromList(item.index)"
+        <span @click="removeFromList(index)"
         class="w3-bar-item w3-button w3-xlarge w3-right">&times;</span>
-        <span class="w3-large w3-bar-item">Aula {{products[index]["name"]}}</span>
+        <span class="w3-large w3-bar-item">
+          Aula {{getProductIndexById(item.productId)["name"]}}
+        </span>
+        
         <input class=" w3-bar-item w3-border w3-round-large"
         v-model="item.quantity"
         type="number"
         min="0"
         style="width: 4em"
         />
-        <span class="w3-large w3-bar-item">R$ {{products[index]["info"]["price"]}},00</span>
+
+        <span class="w3-large w3-bar-item">
+          R$ {{getProductIndexById(item.productId)["info"]["price"]}},00
+        </span>
         <span class="w3-large w3-bar-item w3-right">
-          R$ {{products[index]["info"]["price"] * item.quantity}},00
+          R$ {{getProductIndexById(item.productId)["info"]["price"] * item.quantity}},00
         </span>
       </li>
     </ul>
 
     <button id="purchase-button" class="w3-button w3-blue w3-round" type="submit">Finalizar Compra</button>
-  </div>
-  <div v-else >
-    <p> getting products from dataBase... </p>
   </div>
 </template>
 
@@ -52,8 +55,9 @@ export default {
     }
   },
   methods:{
-    printaConsole: function(product){
-      console.log(product.imagesource)
+    getProductIndexById: function(productId){
+      const result = this.products.find( ({id}) => id === productId )
+      return result
     },
     removeFromList: function(index){
       this.shopCart.splice(index, 1)

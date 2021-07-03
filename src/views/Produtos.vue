@@ -1,5 +1,5 @@
 <template>
-  <div class="page" id="container_produtos">
+  <div v-if="products.length" class="page" id="container_produtos">
     <div id="produto_alert_container">
       <div v-if="btn_buy_ini" class="w3-animate-right buy_alert">
         <span>Compra adicionado ao carrinho!</span>
@@ -66,11 +66,11 @@
         </header>
 
         <div class="w3-container">
-          <h5>Preço: R$ {{ shopCart[0].productInfo[0].price }}</h5>
+          <h5>Preço: R$ {{ getProductIndexById(1)["info"]["price"] }}</h5>
           <br />
           <span class="produto_inputtext">Quantidade:</span>
           <input
-            v-model="shopCart[0].productInfo[0].quantity"
+            v-model="cart[0].quantity"
             class="w3-border w3-center produto_input produto_inputtext"
             type="number"
             min="0"
@@ -105,11 +105,11 @@
         </header>
 
         <div class="w3-container">
-          <h5>Preço: R$ {{ shopCart[1].productInfo[0].price }}</h5>
+          <h5>Preço: R$ {{ getProductIndexById(2)["info"]["price"] }}</h5>
           <br />
           <span class="produto_inputtext">Quantidade:</span>
           <input
-            v-model="shopCart[1].productInfo[0].quantity"
+            v-model="cart[1].quantity"
             class="w3-border w3-center produto_input produto_inputtext"
             type="number"
             min="0"
@@ -146,11 +146,11 @@
         </header>
 
         <div class="w3-container">
-          <h5>Preço: R$ {{ shopCart[2].productInfo[0].price }}</h5>
+          <h5>Preço: R$ {{ getProductIndexById(3)["info"]["price"] }}</h5>
           <br />
           <span class="produto_inputtext">Quantidade:</span>
           <input
-            v-model="shopCart[2].productInfo[0].quantity"
+            v-model="cart[2].quantity"
             class="w3-border w3-center produto_input produto_inputtext"
             type="number"
             min="0"
@@ -180,11 +180,11 @@
         </header>
 
         <div class="w3-container">
-          <h5>Preço: R$ {{ shopCart[3].productInfo[0].price }}</h5>
+          <h5>Preço: R$ {{ getProductIndexById(4)["info"]["price"] }}</h5>
           <br />
           <span class="produto_inputtext">Quantidade:</span>
           <input
-            v-model="shopCart[3].productInfo[0].quantity"
+            v-model="cart[3].quantity"
             class="w3-border w3-center produto_input produto_inputtext"
             type="number"
             min="0"
@@ -204,26 +204,41 @@
 
 <script>
 export default {
+  // TOFIX linkar cart (virtual) com o shopCart (localStorage)
   name: 'Produtos',
+  mounted(){
+      fetch('http://localhost:3000/products')
+      .then(res => res.json())
+      .then(data => this.products = data)
+
+     if(localStorage.getItem('shopCart')){
+        this.shopCart = JSON.parse(localStorage.getItem('shopCart'))
+      }
+  },
+  updated(){
+    if(localStorage.getItem('shopCart')){
+      // for (let i = 0; i < this.cart.length; i++){
+      //   for (let item in this.shopCart){
+      //     if (item.productId == this.cart[i]["productId"]){
+      //       item.quantity += parseInt(this.cart[i]["quantity"])
+      //       console.log(this.cart[i]["quantity"])
+      //     }
+      //   } 
+      // }
+      let parsed = JSON.stringify(this.shopCart)
+      localStorage.setItem("shopCart", parsed)
+    }
+  },
   data: function () {
     return {
-      shopCart:[{
-        name: "inciante",
-        productInfo: [{price: "20", quantity: "0"}]
-        },
-        {
-        name: "intermediario",
-        productInfo: [{price: "25", quantity: "0"}]
-        },
-        {
-        name: "avancado",
-        productInfo: [{price: "30", quantity: "0"}]
-        },
-        {
-        name: "coach",
-        productInfo: [{price: "20", quantity: "0"}]
-        }
+      cart:[
+        {productId:1, quantity: 0},
+        {productId:2, quantity: 0},
+        {productId:3, quantity: 0},
+        {productId:4, quantity: 0}
       ],
+      products: [],
+      shopCart:[],
 
       btn_buy_ini: false,
       btn_buy_int: false,
@@ -240,8 +255,12 @@ export default {
   },
 
   methods: {
+    getProductIndexById: function(productId){
+      const result = this.products.find( ({id}) => id === productId )
+      return result
+    },
     buy_product: function(param) {
-      if(param == 'ini' && this.shopCart[0].productInfo[0].quantity > 0) {
+      if(param == 'ini' && this.cart[0].quantity > 0) {
         if(this.btn_buy_ini) {
             this.btn_buy_ini = false;
             clearTimeout(this.clear_buy_ini);
@@ -249,7 +268,7 @@ export default {
         setTimeout(() => this.btn_buy_ini= true, 100);
         this.clear_buy_ini = setTimeout(() => this.btn_buy_ini = false, 5000);
       }
-      else if(param == 'int' && this.shopCart[1].productInfo[0].quantity > 0) {
+      else if(param == 'int' && this.cart[1].quantity > 0) {
         if(this.btn_buy_int) {
           this.btn_buy_int = false;
           clearTimeout(this.clear_buy_int);
@@ -257,7 +276,7 @@ export default {
         setTimeout(() => this.btn_buy_int= true, 100);
         this.clear_buy_int = setTimeout(() => this.btn_buy_int = false, 5000);
       }
-      else if(param == 'ava' && this.shopCart[2].productInfo[0].quantity > 0) {
+      else if(param == 'ava' && this.cart[2].quantity > 0) {
         if(this.btn_buy_ava) {
           this.btn_buy_ava = false;
           clearTimeout(this.clear_buy_ava);
@@ -265,7 +284,7 @@ export default {
         setTimeout(() => this.btn_buy_ava = true, 100);
         this.clear_buy_ava = setTimeout(() => this.btn_buy_ava = false, 5000);
       }
-      else if(param == 'cch' && this.shopCart[3].productInfo[0].quantity > 0) {
+      else if(param == 'cch' && this.cart[3].quantity > 0) {
         if(this.btn_buy_cch) {
           this.btn_buy_cch = false;
           clearTimeout(this.clear_buy_cch);
