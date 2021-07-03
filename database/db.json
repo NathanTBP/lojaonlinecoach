@@ -5,6 +5,8 @@
       "last_name": "Vellosa",
       "email": "mvellosa@usp.br",
       "celular": "16998034087",
+      "password": "batata123",
+      "type_user": 1,
       "remaining_classes": [
         {
           "product_id": 1,
@@ -45,6 +47,8 @@
       "last_name": "Oliveira",
       "celular": "11947988481",
       "email": "nathanro@usp.br",
+      "password": "pipipipopopo",
+      "type_user": 1,
       "remaining_classes": [
         {
           "product_id": 1,
@@ -77,8 +81,10 @@
     {
       "first_name": "Victor",
       "last_name": "Kendi Araraki",
-      "celular": "",
+      "celular": "14992538531",
       "email": "kendi_victor@usp.br",
+      "password": "pao123",
+      "type_user": 1,
       "remaining_classes": [
         {
           "product_id": 1,
@@ -116,30 +122,29 @@
       "id": 1,
       "name": "iniciante",
       "info": {
-          "price": 20
-        }
-      
+        "price": 20
+      }
     },
     {
       "id": 2,
       "name": "intermediario",
       "info": {
-          "price": 25
-        }
+        "price": 25
+      }
     },
     {
       "id": 3,
       "name": "avancado",
       "info": {
-          "price": 30
-        }
+        "price": 30
+      }
     },
     {
       "id": 4,
       "name": "coach",
       "info": {
-          "price": 20
-        }
+        "price": 20
+      }
     }
   ],
   "aulas": [

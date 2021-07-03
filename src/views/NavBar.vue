@@ -8,15 +8,20 @@
         <router-link to="/produtos"><a class="w3-bar-item w3-button bar_item" id="bar_produtos">Produtos</a></router-link>
         <router-link to="/quem-somos"><a class="w3-bar-item w3-button bar_item" id="bar_quemsomos">Quem Somos</a></router-link>
         <router-link to="/contato"><a class="w3-bar-item w3-button bar_item" id="bar_contato">Contato</a></router-link>
-        <button class="w3-bar-item w3-button w3-blue bar_item" id="button_entrar" @click.prevent="toLogin()" v-if="tipodousuario==0">Entrar</button>
-        <element class="w3-bar-item w3-margin-top" id="bar_logado_usr" v-if="tipodousuario==1">Bem Vindo(a) {{nomedousuario}}! </element>
-        <element class="w3-bar-item" id="bar_logado_prof" v-if="tipodousuario==2">Bem Vindo(a) professor(a) {{nomedousuario}}! </element>
-        <element class="w3-bar-item" id="bar_logado_adm" v-if="tipodousuario==3">Bem Vindo(a) {{nomedousuario}}! (adm) </element>
-        <router-link to="/usuario"><a class="w3-bar-item w3-button bar_item" id="bar_usuario_temp">User</a></router-link>
+        <button class="w3-bar-item w3-button w3-blue bar_item" id="button_entrar" @click.prevent="toLogin()" v-if="tipousuario==0">Entrar</button>
+        <router-link to="/usuario"><a class="w3-bar-item w3-button bar_item w3-hover-blue w3-hover-text-white" id="bar_logado_usr" v-if="tipousuario==1" :style="{width: usuariowidth + '%'}">
+          <img class="w3-bar-item" id="user_logo" src="../img/user_white.png">
+          Bem Vindo(a) {{nomedousuario}}!
+          </a></router-link>
+        <a class="w3-bar-item w3-button bar_item w3-hover-red w3-hover-text-white" @click.prevent="Logout()" v-if="tipousuario==1">Sair</a>
+        <element class="w3-bar-item bar_item" id="bar_logado_prof" v-if="tipousuario==2">Bem Vindo(a) professor(a) {{nomedousuario}}! </element>
+        <element class="w3-bar-item bar_item" id="bar_logado_adm" v-if="tipousuario==3">Bem Vindo(a) {{nomedousuario}}! (adm) </element>
+        
+        
         <router-link to="/carrinho"><img class="w3-image w3-right" id="menu_cart" src="../img/cart.png" alt="Carrinho"></router-link>
       </div>
     </div>
-    <Login />
+    <login @loginConfirmed="userLogged"></login>
     <Register />
   </div>
 </template>
@@ -33,21 +38,23 @@ export default {
   },
   data () {
     return {
-      tipodousuario: 0,
-      nomedousuario: ''
+      tipousuario: 0,
+      nomedousuario: '',
+      usuariowidth: null,
     }
   },
   methods: {
-    updated() {
-
-      //var vm = this;
-      this.$eventHub.$on('submit', function(novotipo,novonome){
-      this.tipodousuario=novotipo;
-      this.nomedousuario=novonome;
-      });
-    },
     toLogin() {
       document.getElementById('card_login').style.display='block';
+    },
+    userLogged: function(tipousuario, nomedousuario) {
+      this.usuariowidth = null;
+      this.tipousuario = tipousuario;
+      this.nomedousuario = nomedousuario;
+      this.usuariowidth = 19 + this.nomedousuario.length;
+    },
+    Logout: function() {
+      this.tipousuario = 0;
     }
   }
 }

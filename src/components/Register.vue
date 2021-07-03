@@ -32,7 +32,7 @@
         </div>
         <div class="w3-row w3-section">
           <span>Celular:</span>
-          <input class="w3-input w3-border" type="tel" name="regtel" id="regtel" v-model="regtel" placeholder="(xx)xxxxx-xxxx">
+          <input class="w3-input w3-border" type="tel" name="regcel" id="regcel" v-model="regcel" placeholder="(xx)xxxxx-xxxx">
         </div>
         <div class="w3-row w3-section">
           <span>Senha:</span>
@@ -64,7 +64,7 @@ export default {
       regemail2: null,
       nome: null,
       sobrenome: null,
-      regtel: null,
+      regcel: null,
       regsenha: null,
       regsenha2: null,
     }
@@ -96,7 +96,7 @@ export default {
       if (!this.sobrenome) {
         this.errors.push('O sobrenome é obrigatório.');
       }
-      if (!this.regtel) {
+      if (!this.regcel) {
         this.errors.push('O número é obrigatório.');
       }
       if (!this.regsenha) {
@@ -106,6 +106,7 @@ export default {
         this.errors.push('Senhas não coincidem.');
       }
       if (!this.errors.length) {
+        this.verifyRegister();
         return true;
       }
       if(e)
@@ -121,10 +122,89 @@ export default {
       this.regemail2 = null;
       this.nome = null;
       this.sobrenome = null;
-      this.regtel = null;
+      this.regcel = null;
       this.regsenha = null;
       this.regsenha2 = null;
       return;
+    },
+    verifyRegister: function() {
+      const self = this;
+      let existEmail = false;
+      let url = "http://localhost:3000/users";
+      let status;
+
+      this.errors = [];
+      fetch(url)
+        .then(function(response) {
+          status = response.ok;
+          if(status)
+            return response.json();
+          else
+            alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.');
+        })
+        .then(function(response) {
+          if(status) {
+            for(let i = 0; i < response.length; i++) {
+              let user = response[i];
+              if(self.regemail == user.email) {
+                existEmail = true;
+                break;
+              }
+            }
+            if(existEmail) {
+              self.errors.push('Email já registrado!');
+              return;
+            }
+            else {
+              self.registerConfirmed();
+            }
+          }
+        })
+        .catch(function(error) {
+          console.log('Error ' + error.message)
+        })
+    },
+    registerConfirmed: function() {
+      const self = this;
+      let url = "http://localhost:3000/users";
+      let status;
+      let dados = {
+        first_name: self.nome,
+        last_name: self.sobrenome,
+        celular: self.regcel,
+        email: self.regemail,
+        password: self.regsenha,
+        type_user: 1,
+        remaining_classes: [],
+        acquired_classes: [],
+        live_classes: [],
+      };
+
+      fetch(url, {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify(dados)
+      })
+      .then(function(response) {
+        status = response.ok;
+        if(status) {
+          return response.json();
+        }
+        else
+          alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.');
+      })
+      .then(function(response) {
+        console.log(response);
+        alert('Cadastro registrado com sucesso!!!\nFaça login agora!');
+      })
+      .catch(function(error) {
+        console.log('Error ' + error.message)
+      })
+
+      this.closeRegister();
     }
   }
 }
