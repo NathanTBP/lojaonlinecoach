@@ -416,5 +416,14 @@
 }
 #credit_card_container {
     width: 90%;
-    
+    padding-bottom: 3%;
+}
+#total {
+    pointer-events: none;
+}
+#purchase-button {
+    background-color: #1bff41;
+    color: white;
+    font-family: Roboto;
+    font-weight: Regular;
 }

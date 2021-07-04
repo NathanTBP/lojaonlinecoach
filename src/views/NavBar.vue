@@ -11,11 +11,11 @@
         <button class="w3-bar-item w3-button w3-blue bar_item" id="button_entrar" @click.prevent="toLogin()" v-if="tipousuario==0">Entrar</button>
         <router-link to="/usuario"><a class="w3-bar-item w3-button bar_item w3-hover-blue w3-hover-text-white" id="bar_logado_usr" v-if="tipousuario==1" :style="{width: usuariowidth + '%'}">
           <img class="w3-bar-item" id="user_logo" src="../img/user_white.png">
-          Bem Vindo(a) {{nomedousuario}}!
+          Bem Vindo(a) {{nomeusuario}}!
           </a></router-link>
         <a class="w3-bar-item w3-button bar_item w3-hover-red w3-hover-text-white" @click.prevent="Logout()" v-if="tipousuario==1">Sair</a>
-        <element class="w3-bar-item bar_item" id="bar_logado_prof" v-if="tipousuario==2">Bem Vindo(a) professor(a) {{nomedousuario}}! </element>
-        <element class="w3-bar-item bar_item" id="bar_logado_adm" v-if="tipousuario==3">Bem Vindo(a) {{nomedousuario}}! (adm) </element>
+        <element class="w3-bar-item bar_item" id="bar_logado_prof" v-if="tipousuario==2">Bem Vindo(a) professor(a) {{nomeusuario}}! </element>
+        <element class="w3-bar-item bar_item" id="bar_logado_adm" v-if="tipousuario==3">Bem Vindo(a) {{nomeusuario}}! (adm) </element>
         
         
         <router-link to="/carrinho"><img class="w3-image w3-right" id="menu_cart" src="../img/cart.png" alt="Carrinho"></router-link>
@@ -30,31 +30,48 @@
 import Login from '../components/Login.vue'
 import Register from '../components/Register.vue'
 
+
 export default {
   name: 'Navbar',
   components: {
     Login,
     Register
   },
+  setup() {
+    localStorage.removeItem('usertype');
+    localStorage.setItem('usertype', '0');
+    localStorage.removeItem('userid');
+    localStorage.setItem('userid', '0');
+  },
   data () {
     return {
       tipousuario: 0,
-      nomedousuario: '',
-      usuariowidth: null,
+      nomeusuario: '',
+      idusuario: null,
+      usuariowidth: null
     }
   },
   methods: {
     toLogin() {
       document.getElementById('card_login').style.display='block';
     },
-    userLogged: function(tipousuario, nomedousuario) {
+    userLogged: function(tipousuario, nomeusuario, idusuario) {
       this.usuariowidth = null;
       this.tipousuario = tipousuario;
-      this.nomedousuario = nomedousuario;
-      this.usuariowidth = 19 + this.nomedousuario.length;
+      this.nomeusuario = nomeusuario;
+      localStorage.removeItem('usertype');
+      localStorage.setItem('usertype', '1');
+      this.usuariowidth = 19 + this.nomeusuario.length;
+      this.idusuario = idusuario;
+      localStorage.removeItem('userid');
+      localStorage.setItem('userid', idusuario.toString());
     },
     Logout: function() {
       this.tipousuario = 0;
+      localStorage.removeItem('usertype');
+      localStorage.setItem('usertype', '0');
+      localStorage.removeItem('userid');
+      localStorage.setItem('userid', '0');
     }
   }
 }

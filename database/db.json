@@ -88,10 +88,14 @@
       "remaining_classes": [
         {
           "product_id": 1,
-          "quantity": 3
+          "quantity": 2
         },
         {
           "product_id": 4,
+          "quantity": 3
+        },
+        {
+          "product_id": 2,
           "quantity": 5
         }
       ],
@@ -115,6 +119,18 @@
         }
       ],
       "id": 3
+    },
+    {
+      "first_name": "asa",
+      "last_name": "asaa",
+      "celular": "23113231",
+      "email": "a@hotmail.com",
+      "password": "abc",
+      "type_user": 1,
+      "remaining_classes": [],
+      "acquired_classes": [],
+      "live_classes": [],
+      "id": 4
     }
   ],
   "products": [

@@ -196,8 +196,7 @@ export default {
         else
           alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.');
       })
-      .then(function(response) {
-        console.log(response);
+      .then(function() {
         alert('Cadastro registrado com sucesso!!!\nFaça login agora!');
       })
       .catch(function(error) {

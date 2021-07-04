@@ -48,7 +48,8 @@ export default {
       loginemail: null,
       loginsenha: null,
       tipousuario: null,
-      nomedousuario: null 
+      nomeusuario: null,
+      idusuario: null
     }
   },
   methods: {
@@ -115,7 +116,8 @@ export default {
                 if(self.loginsenha == user.password) {
                   confirmLogin = true;
                   self.tipousuario = user.type_user;
-                  self.nomedousuario = user.first_name;
+                  self.nomeusuario = user.first_name;
+                  self.idusuario = user.id;
                   break;
                 }
               }
@@ -138,7 +140,7 @@ export default {
     },
     loginConfirmed: function() {
       this.closeLogin();
-      this.$emit('loginConfirmed', this.tipousuario, this.nomedousuario);
+      this.$emit('loginConfirmed', this.tipousuario, this.nomeusuario, this.idusuario);
     }
   }
 }
