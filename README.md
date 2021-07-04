@@ -94,6 +94,11 @@ Lembrando que o site usa o framework vue.js (https://vuejs.org/)
 
 * Problemas:
 
+- Foi feito apenas a navbar para usuario cliente.
+- Página de usuário possui apenas os créditos (falta inserir cadastro de coach e video aulas que o aluno possui.
+- Página de produtos não possui ainda lista video aulas disponíveis.
+- Página de contato não executa nada.
+- Não foi possível definir variável global no Vue (ver em breve como resolver).
 
 * Comentários:
 
