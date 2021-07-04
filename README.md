@@ -83,6 +83,7 @@ Para rodar o site, é preciso ter instalado o node.js (https://nodejs.org/en/) e
 Basta fazer download dos arquivos e, na pasta principal, executar os seguintes comandos:
 
 > npm install;
+
 > npm run serve;
 
 
