@@ -71,14 +71,20 @@ a primeira imagem é um print da ação feita no postman, e a segunda é a visua
 
 * Como rodar?:
 Primeiramente, instale o servidor database json pelo comando:
+
 > npm install json-server;
+
 Após instalar, entre no diretório do projeto, seguido de /database e utilize o seguinte comando para iniciar o servidor de database:
+
 > json-server --watch db.json;
+
 Abra outro terminal e passe para o passo seguinte.
 Para rodar o site, é preciso ter instalado o node.js (https://nodejs.org/en/) e o gerenciador de pacotes de node (npm) https://www.npmjs.com/package/npm
 Basta fazer download dos arquivos e, na pasta principal, executar os seguintes comandos:
+
 > npm install;
 > npm run serve;
+
 
 Para windows, é necessário fornecer permissão para rodar o script não assinado, para isso basta rodar o comando na pasta com permissão de administrador
 Set-ExecutionPolicy RemoteSigned
