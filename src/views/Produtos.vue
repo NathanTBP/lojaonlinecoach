@@ -35,12 +35,12 @@
     <h4>Vale tanto para Lol como TFT.</h4>
     <h4>
       Já possui créditos?
-      <button @click="teste()" class="w3-btn w3-xlarge w3-cyan w3-margin">
-        Lista de Vídeo Aulas disponíveis
-      </button>
-      <button class="w3-btn w3-xlarge w3-cyan w3-margin">
-        Agende sua aula ao vivo com Coach
-      </button>
+      <router-link to="/usuario">
+        <a class="w3-btn w3-xlarge w3-cyan w3-margin" >Lista de Vídeo Aulas disponíveis</a>
+      </router-link>
+      <router-link to="/usuario/">
+        <a class="w3-btn w3-xlarge w3-cyan w3-margin" >Agende sua aula ao vivo com Coach</a>
+      </router-link>
     </h4>
 
     <h1 class="w3-center">Vídeo Aulas</h1>
