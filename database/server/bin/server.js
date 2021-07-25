@@ -2,7 +2,7 @@
 
 const http = require("http");
 const debug = require("debug")("nodestr:server");
-const app = require('../src/serverapp');
+const app = require('../serverapp');
 
 
 let porta = 3000;

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-const product = require("../../database/product");
+const product = require("../Schema/product");
 const Video = mongoose.model("Video");
 const Aovivo = mongoose.model("Aovivo");
 
@@ -9,7 +9,7 @@ const Aovivo = mongoose.model("Aovivo");
 router.get("/:tipo", (requisicao,resposta,proxima) => {
 
     const tipo = requisicao.params.tipo;
-
+    
     if(tipo==1){
     Video.find({})
     .then(x=>{
@@ -93,8 +93,6 @@ router.put("/:tipo/:nome", (requisicao,resposta,proxima) => {
             .then(x=>{
             let video = new Video();
             video-requisicao.body;
-            await video.save();
-            resposta.status(200).send({message: 'Produto atualizado!'});
         })
         .catch(e=>{
             resposta.status(404).send({message: 'Não existe o Produto', data:e})

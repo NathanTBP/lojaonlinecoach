@@ -16,8 +16,8 @@ app.use(express.static('public'));
 
 //Bd
 const mongoose = require("mongoose");
-const Product = require('../database/product');
-const User = require('../database/user');
+const Product = require('./Schema/product');
+const User = require('./Schema/user');
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
