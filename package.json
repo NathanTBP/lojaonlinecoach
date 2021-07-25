@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "startserver": "node ./database/server.js"
+    "startserver": "node ./database/server/bin/server.js"
   },
   "dependencies": {
     "core-js": "^3.6.5",

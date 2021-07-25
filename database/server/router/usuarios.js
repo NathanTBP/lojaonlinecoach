@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-const usuario = require("../../database/user");
+const usuario = require("../Schema/user");
 const Usuario = mongoose.model("Usuarios");
 
 router.get("/", (requisicao,resposta,proxima) => {
@@ -28,7 +28,7 @@ router.post("/", (requisicao,resposta,proxima) => {
     usuario.tipo=requisicao.body.tipo;
     usuario.aulasrestantes=requisicao.body.aulasrestantes;
     usuario.aulasadquiridas=requisicao.body.aulasadquiridas;
-
+    
     usuario.save()
     .then(x=>{
         resposta.status(201).send({message: 'Usuario cadastrado com sucesso!'});
