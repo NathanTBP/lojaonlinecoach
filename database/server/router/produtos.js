@@ -67,6 +67,8 @@ router.post("/:tipo", (requisicao,resposta,proxima) => {
     aovivo.nomeprof=requisicao.body.nomeprof;
     aovivo.nickprof=requisicao.body.nickprof;
     aovivo.horario=requisicao.body.horario;
+    aovivo.tipo=requisicao.body.tipo;
+    aovivo.jogo=requisicao.body.jogo;
 
     aovivo.save()
     .then(x=>{
@@ -82,17 +84,16 @@ router.post("/:tipo", (requisicao,resposta,proxima) => {
 
 });
 
-router.put("/:tipo/:nome", (requisicao,resposta,proxima) => {
+router.patch("/:tipo/:id", (requisicao,resposta,proxima) => {
 
 
     const tipo = requisicao.params.tipo;
-    const nomeid = requisicao.params.nome;
+    const id = requisicao.params.id;
 
     if (tipo==1) {
-        Video.find({nome:nomeid})    
+        Video.findById(id)    
             .then(x=>{
-            let video = new Video();
-            video-requisicao.body;
+            
         })
         .catch(e=>{
             resposta.status(404).send({message: 'Não existe o Produto', data:e})

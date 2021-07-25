@@ -64,7 +64,15 @@ const aovivo = new Schema({
     horario: {
         type: Date,
         required: true,
-    }
+    },
+    tipo: { // Ja implica no preco e na dificuldade
+        type: Number,
+        required: true,
+    },
+    jogo: { // 1 e lol e 2 e tft
+        type: Number,
+        required: true,
+    },
 
 });
 

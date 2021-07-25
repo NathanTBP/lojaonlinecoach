@@ -24,6 +24,10 @@ const usuarios = new Schema({
         required: true,
         unique: true,
     },
+    foto: {
+        type: String,
+        trim: true,
+    },
     senha: {
         type: String,
         required: true,
