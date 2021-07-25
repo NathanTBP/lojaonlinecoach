@@ -5,10 +5,16 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "startserver": "node ./database/server.js"
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "debug": "^4.3.2",
+    "express": "^4.17.1",
+    "http": "0.0.1-security",
+    "mongoose": "^5.13.3",
+    "tcp-port-used": "^1.0.2",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0"
   },
@@ -20,7 +26,8 @@
     "@vue/compiler-sfc": "^3.0.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0"
+    "eslint-plugin-vue": "^7.0.0",
+    "nodemon": "^2.0.12"
   },
   "eslintConfig": {
     "root": true,
