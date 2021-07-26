@@ -206,7 +206,7 @@
   ],
   "aulas": [
     {
-      "id": 1,
+      "type_game": 1,
       "name": "League of Legends",
       "link": "#",
       "difficulty": [
@@ -276,7 +276,7 @@
       ]
     },
     {
-      "id": 2,
+      "type_game": 2,
       "name": "Team Fight Tactics",
       "link": "#",
       "difficulty": [
@@ -344,16 +344,6 @@
           ]
         }
       ]
-    }
-  ],
-  "games": [
-    {
-      "id": 1,
-      "name": "League of Legends"
-    },
-    {
-      "id": 2,
-      "name": "League of Legends"
     }
   ]
 }

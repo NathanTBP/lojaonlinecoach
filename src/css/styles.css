@@ -448,3 +448,7 @@
     height: 150px;
     opacity: 0;
 }
+#card_admin {
+    width: 40%;
+    margin: auto;
+}
