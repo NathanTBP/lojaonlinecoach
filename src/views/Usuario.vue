@@ -25,20 +25,49 @@
       <span class="w3-bar-item w3-large"> Coach </span>
       </span>
 
-      <h2> Marcar aula ao vivo com Coach</h2>
-
-      <h2> Aulas ao vivo com coach confirmadas </h2>
+      <h2 id="marcar-aula"> Marcar aula ao vivo com Coach</h2>
+      <div id="container-page-aluascoach">
+        <form class="w3-container w3-card-4 w3-bar">
+              <div class="w3-bar-item" id="selected-quantity-coach">
+                <h3>Quantidade de Aulas</h3>
+                <select class="w3-select w3-border w3-large" v-model="selectedCoachQuantity">
+                  <option value="" disabled selected>Quantidade</option>
+                  <option v-for="(item, index) in coachQuantities" :key="index">
+                    {{item}}
+                  </option>
+                </select>
+              </div>
+              <div class="w3-bar-item" id="select-hour-chooser">
+                  <h3>Professores</h3>
+                  <select class="w3-select w3-border w3-large" name="option" v-model="selectedCoachTeacher">
+                      <option value="" disabled selected>selecione o professor</option>
+                      <option v-for="(item, index) in availableTeachers" :key="index">
+                          {{item}}
+                      </option>
+                  </select>
+              </div>
+          </form>
+        <p><button class="w3-btn w3-cyan" @click="submitCoachClass">Marcar aula</button></p>
+      </div>
 
   </div>
 </template>
 
 <script>
 export default {
+  computed: {
+    coachQuantities: function(){
+      return [...Array(this.cchquantity).keys()].map(i => i + 1)
+    }
+  },
   mounted() {
-    this.getCreditsQuantity();
+    this.getCreditsQuantity()
   },
   data () {
     return {
+      availableTeachers: ["Matheus", "Nathan", "Kendi"],
+      selectedCoachTeacher: "",
+      selectedCoachQuantity: "",
       iniquantity: 0,
       intquantity: 0,
       avaquantity: 0,
@@ -46,6 +75,13 @@ export default {
     }
   },
   methods: {
+    submitCoachClass: function(){
+      let currentDate = new Date().toISOString().split('T')
+      const time = currentDate[1].split(':')
+      currentDate[1] = time[0] + ":" + time[1]
+      console.log(this.selectedCoachQuantity, this.selectedCoachTeacher, currentDate.join("-"))
+      this.cchquantity -= parseInt(this.selectedCoachQuantity)
+    },
     getCreditsQuantity: function() {
       let idusuario = parseInt(localStorage.getItem('userid'));
       let url = "http://localhost:3000/users";
