@@ -13,10 +13,8 @@
           <img class="w3-bar-item" id="user_logo" src="../img/user_white.png">
           Bem Vindo(a) {{nomeusuario}}!
           </a></router-link>
-        <a class="w3-bar-item w3-button bar_item w3-hover-red w3-hover-text-white" @click.prevent="Logout()" v-if="tipousuario==1">Sair</a>
-        <element class="w3-bar-item bar_item" id="bar_logado_prof" v-if="tipousuario==2">Bem Vindo(a) professor(a) {{nomeusuario}}! </element>
-        <element class="w3-bar-item bar_item" id="bar_logado_adm" v-if="tipousuario==3">Bem Vindo(a) {{nomeusuario}}! (adm) </element>
-        
+        <router-link to="/admin"><a class="w3-bar-item w3-button bar_item w3-hover-blue w3-hover-text-white" id="bar_logado_prof" v-if="tipousuario==2">Bem Vindo(a) professor(a) {{nomeusuario}}! </a></router-link>
+        <router-link to="/"><a class="w3-bar-item w3-button bar_item w3-hover-red w3-hover-text-white" @click="Logout()" v-if="tipousuario != 0">Sair</a></router-link>
         
         <router-link to="/carrinho"><img class="w3-image w3-right" id="menu_cart" src="../img/cart.png" alt="Carrinho"></router-link>
       </div>
