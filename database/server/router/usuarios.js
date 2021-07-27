@@ -8,7 +8,7 @@ router.get("/", (requisicao,resposta,proxima) => {
 
     Usuario.find({})
     .then(usuarios=>{
-        resposta.status(200).send({message: 'Usuarios Encontrados:',usuarios});
+        resposta.status(200).send(usuarios);
     })
     .catch(e=>{
         resposta.status(404).send({message: 'Não existem Usuarios', data:e})
@@ -36,12 +36,13 @@ router.post("/", (requisicao,resposta,proxima) => {
 
     usuario.first_name=requisicao.body.first_name;
     usuario.last_name=requisicao.body.last_name;
+    usuario.photo = requisicao.body.photo;
     usuario.nickname=requisicao.body.nickname;
     usuario.celular=requisicao.body.celular;
     usuario.email=requisicao.body.email;
     usuario.password=requisicao.body.password;
     usuario.type_user=requisicao.body.type_user;
-    usuario.live_classes=requisicao.body.live_classes;
+    usuario.remaining_classes=requisicao.body.remaining_classes;
     usuario.acquired_classes=requisicao.body.acquired_classes;
     
     usuario.save()
@@ -62,12 +63,13 @@ router.patch("/:id", (requisicao,resposta,proxima) => {
         $set:{
             first_name: requisicao.body.first_name,
             last_name: requisicao.body.last_name,
+            photo: requisicao.body.photo,
             nickname: requisicao.body.nickname,
             celular: requisicao.body.celular,
             email: requisicao.body.email,
             password: requisicao.body.password,
             type_user: requisicao.body.type_user,
-            live_classes: requisicao.body.live_classes,
+            remaining_classes: requisicao.body.remaining_classes,
             acquired_classes: requisicao.body.acquired_classes,
         }
     })
