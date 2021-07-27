@@ -223,6 +223,7 @@ export default {
             for(let i = 0; i < response.length; i++) {
               let user = response[i];
               if(idusuario == user._id) {
+                dados = user;
                 user_remaining_classes = user.remaining_classes;
                 for(let i = 0; i < self.shopCart.length; i++) {
                   existclass = false;
