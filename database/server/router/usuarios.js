@@ -8,7 +8,7 @@ router.get("/", (requisicao,resposta,proxima) => {
 
     Usuario.find({})
     .then(usuarios=>{
-        resposta.status(200).send({message: 'Usuarios Encontrados:',usuarios});
+        resposta.status(200).send(usuarios);
     })
     .catch(e=>{
         resposta.status(404).send({message: 'Não existem Videos', data:e})

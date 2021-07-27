@@ -14,7 +14,7 @@ router.get("/:tipo", (requisicao,resposta,proxima) => {
     if(tipo==1){
     Video.find({})
     .then(x=>{
-        resposta.status(200).send({message: 'Videos Encontrados:',x});
+        resposta.status(200).send(x);
     })
     .catch(e=>{
         resposta.status(404).send({message: 'Não existem Videos', data:e})
@@ -23,16 +23,16 @@ router.get("/:tipo", (requisicao,resposta,proxima) => {
     else if (tipo==2){
        Aovivo.find({})
     .then(x=>{
-        resposta.status(200).send({message: 'Aulas Encontradas:'});
+        resposta.status(200).send(x);
     })
     .catch(e=>{
         resposta.status(404).send({message: 'Não existem Aulas', data:e})
     });
     } 
     else if (tipo==3){
-        Products.find({})
+        Product.find({})
         .then(x=>{
-            resposta.status(200).send({message: 'Dados Encontrados:',x});
+            resposta.status(200).send(x);
         })
         .catch(e=>{
             resposta.status(404).send({message: 'Não existem Dados', data:e})
@@ -176,9 +176,9 @@ router.patch("/:tipo/:id", (requisicao,resposta,proxima) => {
 
 });
 
-router.delete("/:nome", (requisicao,resposta,proxima) => {
+router.delete("/:id", (requisicao,resposta,proxima) => {
 
-    const nome = requisicao.params.nome;
+    const nome = requisicao.params.id;
 
     if (tipo==1) {
         Video.findOneAndRemove(nome)
@@ -200,7 +200,7 @@ router.delete("/:nome", (requisicao,resposta,proxima) => {
         })
     }
     else if (tipo==3){
-        Product.findByIdAndUpdate(nome)
+        Product.findOneAndRemove("id: " + nome)
             .then(x=>{
             resposta.status(200).send({message: 'Produto removido com sucesso!'});
         })
