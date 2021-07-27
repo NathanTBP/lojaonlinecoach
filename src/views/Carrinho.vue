@@ -242,7 +242,7 @@ export default {
                       user_remaining_classes.push({product_id: self.shopCart[i].productId, quantity: shopCartquant});
                     }
                 }
-                dados = {remaining_classes: user_remaining_classes}
+                dados.remaining_classes = user_remaining_classes;
                 fetch(url + '/' + idusuario, {
                   method: 'PATCH', // or 'PUT'
                   headers: {
