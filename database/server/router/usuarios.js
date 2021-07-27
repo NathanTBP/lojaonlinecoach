@@ -24,6 +24,7 @@ router.post("/", (requisicao,resposta,proxima) => {
     usuario.last_name=requisicao.body.last_name;
     usuario.nickname=requisicao.body.nickname;
     usuario.celular=requisicao.body.celular;
+    usuario.photo=requisicao.body.photo;
     usuario.email=requisicao.body.email;
     usuario.password=requisicao.body.password;
     usuario.type_user=requisicao.body.type_user;
