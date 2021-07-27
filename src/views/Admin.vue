@@ -439,6 +439,7 @@
 <script>
 export default {
   mounted: function() {
+    this.getTotals();
     this.getVideoAulas();
     this.getProfs();
     this.getAlunos();
@@ -570,6 +571,50 @@ export default {
     }
   },
   methods: {
+    getTotals: function() {
+      const self = this;
+      let url = "http://localhost:3000/produtos/3";
+      let status;
+      let prices = [0, 0, 0, 0];
+
+      fetch(url)
+        .then(function(response) {
+          status = response.ok;
+          if(status)
+            return response.json();
+          else
+            alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.');
+        })
+        .then(function(response) {
+          if(status) {
+            for(let i = 0; i < 4; i++) {
+              let product = response;
+              if(product[i].id === 1) {
+                self.initotal = product[i].info.quantity;
+                prices[0] = product[i].info.price;
+              }
+              if(product[i].id === 2) {
+                self.inttotal = product[i].info.quantity;
+                prices[1] = product[i].info.price;
+              }
+              if(product[i].id === 3) {
+                self.avatotal = product[i].info.quantity;
+                prices[2] = product[i].info.price;
+              }
+              if(product[i].id === 4) {
+                self.cchtotal = product[i].info.quantity;
+                prices[3] = product[i].info.price;
+              }
+            }
+          }
+        })
+        .then(() => {
+          self.lucrototal = (self.initotal * prices[0]) + (self.inttotal * prices[1]) + (self.avatotal * prices[2]) + (self.cchtotal * prices[3]);
+        })
+        .catch(function(error) {
+          console.log('Error ' + error.message)
+        })
+    },
     getVideoAulas: function() {
       const self = this;
       let url = "http://localhost:3000/produtos/1";

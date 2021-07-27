@@ -199,18 +199,39 @@ export default {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
-    buyConfirmed: function() {
+    buyConfirmed: async function() {
       let idusuario = localStorage.getItem('userid');
-      let url = "http://localhost:3000/usuarios";
+      let urlUser = "http://localhost:3000/usuarios";
+      let urlProduct = "http://localhost:3000/produtos/3";
       let status;
       let self = this;
       let user_remaining_classes;
       let existclass;
       let productid;
       let shopCartquant;
-      let dados;
+      let dadosUser;
+      let dadosProduct;
 
-      fetch(url)
+      //busca dados de products (creditos)
+      await fetch(urlProduct)
+        .then(function(response) {
+            status = response.ok;
+            if(status)
+              return response.json();
+            else
+              alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.');
+          })
+        .then(function(response) {
+            if(status) {
+              dadosProduct = response;
+              console.log(dadosProduct);
+            }
+        })
+        .catch(function(error) {
+          console.log('Error ' + error.message)
+        })
+
+      await fetch(urlUser)
         .then(function(response) {
           status = response.ok;
           if(status)
@@ -223,6 +244,7 @@ export default {
             for(let i = 0; i < response.length; i++) {
               let user = response[i];
               if(idusuario == user._id) {
+                dadosUser = user;
                 user_remaining_classes = user.remaining_classes;
                 for(let i = 0; i < self.shopCart.length; i++) {
                   existclass = false;
@@ -234,20 +256,32 @@ export default {
                     }
                   }
                   shopCartquant = parseInt(self.shopCart[i].quantity);
-                    if(existclass) {
-                      user_remaining_classes[productid].quantity += shopCartquant;
+                  
+                  //product
+                  for(let k = 0; k < dadosProduct.length; k++) {
+                    let productid = dadosProduct[k].id;
+                    if(productid == self.shopCart[i].productId) {
+                      dadosProduct[k].info.quantity = dadosProduct[k].info.quantity + shopCartquant;
+                      break;
                     }
-                    else {
-                      user_remaining_classes.push({product_id: self.shopCart[i].productId, quantity: shopCartquant});
-                    }
+                  }
+
+                  //cart
+                  if(existclass) {
+                    user_remaining_classes[productid].quantity += shopCartquant;
+                  }
+                  else {
+                    user_remaining_classes.push({product_id: self.shopCart[i].productId, quantity: shopCartquant});
+                  }
                 }
-                dados = {remaining_classes: user_remaining_classes}
-                fetch(url + '/' + idusuario, {
+                dadosUser.remaining_classes = user_remaining_classes;
+                //update user
+                fetch(urlUser + '/' + idusuario, {
                   method: 'PATCH', // or 'PUT'
                   headers: {
                     'Content-Type': 'application/json',
                   },
-                  body: JSON.stringify(dados),
+                  body: JSON.stringify(dadosUser),
                 })
                 .then(function(response) {
                 status = response.ok;
@@ -258,7 +292,35 @@ export default {
                   alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.');
                 })
                 .then(function() {
-                  alert('Compra realizada com sucesso!!!');
+                  if(status) {
+                    alert('Compra realizada com sucesso!!!');
+                    //update products quantity
+                    for(let m = 0; m < dadosProduct.length; m++) {
+                      fetch(urlProduct + '/' + dadosProduct[m]._id, {
+                        method: 'PATCH', // or 'PUT'
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(dadosProduct[m]),
+                      })
+                      .then(function(response) {
+                      status = response.ok;
+                      if(status) {
+                        return response.json();
+                      }
+                      else
+                        alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.');
+                      })
+                      .then(function(response) {
+                        if(status) {
+                          console.log(response);
+                        }
+                      })
+                      .catch(function(error) {
+                        console.log('Error ' + error.message)
+                      })
+                    }
+                  }
                 })
                 .catch(function(error) {
                   console.log('Error ' + error.message)

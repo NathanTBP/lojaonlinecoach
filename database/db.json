@@ -156,28 +156,32 @@
       "id": 1,
       "name": "iniciante",
       "info": {
-        "price": 20
+        "price": 20,
+        "quantity": 0
       }
     },
     {
       "id": 2,
       "name": "intermediario",
       "info": {
-        "price": 25
+        "price": 25,
+        "quantity": 0
       }
     },
     {
       "id": 3,
       "name": "avancado",
       "info": {
-        "price": 30
+        "price": 30,
+        "quantity": 0
       }
     },
     {
       "id": 4,
       "name": "coach",
       "info": {
-        "price": 40
+        "price": 40,
+        "quantity": 0
       }
     }
   ],
