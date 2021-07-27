@@ -207,9 +207,10 @@ export default {
   // TOFIX linkar cart (virtual) com o shopCart (localStorage)
   name: 'Produtos',
   mounted(){
-      fetch('http://localhost:3000/products')
+      fetch('http://localhost:3000/produtos/3')
       .then(res => res.json())
       .then(data => this.products = data)
+      .then(data => console.log(data))
 
      if(localStorage.getItem('shopCart')){
         this.shopCart = JSON.parse(localStorage.getItem('shopCart'))

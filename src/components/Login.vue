@@ -95,7 +95,7 @@ export default {
       const self = this;
       let confirmEmail = false;
       let confirmLogin = false;
-      let url = "http://localhost:3000/users";
+      let url = "http://localhost:3000/usuarios";
       let status;
 
       this.errors = [];

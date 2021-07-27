@@ -28,7 +28,6 @@
 import Login from '../components/Login.vue'
 import Register from '../components/Register.vue'
 
-
 export default {
   name: 'Navbar',
   components: {
@@ -58,7 +57,7 @@ export default {
       this.tipousuario = tipousuario;
       this.nomeusuario = nomeusuario;
       localStorage.removeItem('usertype');
-      localStorage.setItem('usertype', '1');
+      localStorage.setItem('usertype', tipousuario);
       this.usuariowidth = 19 + this.nomeusuario.length;
       this.idusuario = idusuario;
       localStorage.removeItem('userid');

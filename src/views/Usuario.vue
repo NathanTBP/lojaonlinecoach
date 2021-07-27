@@ -1,5 +1,5 @@
 <template>
-  <div class="page" id="user_container">
+  <div v-if="usertype==1" class="page" id="user_container">
 
       <br>
 
@@ -56,6 +56,9 @@
 <script>
 export default {
   computed: {
+    usertype() {
+    return localStorage.getItem('usertype');
+    },
     coachQuantities: function(){
       return [...Array(this.cchquantity).keys()].map(i => i + 1)
     }
@@ -84,7 +87,7 @@ export default {
     },
     getCreditsQuantity: function() {
       let idusuario = parseInt(localStorage.getItem('userid'));
-      let url = "http://localhost:3000/users";
+      let url = "http://localhost:3000/usuarios";
       let status;
       let self = this;
 

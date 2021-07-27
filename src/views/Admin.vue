@@ -1,353 +1,435 @@
 <template>
-<div class="w3-container">
-  <div id="space"></div>
+  <div v-if="usertype==2" class="w3-container">
+    <br><br>
     <div class="w3-row-padding">
       <div class="w3-responsive w3-small">
-        <div class="w3-col s3 w3-card-4">
+        <div id="card_admin" class="w3-center w3-card-4">
           <header class="w3-container w3-blue"><h2>Informações</h2></header>
           <div class="w3-container">
-            <h6>Aulas coach total: 2000</h6>
-            <h6>Video aulas Iniciante total: 2</h6>
-            <h6>Video aulas Intermediário total: 2</h6>
-            <h6>Video aulas Avançado total: 2</h6>
+            <h6>Video aulas Iniciante total: {{ initotal }}</h6>
+            <h6>Video aulas Intermediário total: {{ inttotal }}</h6>
+            <h6>Video aulas Avançado total: {{ avatotal }}</h6>
+            <h6>Aulas coach total: {{ cchtotal }}</h6>
           </div>
           <footer class="w3-container w3-green">
-            <h2>Lucro total: R$5000</h2>
+            <h2>Lucro total: {{ lucrototal }}</h2>
           </footer>
         </div>
-        <div class="w3-col s9 w3-container">
+        <div class="w3-col w3-container">
+
+          <!--Card adicionar videoaula -->
+          <div id="card_adic_videoaula" class="w3-modal">
+            <div class="w3-modal-content w3-animate-top w3-card-4 loginreg_card">
+              <header class="w3-container w3-center w3-indigo">
+                <button class="w3-btn w3-display-topright" @click.prevent="closeAdicVideoAula()">&times;</button>
+                <h4 class="w3-text-white">Adicionar Video Aula</h4>
+              </header>
+              <p v-if="errors.length">
+                <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
+                <ul>
+                  <li :key="error.id" v-for="error in errors">{{ error }}</li>
+                </ul>
+              </p>
+              <div class="w3-container">
+                <div class="w3-row w3-section">
+                  <span>Game:</span>
+                  <input class="w3-radio" type="radio" name="game" value="lol" v-model="videoaulaGame">
+                  <label> Lol </label>
+                  <input class="w3-radio" type="radio" name="game" value="tft" v-model="videoaulaGame">
+                  <label> TFT </label>
+                </div>
+                <div class="w3-row w3-section">
+                  <span>Dificuldade:</span>
+                  <input class="w3-radio" type="radio" name="difficulty" value="basico" v-model="videoaulaDifficulty">
+                  <label> Básico </label>
+                  <input class="w3-radio" type="radio" name="difficulty" value="intermediario" v-model="videoaulaDifficulty">
+                  <label> Intermediário </label>
+                  <input class="w3-radio" type="radio" name="difficulty" value="avancado" v-model="videoaulaDifficulty">
+                  <label> Avançado </label>
+                </div>
+                <div class="w3-row w3-section">
+                  <span>Titulo:</span>
+                  <input class="w3-input w3-border" type="text" v-model="videoaulaTitle">
+                </div>
+                <div class="w3-row w3-section">
+                  <span>Thumbnail:</span>
+                  <input class="w3-input w3-border" type="url" v-model="videoaulaThumbnail">
+                </div>
+                <div class="w3-row w3-section">
+                  <span>Descrição:</span>
+                  <input class="w3-input w3-border" type="text" v-model="videoaulaDescription">
+                </div>
+                <div class="w3-row w3-section">
+                  <span>Link da Aula:</span>
+                  <input class="w3-input w3-border" type="url" v-model="videoaulaLink">
+                </div>
+              </div>
+                <button class="w3-button w3-hover-indigo w3-blue produto_button" @click.prevent="adicVideoAula()">Adicionar</button>
+            </div>
+          </div>
+
+          <h1>Video Aulas</h1>
+          <input type="button" class="w3-button w3-gray w3-margin-right" value="Adicionar Video Aula" @click.prevent="toAdicVideoAula()">
+          <h2> League of Legends </h2>
           <h4>Vídeo Aulas Iniciante</h4>
+          <input type="text" class="w3-margin" placeholder="Search" v-model="videoaulaLolIniSearch">
           <table class="w3-table-all w3-hoverable">
             <tr>
               <th>Id</th>
               <th>Título</th>
               <th>Professor</th>
-              <th>Nick Prof</th>
-              <th>Jogo</th>
               <th>Quantidade</th>
               <th>Cancelar</th>
             </tr>
-            <tr v-for="videoaulaIni in videoaulasIniFilter" :key="videoaulaIni.id">
-              <td> {{videoaulaIni.id}} </td>
-              <td> {{videoaulaIni.titulo}} </td>
-              <td> {{videoaulaIni.professor}} </td>
-              <td> {{videoaulaIni.nickprofessor}} </td>
-              <td> {{videoaulaIni.jogo}} </td>
-              <td> {{videoaulaIni.quantidade}} </td>
-              <td><button class="cancel" value="  X  " @click.prevent="deleteVideoAulaIni(videoaulaIni.id)"></button></td>
+            <tr v-for="videoaulaLolIni in videoaulasLolIniFilter" :key="videoaulaLolIni.id">
+              <td> {{videoaulaLolIni.id}} </td>
+              <td> {{videoaulaLolIni.title}} </td>
+              <td> {{videoaulaLolIni.professor}} </td>
+              <td> {{videoaulaLolIni.quantity}} </td>
+              <td><input class="cancel" type="button" value="  X  " @click.prevent="deleteVideoAula(1, 'basico', videoaulaLolIni.id)"></td>
             </tr>
           </table><br><br>
           <h4>Vídeo Aulas Intermediário</h4>
+          <input type="text" class="w3-margin" placeholder="Search" v-model="videoaulaLolIntSearch">
           <table class="w3-table-all w3-hoverable">
             <tr>
               <th>Id</th>
               <th>Título</th>
               <th>Professor</th>
-              <th>Nick Prof</th>
-              <th>Jogo</th>
               <th>Quantidade</th>
               <th>Cancelar</th>
             </tr>
-            <tr v-for="videoaulaInt in videoaulasIntFilter" :key="videoaulaInt.id">
-              <td> {{videoaulaInt.id}} </td>
-              <td> {{videoaulaInt.titulo}} </td>
-              <td> {{videoaulaInt.professor}} </td>
-              <td> {{videoaulaInt.nickprofessor}} </td>
-              <td> {{videoaulaInt.jogo}} </td>
-              <td> {{videoaulaInt.quantidade}} </td>
-              <td><button class="cancel" value="  X  " @click.prevent="deleteVideoAulaInt(videoaulaInt.id)"></button></td>
+            <tr v-for="videoaulaLolInt in videoaulasLolIntFilter" :key="videoaulaLolInt.id">
+              <td> {{videoaulaLolInt.id}} </td>
+              <td> {{videoaulaLolInt.title}} </td>
+              <td> {{videoaulaLolInt.professor}} </td>
+              <td> {{videoaulaLolInt.quantity}} </td>
+              <td><input class="cancel" type="button" value="  X  " @click.prevent="deleteVideoAula(1, 'intermediario', videoaulaLolInt.id)"></td>
             </tr>
           </table><br><br>
           <h4>Vídeo Aulas Avançado</h4>
+          <input type="text" class="w3-margin" placeholder="Search" v-model="videoaulaLolAvaSearch">
           <table class="w3-table-all w3-hoverable">
             <tr>
               <th>Id</th>
               <th>Título</th>
               <th>Professor</th>
-              <th>Nick Prof</th>
-              <th>Jogo</th>
               <th>Quantidade</th>
               <th>Cancelar</th>
             </tr>
-            <tr v-for="videoaulaAva in videoaulasAvaFilter" :key="videoaulaAva.id">
-              <td> {{videoaulaAva.id}} </td>
-              <td> {{videoaulaAva.titulo}} </td>
-              <td> {{videoaulaAva.professor}} </td>
-              <td> {{videoaulaAva.nickprofessor}} </td>
-              <td> {{videoaulaAva.jogo}} </td>
-              <td> {{videoaulaAva.quantidade}} </td>
-              <td><button class="cancel" value="  X  " @click.prevent="deleteVideoAulaAva(videoaulaAva.id)"></button></td>
+            <tr v-for="videoaulaLolAva in videoaulasLolAvaFilter" :key="videoaulaLolAva.id">
+              <td> {{videoaulaLolAva.id}} </td>
+              <td> {{videoaulaLolAva.title}} </td>
+              <td> {{videoaulaLolAva.professor}} </td>
+              <td> {{videoaulaLolAva.quantity}} </td>
+              <td><input class="cancel" type="button" value="  X  " @click.prevent="deleteVideoAula(1, 'avancado', videoaulaLolAva.id)"></td>
             </tr>
           </table><br><br>
         </div>
-          <!--Card adicionar professor -->
-          <div id="card_adic_prof" class="w3-modal">
-            <div class="w3-modal-content w3-animate-top w3-card-4 loginreg_card">
-              <header class="w3-container w3-center w3-indigo">
-                <button class="w3-btn w3-display-topright" @click.prevent="closeAdicProf()">&times;</button>
-                <span class="w3-text-white">Adicionar Professor</span>
-              </header>
-              <p v-if="errors.length">
-                <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
-                <ul>
-                  <li :key="error.id" v-for="error in errors">{{ error }}</li>
-                </ul>
-              </p>
-              <div class="w3-container">
-                <div class="w3-row w3-section">
-                  <span>Link Foto:</span>
-                  <input class="w3-input w3-border" type="url" v-model="proffoto">
-                </div>
-                <div class="w3-row w3-section">
-                  <span>Email:</span>
-                  <input class="w3-input w3-border" type="text" v-model="profemail">
-                </div>
-                <div class="w3-row w3-section">
-                  <span>Nickname:</span>
-                  <input class="w3-input w3-border" type="text" v-model="profnickname">
-                </div>
-                <div class="w3-row w3-section">
-                  <span>Nome:</span>
-                  <input class="w3-input w3-border" type="text" v-model="profnome">
-                </div>
-                <div class="w3-row w3-section">
-                  <span>Sobrenome:</span>
-                  <input class="w3-input w3-border" type="text" v-model="profsobrenome">
-                </div>
-                <div class="w3-row w3-section">
-                  <span>Celular:</span>
-                  <input class="w3-input w3-border" type="tel" v-model="profcel">
-                </div>
-                <div class="w3-row w3-section">
-                  <span>Senha:</span>
-                  <input class="w3-input w3-border" type="password" v-model="profsenha">
-                </div>
-                <div class="w3-row w3-section">
-                  <span>Confirmar Senha:</span>
-                  <input class="w3-input w3-border" type="password" v-model="profsenha2">
-                </div>
-              </div>
-                <button class="w3-button w3-hover-indigo w3-blue produto_button" @click.prevent="checkFormProf()">Adicionar</button>
-            </div>
-          </div>
-          <!--Card edit professor -->
-          <div id="card_edit_prof" class="w3-modal">
-            <div class="w3-modal-content w3-animate-top w3-card-4 loginreg_card">
-              <header class="w3-container w3-center w3-indigo">
-                <button class="w3-btn w3-display-topright" @click.prevent="closeEditProf()">&times;</button>
-                <span class="w3-text-white">Editar Professor</span>
-              </header>
-              <p v-if="errors.length">
-                <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
-                <ul>
-                  <li :key="error.id" v-for="error in errors">{{ error }}</li>
-                </ul>
-              </p>
-              <div class="w3-container">
-                <div class="w3-row w3-section">
-                  <span>Id*:</span>
-                  <input class="w3-input w3-border" type="text" v-model="profid">
-                </div>
-                <div class="w3-row w3-section">
-                  <span>Link Foto:</span>
-                  <input class="w3-input w3-border" type="url" v-model="proffoto">
-                </div>
-                <div class="w3-row w3-section">
-                  <span>Email:</span>
-                  <input class="w3-input w3-border" type="text" v-model="profemail">
-                </div>
-                <div class="w3-row w3-section">
-                  <span>Nickname:</span>
-                  <input class="w3-input w3-border" type="text" v-model="profnickname">
-                </div>
-                <div class="w3-row w3-section">
-                  <span>Nome:</span>
-                  <input class="w3-input w3-border" type="text" v-model="profnome">
-                </div>
-                <div class="w3-row w3-section">
-                  <span>Sobrenome:</span>
-                  <input class="w3-input w3-border" type="text" v-model="profsobrenome">
-                </div>
-                <div class="w3-row w3-section">
-                  <span>Celular:</span>
-                  <input class="w3-input w3-border" type="tel" v-model="profcel">
-                </div>
-                <div class="w3-row w3-section">
-                  <span>Senha:</span>
-                  <input class="w3-input w3-border" type="password" v-model="profsenha">
-                </div>
-                <button class="w3-button w3-hover-indigo w3-blue produto_button" @click.prevent="editProf()">Editar</button>
-                <button class="w3-button w3-hover-deep-orange w3-red produto_button" @click.prevent="deleteProf()">Excluir</button>
-              </div>
-            </div>
-          </div>
-          <div class="w3-container">
-            <h4>Professores</h4>
-            <input type="text" class="w3-margin-right" placeholder="Search" v-model="profSearch">
-            <input type="button" class="w3-button w3-gray w3-margin-right" value="Adicionar Professor" @click.prevent="toAdicProf()">
-            <input type="button" class="w3-button w3-gray" value="Editar Professor" @click.prevent="toEditProf()">
-          </div><br>
-          <table class="w3-table-all w3-hoverable">
-            <tr>
-              <th>Foto</th>
-              <th>Nickname</th>
-              <th>Nome</th>
-              <th>Sobrenome</th>
-              <th>Email</th>
-              <th>Telefone</th>
-            </tr>
-            <tr v-for="prof in profsFilter" :key="prof.id">
-              <td> <img class="photo" :src="prof.photo" alt="Foto prof"> </td>
-              <td> {{prof.nickname}} </td>
-              <td> {{prof.first_name}} </td>
-              <td> {{prof.last_name}} </td>
-              <td> {{prof.email}} </td>
-              <td> {{prof.celular}} </td>
-            </tr>
-          </table> <br>
 
-          <div class="w3-container">
-              <h4>Alunos</h4>
-              <input type="text" class="w3-margin-right" placeholder="Search" v-model="alunoSearch">
-              <input type="button" class="w3-button w3-gray" value="Editar Aluno" @click.prevent="toEditAluno()">
-          </div><br>
-          <!--Card edit aluno -->
-          <div id="card_edit_aluno" class="w3-modal">
-            <div class="w3-modal-content w3-animate-top w3-card-4 loginreg_card">
-              <header class="w3-container w3-center w3-indigo">
-                <button class="w3-btn w3-display-topright" @click.prevent="closeEditAluno()">&times;</button>
-                <span class="w3-text-white">Editar Aluno</span>
-              </header>
-              <p v-if="errors.length">
-                <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
-                <ul>
-                  <li :key="error.id" v-for="error in errors">{{ error }}</li>
-                </ul>
-              </p>
-              <div class="w3-container">
-                <div class="w3-row w3-section">
-                  <span>Id*:</span>
-                  <input class="w3-input w3-border" type="text" v-model="alunoid">
-                </div>
-                <div class="w3-row w3-section">
-                  <span>Email:</span>
-                  <input class="w3-input w3-border" type="text" v-model="alunoemail">
-                </div>
-                <div class="w3-row w3-section">
-                  <span>Nome:</span>
-                  <input class="w3-input w3-border" type="text" v-model="alunonome">
-                </div>
-                <div class="w3-row w3-section">
-                  <span>Sobrenome:</span>
-                  <input class="w3-input w3-border" type="text" v-model="alunosobrenome">
-                </div>
-                <div class="w3-row w3-section">
-                  <span>Celular:</span>
-                  <input class="w3-input w3-border" type="tel" v-model="alunocel">
-                </div>
-                <div class="w3-row w3-section">
-                  <span>Senha:</span>
-                  <input class="w3-input w3-border" type="password" v-model="alunosenha">
-                </div>
-                <div class="w3-row w3-section">
-                  <span>Adicionar Crédito Iniciante:</span>
-                  <input class="w3-input w3-border" type="number" min="0" v-model="alunoini">
-                </div>
-                <div class="w3-row w3-section">
-                  <span>Adicionar Crédito Intermediário:</span>
-                  <input class="w3-input w3-border" type="number" min="0" v-model="alunoint">
-                </div>
-                <div class="w3-row w3-section">
-                  <span>Adicionar Crédito Avançado:</span>
-                  <input class="w3-input w3-border" type="number" min="0" v-model="alunoava">
-                </div>
-                <div class="w3-row w3-section">
-                  <span>Adicionar Crédito Coach:</span>
-                  <input class="w3-input w3-border" type="number" min="0" v-model="alunocch">
-                </div>
-                <button class="w3-button w3-hover-indigo w3-blue produto_button" @click.prevent="editAluno()">Editar</button>
-                <button class="w3-button w3-hover-deep-orange w3-red produto_button" @click.prevent="deleteAluno()">Excluir</button>
-              </div>
-            </div>
-          </div>
+        <div class="w3-col w3-container">
+          <h2> TeamFight Tactics </h2>
+          <h4>Vídeo Aulas Iniciante</h4>
+          <input type="text" class="w3-margin" placeholder="Search" v-model="videoaulaTftIniSearch">
           <table class="w3-table-all w3-hoverable">
             <tr>
               <th>Id</th>
-              <th>Nome</th>
-              <th>Sobrenome</th>
-              <th>Email</th>
-              <th>Telefone</th>
-              <th>Créditos Iniciante</th>
-              <th>Créditos Intermediário</th>
-              <th>Créditos Avançado</th>
-              <th>Nº Aulas Coach Dispon.</th>
+              <th>Título</th>
+              <th>Professor</th>
+              <th>Quantidade</th>
+              <th>Cancelar</th>
             </tr>
-            <tr v-for="aluno in alunosFilter" :key="aluno.id">
-              <td> {{aluno.id}} </td>
-              <td> {{aluno.first_name}} </td>
-              <td> {{aluno.last_name}} </td>
-              <td> {{aluno.email}} </td>
-              <td> {{aluno.celular}} </td>
-              <td> {{aluno.quant_aulas.ini}} </td>
-              <td> {{aluno.quant_aulas.int}} </td>
-              <td> {{aluno.quant_aulas.ava}} </td>
-              <td> {{aluno.quant_aulas.cch}} </td>
+            <tr v-for="videoaulaTftIni in videoaulasTftIniFilter" :key="videoaulaTftIni.id">
+              <td> {{videoaulaTftIni.id}} </td>
+              <td> {{videoaulaTftIni.title}} </td>
+              <td> {{videoaulaTftIni.professor}} </td>
+              <td> {{videoaulaTftIni.quantity}} </td>
+              <td><input class="cancel" type="button" value="  X  " @click.prevent="deleteVideoAula(2, 'basico', videoaulaTftIni.id)"></td>
+            </tr>
+          </table><br><br>
+          <h4>Vídeo Aulas Intermediário</h4>
+          <input type="text" class="w3-margin" placeholder="Search" v-model="videoaulaTftIntSearch">
+          <table class="w3-table-all w3-hoverable">
+            <tr>
+              <th>Id</th>
+              <th>Título</th>
+              <th>Professor</th>
+              <th>Quantidade</th>
+              <th>Cancelar</th>
+            </tr>
+            <tr v-for="videoaulaTftInt in videoaulasTftIntFilter" :key="videoaulaTftInt.id">
+              <td> {{videoaulaTftInt.id}} </td>
+              <td> {{videoaulaTftInt.title}} </td>
+              <td> {{videoaulaTftInt.professor}} </td>
+              <td> {{videoaulaTftInt.quantity}} </td>
+              <td><input class="cancel" type="button" value="  X  " @click.prevent="deleteVideoAula(2, 'intermediario', videoaulaTftInt.id)"></td>
+            </tr>
+          </table><br><br>
+          <h4>Vídeo Aulas Avançado</h4>
+          <input type="text" class="w3-margin" placeholder="Search" v-model="videoaulaTftAvaSearch">
+          <table class="w3-table-all w3-hoverable">
+            <tr>
+              <th>Id</th>
+              <th>Título</th>
+              <th>Professor</th>
+              <th>Quantidade</th>
+              <th>Cancelar</th>
+            </tr>
+            <tr v-for="videoaulaTftAva in videoaulasTftAvaFilter" :key="videoaulaTftAva.id">
+              <td> {{videoaulaTftAva.id}} </td>
+              <td> {{videoaulaTftAva.title}} </td>
+              <td> {{videoaulaTftAva.professor}} </td>
+              <td> {{videoaulaTftAva.quantity}} </td>
+              <td><input class="cancel" type="button" value="  X  " @click.prevent="deleteVideoAula(2, 'avancado', videoaulaTftAva.id)"></td>
+            </tr>
+          </table><br><br>
+        </div>
+
+        <!--Card adicionar professor -->
+        <div id="card_adic_prof" class="w3-modal">
+          <div class="w3-modal-content w3-animate-top w3-card-4 loginreg_card">
+            <header class="w3-container w3-center w3-indigo">
+              <button class="w3-btn w3-display-topright" @click.prevent="closeAdicProf()">&times;</button>
+              <h4 class="w3-text-white">Adicionar Professor</h4>
+            </header>
+            <p v-if="errors.length">
+              <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
+              <ul>
+                <li :key="error.id" v-for="error in errors">{{ error }}</li>
+              </ul>
+            </p>
+            <div class="w3-container">
+              <div class="w3-row w3-section">
+                <span>Link Foto:</span>
+                <input class="w3-input w3-border" type="url" v-model="proffoto">
+              </div>
+              <div class="w3-row w3-section">
+                <span>Email:</span>
+                <input class="w3-input w3-border" type="text" v-model="profemail">
+              </div>
+              <div class="w3-row w3-section">
+                <span>Nickname:</span>
+                <input class="w3-input w3-border" type="text" v-model="profnickname">
+              </div>
+              <div class="w3-row w3-section">
+                <span>Nome:</span>
+                <input class="w3-input w3-border" type="text" v-model="profnome">
+              </div>
+              <div class="w3-row w3-section">
+                <span>Sobrenome:</span>
+                <input class="w3-input w3-border" type="text" v-model="profsobrenome">
+              </div>
+              <div class="w3-row w3-section">
+                <span>Celular:</span>
+                <input class="w3-input w3-border" type="tel" v-model="profcel">
+              </div>
+              <div class="w3-row w3-section">
+                <span>Senha:</span>
+                <input class="w3-input w3-border" type="password" v-model="profsenha">
+              </div>
+              <div class="w3-row w3-section">
+                <span>Confirmar Senha:</span>
+                <input class="w3-input w3-border" type="password" v-model="profsenha2">
+              </div>
+            </div>
+              <button class="w3-button w3-hover-indigo w3-blue produto_button" @click.prevent="checkFormProf()">Adicionar</button>
+          </div>
+        </div>
+        <!--Card edit professor -->
+        <div id="card_edit_prof" class="w3-modal">
+          <div class="w3-modal-content w3-animate-top w3-card-4 loginreg_card">
+            <header class="w3-container w3-center w3-indigo">
+              <button class="w3-btn w3-display-topright" @click.prevent="closeEditProf()">&times;</button>
+              <h4 class="w3-text-white">Editar Professor</h4>
+            </header>
+            <p v-if="errors.length">
+              <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
+              <ul>
+                <li :key="error.id" v-for="error in errors">{{ error }}</li>
+              </ul>
+            </p>
+            <div class="w3-container">
+              <div class="w3-row w3-section">
+                <span>Id*:</span>
+                <input class="w3-input w3-border" type="text" v-model="profid">
+              </div>
+              <div class="w3-row w3-section">
+                <span>Link Foto:</span>
+                <input class="w3-input w3-border" type="url" v-model="proffoto">
+              </div>
+              <div class="w3-row w3-section">
+                <span>Email:</span>
+                <input class="w3-input w3-border" type="text" v-model="profemail">
+              </div>
+              <div class="w3-row w3-section">
+                <span>Nickname:</span>
+                <input class="w3-input w3-border" type="text" v-model="profnickname">
+              </div>
+              <div class="w3-row w3-section">
+                <span>Nome:</span>
+                <input class="w3-input w3-border" type="text" v-model="profnome">
+              </div>
+              <div class="w3-row w3-section">
+                <span>Sobrenome:</span>
+                <input class="w3-input w3-border" type="text" v-model="profsobrenome">
+              </div>
+              <div class="w3-row w3-section">
+                <span>Celular:</span>
+                <input class="w3-input w3-border" type="tel" v-model="profcel">
+              </div>
+              <div class="w3-row w3-section">
+                <span>Senha:</span>
+                <input class="w3-input w3-border" type="password" v-model="profsenha">
+              </div>
+              <button class="w3-button w3-hover-indigo w3-blue produto_button" @click.prevent="editProf()">Editar</button>
+              <button class="w3-button w3-hover-deep-orange w3-red produto_button" @click.prevent="deleteProf()">Excluir</button>
+            </div>
+          </div>
+        </div>
+        <div class="w3-container">
+          <h4>Professores</h4>
+          <input type="text" class="w3-margin-right" placeholder="Search" v-model="profSearch">
+          <input type="button" class="w3-button w3-gray w3-margin-right" value="Adicionar Professor" @click.prevent="toAdicProf()">
+          <input type="button" class="w3-button w3-gray" value="Editar Professor" @click.prevent="toEditProf()">
+        </div><br>
+        <table class="w3-table-all w3-hoverable prof_table">
+          <tr>
+            <th>Foto</th>
+            <th>Id</th>
+            <th>Nickname</th>
+            <th>Nome</th>
+            <th>Sobrenome</th>
+            <th>Email</th>
+            <th>Telefone</th>
+          </tr>
+          <tr v-for="prof in profsFilter" :key="prof.id">
+            <td> <img class="photo" :src="prof.photo" alt="Foto prof"> </td>
+            <td> {{prof._id}} </td>
+            <td> {{prof.nickname}} </td>
+            <td> {{prof.first_name}} </td>
+            <td> {{prof.last_name}} </td>
+            <td> {{prof.email}} </td>
+            <td> {{prof.celular}} </td>
+          </tr>
+        </table> <br>
+
+        <div class="w3-container">
+            <h4>Alunos</h4>
+            <input type="text" class="w3-margin-right" placeholder="Search" v-model="alunoSearch">
+            <input type="button" class="w3-button w3-gray" value="Editar Aluno" @click.prevent="toEditAluno()">
+        </div><br>
+        <!--Card edit aluno -->
+        <div id="card_edit_aluno" class="w3-modal">
+          <div class="w3-modal-content w3-animate-top w3-card-4 loginreg_card">
+            <header class="w3-container w3-center w3-indigo">
+              <button class="w3-btn w3-display-topright" @click.prevent="closeEditAluno()">&times;</button>
+              <span class="w3-text-white">Editar Aluno</span>
+            </header>
+            <p v-if="errors.length">
+              <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
+              <ul>
+                <li :key="error.id" v-for="error in errors">{{ error }}</li>
+              </ul>
+            </p>
+            <div class="w3-container">
+              <div class="w3-row w3-section">
+                <span>Id*:</span>
+                <input class="w3-input w3-border" type="text" v-model="alunoid">
+              </div>
+              <div class="w3-row w3-section">
+                <span>Email:</span>
+                <input class="w3-input w3-border" type="text" v-model="alunoemail">
+              </div>
+              <div class="w3-row w3-section">
+                <span>Nome:</span>
+                <input class="w3-input w3-border" type="text" v-model="alunonome">
+              </div>
+              <div class="w3-row w3-section">
+                <span>Sobrenome:</span>
+                <input class="w3-input w3-border" type="text" v-model="alunosobrenome">
+              </div>
+              <div class="w3-row w3-section">
+                <span>Celular:</span>
+                <input class="w3-input w3-border" type="tel" v-model="alunocel">
+              </div>
+              <div class="w3-row w3-section">
+                <span>Senha:</span>
+                <input class="w3-input w3-border" type="password" v-model="alunosenha">
+              </div>
+              <div class="w3-row w3-section">
+                <span>Adicionar Crédito Iniciante:</span>
+                <input class="w3-input w3-border" type="number" min="0" v-model="alunoini">
+              </div>
+              <div class="w3-row w3-section">
+                <span>Adicionar Crédito Intermediário:</span>
+                <input class="w3-input w3-border" type="number" min="0" v-model="alunoint">
+              </div>
+              <div class="w3-row w3-section">
+                <span>Adicionar Crédito Avançado:</span>
+                <input class="w3-input w3-border" type="number" min="0" v-model="alunoava">
+              </div>
+              <div class="w3-row w3-section">
+                <span>Adicionar Crédito Coach:</span>
+                <input class="w3-input w3-border" type="number" min="0" v-model="alunocch">
+              </div>
+              <button class="w3-button w3-hover-indigo w3-blue produto_button" @click.prevent="editAluno()">Editar</button>
+              <button class="w3-button w3-hover-deep-orange w3-red produto_button" @click.prevent="deleteAluno()">Excluir</button>
+            </div>
+          </div>
+        </div>
+        <table class="w3-table-all w3-hoverable">
+          <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Sobrenome</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Créditos Iniciante</th>
+            <th>Créditos Intermediário</th>
+            <th>Créditos Avançado</th>
+            <th>Nº Aulas Coach Dispon.</th>
+          </tr>
+          <tr v-for="aluno in alunosFilter" :key="aluno.id">
+            <td> {{aluno.id}} </td>
+            <td> {{aluno.first_name}} </td>
+            <td> {{aluno.last_name}} </td>
+            <td> {{aluno.email}} </td>
+            <td> {{aluno.celular}} </td>
+            <td> {{aluno.quant_aulas.ini}} </td>
+            <td> {{aluno.quant_aulas.int}} </td>
+            <td> {{aluno.quant_aulas.ava}} </td>
+            <td> {{aluno.quant_aulas.cch}} </td>
+          </tr>
+        </table>
+        <br>
+        <div class="w3-col s12 w3-container">
+          <h4>Aulas Confirmadas</h4>
+          <table class="w3-table-all w3-hoverable">
+            <tr>
+              <th>N° Pedido</th>
+              <th>Email Aluno</th>
+              <th>Data</th>
+              <th>Horário</th>
+              <th>Professor</th>
+              <th>Jogo</th>
+              <th>Nível</th>
+              <th>Quant aulas</th>
+              <th>Cancelar</th>
+            </tr>
+            <tr>
+              <td>000002</td>
+              <td>will_smith123@hotmail.com</td>
+              <td>29/05/2021</td>
+              <td>12:00</td>
+              <td>Cadinho de Michael</td>
+              <td>TFT</td>
+              <td>Iniciante</td>
+              <td>1</td>
+              <td><input class="cancel" type="button" value="  X  "></td>
             </tr>
           </table>
-          <br>
-          <div class="w3-col s12 w3-container">
-            <h4>Aulas Confirmadas</h4>
-            <table class="w3-table-all w3-hoverable">
-              <tr>
-                <th>N° Pedido</th>
-                <th>Email Aluno</th>
-                <th>Data</th>
-                <th>Horário</th>
-                <th>Professor</th>
-                <th>Jogo</th>
-                <th>Nível</th>
-                <th>Quant aulas</th>
-                <th>Cancelar</th>
-              </tr>
-              <tr>
-                <td>000002</td>
-                <td>will_smith123@hotmail.com</td>
-                <td>29/05/2021</td>
-                <td>12:00</td>
-                <td>Cadinho de Michael</td>
-                <td>TFT</td>
-                <td>Iniciante</td>
-                <td>1</td>
-                <td><input class="cancel" type="button" value="  X  "></td>
-              </tr>
-            </table>
 
-            <h4>Aulas Canceladas</h4>
-            <table class="w3-table-all w3-hoverable">
-              <tr>
-                <th>N° Pedido</th>
-                <th>Email Aluno</th>
-                <th>Data</th>
-                <th>Horário</th>
-                <th>Professor</th>
-                <th>Jogo</th>
-                <th>Nível</th>
-                <th>Quant aulas</th>
-                <th>Motivo</th>
-              </tr>
-              <tr>
-                <td>000001</td>
-                <td>will_smith123@hotmail.com</td>
-                <td>28/05/2021</td>
-                <td>12:00</td>
-                <td>Cadinho de Michael</td>
-                <td>TFT</td>
-                <td>Intermediário</td>
-                <td>1</td>
-                <td>Solicitação errada</td>
-              </tr>
-            </table>
-          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -356,42 +438,66 @@
 
 <script>
 export default {
-  mounted() {
-    //this.getVideoAulas();
+  mounted: function() {
+    this.getVideoAulas();
     this.getProfs();
     this.getAlunos();
   },
   computed: {
-    /*videoaulasIniFilter() {
-      return this.videoaulas.filter(videoaula => {
-      if(videoaula.title.toLowerCase().includes(this.videoaulaIniSearch))
+    usertype() {
+    return localStorage.getItem('usertype');
+    },
+    userid() {
+    return localStorage.getItem('userid');
+    },
+    videoaulasLolIniFilter() {
+      return this.videoaulasLolIni.filter(videoaula => {
+      if(videoaula.title.toLowerCase().includes(this.videoaulaLolIniSearch))
         return videoaula;
-      else if(videoaula.professor.toLowerCase().includes(this.videoaulaIniSearch))
-        return videoaula;
-      else if(videoaula.professornick.toLowerCase().includes(this.videoaulaIntSearch))
+      else if(videoaula.professor.toLowerCase().includes(this.videoaulaLolIniSearch))
         return videoaula;
       });
     },
-    videoaulasIntFilter() {
-      return this.videoaulas.filter(videoaula => {
-      if(videoaula.title.toLowerCase().includes(this.videoaulaIntSearch))
+    videoaulasLolIntFilter() {
+      return this.videoaulasLolInt.filter(videoaula => {
+      if(videoaula.title.toLowerCase().includes(this.videoaulaLolIntSearch))
         return videoaula;
-      else if(videoaula.professor.toLowerCase().includes(this.videoaulaIntSearch))
-        return videoaula;
-      else if(videoaula.professornick.toLowerCase().includes(this.videoaulaIntSearch))
+      else if(videoaula.professor.toLowerCase().includes(this.videoaulaLolIntSearch))
         return videoaula;
       });
     },
-    videoaulasAvaFilter() {
-      return this.videoaulas.filter(videoaula => {
-      if(videoaula.title.toLowerCase().includes(this.videoaulaAvaSearch))
+    videoaulasLolAvaFilter() {
+      return this.videoaulasLolAva.filter(videoaula => {
+      if(videoaula.title.toLowerCase().includes(this.videoaulaLolAvaSearch))
         return videoaula;
-      else if(videoaula.professor.toLowerCase().includes(this.videoaulaAvaSearch))
-        return videoaula;
-      else if(videoaula.professornick.toLowerCase().includes(this.videoaulaIntSearch))
+      else if(videoaula.professor.toLowerCase().includes(this.videoaulaLolAvaSearch))
         return videoaula;
       });
-    },*/
+    },
+    videoaulasTftIniFilter() {
+      return this.videoaulasTftIni.filter(videoaula => {
+      if(videoaula.title.toLowerCase().includes(this.videoaulaTftIniSearch))
+        return videoaula;
+      else if(videoaula.professor.toLowerCase().includes(this.videoaulaTftIniSearch))
+        return videoaula;
+      });
+    },
+    videoaulasTftIntFilter() {
+      return this.videoaulasTftInt.filter(videoaula => {
+      if(videoaula.title.toLowerCase().includes(this.videoaulaTftIntSearch))
+        return videoaula;
+      else if(videoaula.professor.toLowerCase().includes(this.videoaulaTftIntSearch))
+        return videoaula;
+      });
+    },
+    videoaulasTftAvaFilter() {
+      return this.videoaulasTftAva.filter(videoaula => {
+      if(videoaula.title.toLowerCase().includes(this.videoaulaTftAvaSearch))
+        return videoaula;
+      else if(videoaula.professor.toLowerCase().includes(this.videoaulaTftAvaSearch))
+        return videoaula;
+      });
+    },
     profsFilter() {
       return this.profs.filter(prof => {
         if(prof.first_name.toLowerCase().includes(this.profSearch))
@@ -419,10 +525,24 @@ export default {
   data () {
     return {
       errors: [],
-      videoaulas: [],
-      videoaulaIniSearch: "",
-      videoaulaIntSearch: "",
-      videoaulaAvaSearch: "",
+      videoaulaGame: null,
+      videoaulaDifficulty: null,
+      videoaulaTitle: null,
+      videoaulaThumbnail: null,
+      videoaulaDescription: null,
+      videoaulaLink: null,
+      videoaulasLolIni: [],
+      videoaulasLolInt: [],
+      videoaulasLolAva: [],
+      videoaulaLolIniSearch: "",
+      videoaulaLolIntSearch: "",
+      videoaulaLolAvaSearch: "",
+      videoaulasTftIni: [],
+      videoaulasTftInt: [],
+      videoaulasTftAva: [],
+      videoaulaTftIniSearch: "",
+      videoaulaTftIntSearch: "",
+      videoaulaTftAvaSearch: "",
       profs: [],
       profSearch: "",
       profid: null,
@@ -443,13 +563,189 @@ export default {
       alunosobrenome: null,
       alunocel: null,
       alunosenha: null,
-      alunoini: null,
-      alunoint: null,
-      alunoava: null,
-      alunocch: null
+      alunoini: 0,
+      alunoint: 0,
+      alunoava: 0,
+      alunocch: 0
     }
   },
   methods: {
+    getVideoAulas: function() {
+      const self = this;
+      let url = "http://localhost:3000/produtos/1";
+      let status;
+      self.videoaulasLolIni = [];
+      self.videoaulasLolInt = [];
+      self.videoaulasLolAva = [];
+      self.videoaulasTftIni = [];
+      self.videoaulasTftInt = [];
+      self.videoaulasTftAva = [];
+
+      fetch(url)
+        .then(function(response) {
+          status = response.ok;
+          if(status)
+            return response.json();
+          else
+            alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.');
+        })
+        .then(function(response) {
+          if(status) {
+            for(let i = 0; i < 2; i++) {
+              let game = response[i].type_game;
+              for(let j = 0; j < 3; j++) {
+                let difficulty = response[i].difficulty[j].name;
+                for(let k = 0; k < response[i].difficulty[j].videoaulas.length; k++) {
+                  let videoaula = response[i].difficulty[j].videoaulas[k];
+                  //lol
+                  if(game === 1) {
+                    if(difficulty === "basico") {
+                      self.videoaulasLolIni.push(videoaula);
+                    }
+                    else if(difficulty === "intermediario") {
+                      self.videoaulasLolInt.push(videoaula);
+                    }
+                    else if(difficulty === "avancado") {
+                      self.videoaulasLolAva.push(videoaula);
+                    }
+                  }
+                  //tft
+                  else if(game === 2) {
+                    if(difficulty === "basico") {
+                      self.videoaulasTftIni.push(videoaula);
+                    }
+                    else if(difficulty === "intermediario") {
+                      self.videoaulasTftInt.push(videoaula);
+                    }
+                    else if(difficulty === "avancado") {
+                      self.videoaulasTftAva.push(videoaula);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        })
+        .catch(function(error) {
+          console.log('Error ' + error.message)
+        })
+    },
+    toAdicVideoAula: function () {
+      document.getElementById('card_adic_videoaula').style.display='block';
+    },
+    closeAdicVideoAula: function () {
+      this.clearProf();
+      document.getElementById('card_adic_videoaula').style.display='none';
+    },
+    adicVideoAula: function () {
+      /*const self = this;
+      let urlProf = "http://localhost:3000/usuarios";
+      let urlVideoAula = "http://localhost:3000/produtos/1"
+      let status;*/
+
+      this.errors = [];
+      if (!this.videoaulaGame) {
+        this.errors.push('O game é obrigatório.');
+      }
+      if (!this.videoaulaDifficulty) {
+        this.errors.push('A dificuldade é obrigatório.');
+      }
+      if (!this.videoaulaTitle) {
+        this.errors.push('O titulo é obrigatório.');
+      }
+      if (!this.videoaulaThumbnail) {
+        this.errors.push('A thumbnail é obrigatório.');
+      }
+      if (!this.videoaulaDescription) {
+        this.errors.push('A descrição é obrigatório.');
+      }
+      if (!this.videoaulaLink) {
+        this.errors.push('O link é obrigatório.');
+      }
+      //tudo preenchido
+      if (!this.errors.length) {
+        /*let dados = {
+        name_game: self.videoaulaGame,
+        difficulty: self.videoaulaDifficulty,
+        title: self.videoaulaTitle,
+        thumbnail: self.videoaulaThumbnail,
+        description: self.videoaulaDescription,
+        link: self.videoaulaLink
+        };
+
+        fetch(urlProf + '/' + self.userid)
+        .then(function(response) {
+          status = response.ok;
+          if(status)
+            return response.json();
+          else
+            alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.');
+        })
+        .then(function(response) {
+          if(status) {
+            dados.professor = response.nickname;
+
+            //insercao da video aula
+            fetch(urlVideoAula, {
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+              method: 'POST',
+              body: JSON.stringify(dados)
+            })
+            .then(function(response) {
+              status = response.ok;
+              if(status) {
+                return response.json();
+              }
+              else
+                alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.');
+            })
+            .then(function() {
+              alert('Cadastro de Video aula registrado com sucesso!');
+              self.getVideoAulas();
+            })
+            .catch(function(error) {
+              console.log('Error ' + error.message)
+            })
+          }
+        })
+        .catch(function(error) {
+          console.log('Error ' + error.message)
+        })*/console.log(this.userid);
+      }
+    },
+    deleteVideoAula: function (game, difficulty, id) {
+      if(confirm('Deseja realmente excluir essa video aula?')) {
+        console.log(game, difficulty, id);
+        /*let url = "http://localhost:3000/produtos1";
+        let status;
+        let self = this;
+
+        fetch(url + '/' + self.profid, {
+          method: 'DELETE',
+        })
+        .then(function(response) {
+        status = response.ok;
+        if(status) {
+          return response.json();
+        }
+        else {
+          alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando ou id do aluno não existe!.');
+          return;
+        }
+        })
+        .then(function() {
+          if(status)
+            alert('Professor excluído com sucesso!!!');
+            self.getVideoAulas();
+        })
+        .catch(function(error) {
+          console.log('Error ' + error.message)
+        })*/
+        }
+    },
     clearProf: function () {
       this.errors = [];
       this.profs = [];
@@ -465,7 +761,7 @@ export default {
     },
     getProfs: function () {
       const self = this;
-      let url = "http://localhost:3000/users";
+      let url = "http://localhost:3000/usuarios";
       let status;
       self.profs = [];
 
@@ -543,7 +839,8 @@ export default {
     verifyProf: function() {
       const self = this;
       let existEmail = false;
-      let url = "http://localhost:3000/users";
+      let existNickname = false;
+      let url = "http://localhost:3000/usuarios";
       let status;
 
       this.errors = [];
@@ -563,9 +860,16 @@ export default {
                 existEmail = true;
                 break;
               }
+              if(self.profnickname == user.nickname) {
+                existNickname = true;
+              }
             }
             if(existEmail) {
-              self.errors.push('Email já registrado!');
+              self.errors.push('Email já existe!');
+              return;
+            }
+            if(existNickname) {
+              self.errors.push('Nickname já existe!');
               return;
             }
             else {
@@ -579,7 +883,7 @@ export default {
     },
     profregisterConfirmed: function() {
       const self = this;
-      let url = "http://localhost:3000/users";
+      let url = "http://localhost:3000/usuarios";
       let status;
       let dados = {
         first_name: self.profnome,
@@ -611,6 +915,7 @@ export default {
       })
       .then(function() {
         alert('Cadastro de professor registrado com sucesso!');
+        self.getProfs();
       })
       .catch(function(error) {
         console.log('Error ' + error.message)
@@ -621,12 +926,17 @@ export default {
 
     verifyEditProf: async function () {
       let self = this;
-      let url = "http://localhost:3000/users";
+      let url = "http://localhost:3000/usuarios";
       let status;
       let isvalidEmail;
       self.dados = {};
       self.errors = [];
 
+      //id
+      if (!self.profid) {
+        self.errors.push('Id é obrigatório.');
+        return false;
+      }
       //email
       if (self.profemail) {
         if (!self.validEmail(self.profemail)) {
@@ -665,7 +975,9 @@ export default {
         if(!isvalidEmail)
           return false;
       }
-
+      if (self.profid) {
+      self.dados._id = self.id;
+      }
       if (self.proffoto) {
       self.dados.photo = self.proffoto;
       }
@@ -687,8 +999,8 @@ export default {
       return true;
     },
     editProf: async function() {
-      const self = this;
-      let url = "http://localhost:3000/users";
+      let self = this;
+      let url = "http://localhost:3000/usuarios";
       let status;
       this.errors = [];
 
@@ -714,8 +1026,10 @@ export default {
           alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.');
         })
         .then(function() {
-          if(status)
+          if(status) {
             alert('Professor editado com sucesso!');
+            self.getProfs();
+          }
         })
         .catch(function(error) {
           console.log('Error ' + error.message)
@@ -727,7 +1041,7 @@ export default {
       }
     },
     deleteProf: function() {
-      let url = "http://localhost:3000/users";
+      let url = "http://localhost:3000/usuarios";
       let status;
       let self = this;
 
@@ -745,8 +1059,10 @@ export default {
       }
       })
       .then(function() {
-        if(status)
+        if(status) {
           alert('Professor excluído com sucesso!!!');
+          self.getProfs();
+        }
       })
       .catch(function(error) {
         console.log('Error ' + error.message)
@@ -761,14 +1077,14 @@ export default {
       this.alunosobrenome = null;
       this.alunocel = null;
       this.alunosenha = null;
-      this.alunoini = null;
-      this.alunoint = null;
-      this.alunoava = null;
-      this.alunocch = null;
+      this.alunoini = 0;
+      this.alunoint = 0;
+      this.alunoava = 0;
+      this.alunocch = 0;
     },
     getAlunos: function () {
       const self = this;
-      let url = "http://localhost:3000/users";
+      let url = "http://localhost:3000/usuarios";
       let status;
       self.alunos = [];
 
@@ -823,7 +1139,7 @@ export default {
     },
     verifyEditAluno: async function () {
       let self = this;
-      let url = "http://localhost:3000/users";
+      let url = "http://localhost:3000/usuarios";
       let status;
       let user_remaining_classes;
       let isvalidEmail;
@@ -935,7 +1251,7 @@ export default {
     },
     editAluno: async function() {
       const self = this;
-      let url = "http://localhost:3000/users";
+      let url = "http://localhost:3000/usuarios";
       let status;
       this.errors = [];
 
@@ -961,8 +1277,10 @@ export default {
           alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.');
         })
         .then(function() {
-          if(status)
+          if(status) {
             alert('Aluno editado com sucesso!');
+            self.getAlunos();
+          }
         })
         .catch(function(error) {
           console.log('Error ' + error.message)
@@ -974,7 +1292,7 @@ export default {
       }
     },
     deleteAluno: function() {
-      let url = "http://localhost:3000/users";
+      let url = "http://localhost:3000/usuarios";
       let status;
       let self = this;
 
@@ -992,8 +1310,10 @@ export default {
       }
       })
       .then(function() {
-        if(status)
+        if(status) {
           alert('Aluno excluído com sucesso!!!');
+          self.getAlunos();
+        }
       })
       .catch(function(error) {
         console.log('Error ' + error.message)

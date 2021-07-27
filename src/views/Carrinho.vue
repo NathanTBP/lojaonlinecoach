@@ -110,7 +110,7 @@ export default {
     }
   },
   mounted(){
-    fetch('http://localhost:3000/products')
+    fetch('http://localhost:3000/produtos/3')
       .then(res => res.json())
       .then(data => this.products = data)
 
@@ -201,7 +201,7 @@ export default {
     },
     buyConfirmed: function() {
       let idusuario = parseInt(localStorage.getItem('userid'));
-      let url = "http://localhost:3000/users";
+      let url = "http://localhost:3000/usuarios";
       let status;
       let self = this;
       let user_remaining_classes;
