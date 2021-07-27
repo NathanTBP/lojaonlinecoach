@@ -8,10 +8,24 @@ router.get("/", (requisicao,resposta,proxima) => {
 
     Usuario.find({})
     .then(usuarios=>{
-        resposta.status(200).send(usuarios);
+        resposta.status(200).send({message: 'Usuarios Encontrados:',usuarios});
     })
     .catch(e=>{
-        resposta.status(404).send({message: 'Não existem Videos', data:e})
+        resposta.status(404).send({message: 'Não existem Usuarios', data:e})
+    });
+
+});
+
+router.get("/:id", (requisicao,resposta,proxima) => {
+
+    const id = requisicao.params.id;
+
+    Usuario.findById(id)
+    .then(usuario=>{
+        resposta.status(200).send(usuario);
+    })
+    .catch(e=>{
+        resposta.status(404).send({message: 'Não existem usuarios ', data:e})
     });
 
 });
@@ -24,7 +38,6 @@ router.post("/", (requisicao,resposta,proxima) => {
     usuario.last_name=requisicao.body.last_name;
     usuario.nickname=requisicao.body.nickname;
     usuario.celular=requisicao.body.celular;
-    usuario.photo=requisicao.body.photo;
     usuario.email=requisicao.body.email;
     usuario.password=requisicao.body.password;
     usuario.type_user=requisicao.body.type_user;
@@ -43,6 +56,15 @@ router.post("/", (requisicao,resposta,proxima) => {
 
 router.put("/:id", (requisicao,resposta,proxima) => {
 
+    const id = requisicao.params.id;
+
+    Usuario.findById(id)
+    .then(usuario=>{
+        resposta.status(200).send(usuario);
+    })
+    .catch(e=>{
+        resposta.status(404).send({message: 'Não existem usuarios ', data:e})
+    });
 
 });
 
