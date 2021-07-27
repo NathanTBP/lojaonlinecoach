@@ -114,18 +114,20 @@ export default {
         .then(function(response) {
           if(status) {
             let user = response;
-            for(let i = 0; i < user.remaining_classes.length; i++) {
-              if(user.remaining_classes[i].product_id == 1) {
-                self.iniquantity = user.remaining_classes[i].quantity;
-              }
-              else if(user.remaining_classes[i].product_id == 2) {
-                self.intquantity = user.remaining_classes[i].quantity;
-              }
-              else if(user.remaining_classes[i].product_id == 3) {
-                self.avaquantity = user.remaining_classes[i].quantity;
-              }
-              else if(user.remaining_classes[i].product_id == 4) {
-                self.cchquantity = user.remaining_classes[i].quantity;
+            if(user.remaining_classes) {
+              for(let i = 0; i < user.remaining_classes.length; i++) {
+                if(user.remaining_classes[i].product_id == 1) {
+                  self.iniquantity = user.remaining_classes[i].quantity;
+                }
+                else if(user.remaining_classes[i].product_id == 2) {
+                  self.intquantity = user.remaining_classes[i].quantity;
+                }
+                else if(user.remaining_classes[i].product_id == 3) {
+                  self.avaquantity = user.remaining_classes[i].quantity;
+                }
+                else if(user.remaining_classes[i].product_id == 4) {
+                  self.cchquantity = user.remaining_classes[i].quantity;
+                }
               }
             }
           }
