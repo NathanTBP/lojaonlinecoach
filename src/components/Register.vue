@@ -105,13 +105,13 @@ export default {
       if (this.regsenha !== this.regsenha2) {
         this.errors.push('Senhas não coincidem.');
       }
+      if(e)
+        e.preventDefault();
       if (!this.errors.length) {
         this.verifyRegister();
         return true;
       }
-      if(e)
-        e.preventDefault();
-      },
+    },
     validEmail: function (email) {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);

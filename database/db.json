@@ -88,15 +88,15 @@
       "remaining_classes": [
         {
           "product_id": 1,
-          "quantity": 4
+          "quantity": 6
         },
         {
           "product_id": 4,
-          "quantity": 3
+          "quantity": 5
         },
         {
           "product_id": 2,
-          "quantity": 5
+          "quantity": 7
         }
       ],
       "acquired_classes": [
@@ -119,6 +119,59 @@
         }
       ],
       "id": 3
+    },
+    {
+      "first_name": "ab",
+      "last_name": "ab",
+      "celular": "123",
+      "email": "b@hotmail.com",
+      "password": "abc",
+      "type_user": 1,
+      "remaining_classes": [
+        {
+          "product_id": 1,
+          "quantity": 6
+        },
+        {
+          "product_id": 2,
+          "quantity": 5
+        },
+        {
+          "product_id": 3,
+          "quantity": 4
+        },
+        {
+          "product_id": 4,
+          "quantity": 2
+        }
+      ],
+      "acquired_classes": [],
+      "live_classes": [],
+      "id": 4
+    },
+    {
+      "first_name": "sadas",
+      "last_name": "asdasda",
+      "celular": "12312312",
+      "email": "c@hotmail.com",
+      "password": "aaa",
+      "type_user": 1,
+      "remaining_classes": [],
+      "acquired_classes": [],
+      "live_classes": [],
+      "id": 5
+    },
+    {
+      "first_name": "aaa",
+      "last_name": "aaa",
+      "celular": "123",
+      "nickname": "aaa",
+      "photo": "https://noticiasdatv.uol.com.br/media/_versions/artigos/nany-people-estavam-avellar-globo_fixed_large.jpg",
+      "email": "a@hotmail.com",
+      "password": "123",
+      "type_user": 2,
+      "live_classes": [],
+      "id": 6
     }
   ],
   "products": [
@@ -153,7 +206,7 @@
   ],
   "aulas": [
     {
-      "id": 1,
+      "type_game": 1,
       "name": "League of Legends",
       "link": "#",
       "difficulty": [
@@ -223,7 +276,7 @@
       ]
     },
     {
-      "id": 2,
+      "type_game": 2,
       "name": "Team Fight Tactics",
       "link": "#",
       "difficulty": [
@@ -291,16 +344,6 @@
           ]
         }
       ]
-    }
-  ],
-  "games": [
-    {
-      "id": 1,
-      "name": "League of Legends"
-    },
-    {
-      "id": 2,
-      "name": "League of Legends"
     }
   ]
 }
