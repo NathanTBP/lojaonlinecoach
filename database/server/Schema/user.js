@@ -6,12 +6,12 @@ const Schema = mongoose.Schema;
 const usuarios = new Schema({
     //o id vem sozinho
 
-    primeironome: {
+    first_name: {
         type: String,
         required: true,
         trim: true,
     },
-    ultimonome: {
+    last_name: {
         type: String,
         required: true,
         trim: true,
@@ -24,16 +24,28 @@ const usuarios = new Schema({
         required: true,
         unique: true,
     },
-    senha: {
+    photo: {
+        type: String,
+        trim: true,
+    },
+    password: {
         type: String,
         required: true,
     },
-    tipo: { // 1 e normal, 2 e prof 3 e adm
+    nickname: {
+        type: String,
+        trim: true,
+    },
+    type_user: { // 1 e normal, 2 e prof 3 e adm
         type: Number,
         required: true,
     },
-    aulasrestantes: [{tipo: Number, quantidade: Number}],
-    aulasadquiridas: [{nome: String}],
+    live_classes: [{date: Date, teacher: String}],
+    acquired_classes: [{
+        difficulty_name: String,
+        class_id: String,
+    }],
+
 });
 
 module.exports = mongoose.model('Usuarios',usuarios);
