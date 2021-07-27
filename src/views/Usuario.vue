@@ -79,15 +79,33 @@ export default {
     }
   },
   methods: {
-    setProfessors: function(){
-      const url = "http://localhost:3000/usuarios";
-      fetch(url)
-        .then(function(response){
-          console.log(response)
-          let users = response.json()
-          for (let i = 0; i < users.length; i++){
-            console.log(users[i])
+    setProfessors: async function(){
+      const url = "http://localhost:3000/usuarios"
+      let status;
+      let self = this
+      let teachers = []
+      await fetch(url)
+        .then(function(response) {
+          status = response.ok
+          if(status){
+            return response.json();
           }
+          else{
+            alert('Erro de conexão');
+          }
+        })
+        .then(function(response) {
+          if(status) {
+            for(let i = 0; i < response.length; i++) {
+              let user = response[i]
+              if (user.type_user == 2){
+                teachers.push(user.nickname)
+              }
+            }
+          }
+        }).then(function(){
+          self.availableTeachers = teachers
+          console.log(self.availableTeachers)
         })
     },
     submitCoachClass: function(){
