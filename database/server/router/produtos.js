@@ -6,7 +6,7 @@ const Video = mongoose.model("Video");
 const Aovivo = mongoose.model("Aovivo");
 const Product = mongoose.model("Products");
 
-//1 e video e 2 e ao vivo
+//1 e video e 2 e ao vivo e 3 sao os valores
 router.get("/:tipo", (requisicao,resposta,proxima) => {
 
     const tipo = requisicao.params.tipo;
@@ -52,8 +52,14 @@ router.post("/:tipo", (requisicao,resposta,proxima) => {
     let video = new Video();
     
     video.id=requisicao.body.id;
-    video.name=requisicao.body.name;
+    video.title=requisicao.body.title;
+    video.name_game=requisicao.body.name_game;
     video.difficulty=requisicao.body.difficulty;
+    video.thumbnail=requisicao.body.thumbnail;
+    video.professor=requisicao.body.professor;
+    video.description=requisicao.body.description;
+    video.link=requisicao.body.link;
+    video.quantity=requisicao.body.quantity;
 
     video.save()
     .then(x=>{
@@ -68,11 +74,12 @@ router.post("/:tipo", (requisicao,resposta,proxima) => {
 
     let aovivo = new Aovivo();
 
-    aovivo.nomeprof=requisicao.body.nomeprof;
-    aovivo.nickprof=requisicao.body.nickprof;
-    aovivo.horario=requisicao.body.horario;
-    aovivo.tipo=requisicao.body.tipo;
-    aovivo.jogo=requisicao.body.jogo;
+    aovivo.condition=requisicao.body.condition;
+    aovivo.professor=requisicao.body.professor;
+    aovivo.prof_email=requisicao.body.prof_email;
+    aovivo.prof_celular=requisicao.body.prof_celular;
+    aovivo.aluno=requisicao.body.aluno;
+    aovivo.quantity=requisicao.body.quantity;
 
     aovivo.save()
     .then(x=>{
@@ -113,9 +120,15 @@ router.patch("/:tipo/:id", (requisicao,resposta,proxima) => {
     if (tipo==1) {
         Video.findByIdAndUpdate(id,{
             $set:{
-                 name :requisicao.body.name,
-                 id :requisicao.body.id,
-                 difficulty :requisicao.body.difficulty,
+                id: requisicao.body.id,
+                title: requisicao.body.title,
+                name_game: requisicao.body.name_game,
+                difficulty: requisicao.body.difficulty,
+                thumbnail: requisicao.body.thumbnail,
+                professor: requisicao.body.professor,
+                description: requisicao.body.description,
+                link: requisicao.body.link,
+                quantity: requisicao.body.quantity,
             }
         })
             .then(x=>{
@@ -129,11 +142,12 @@ router.patch("/:tipo/:id", (requisicao,resposta,proxima) => {
         
         Aovivo.findByIdAndUpdate(id,{
             $set:{
-                 jogo :requisicao.body.jogo,
-                 tipo :requisicao.body.tipo,
-                 nomeprof :requisicao.body.nomeprof,
-                 nickprof :requisicao.body.nickprof,
-                 horario :requisicao.body.horario,
+                condition: requisicao.body.condition,
+                professor: requisicao.body.professor,
+                prof_email: requisicao.body.prof_email,
+                prof_celular: requisicao.body.prof_celular,
+                aluno: requisicao.body.aluno,
+                quantity: requisicao.body.quantity,
             }
         })
             .then(x=>{

@@ -12,62 +12,95 @@ const products = new Schema({
         type: String,
         required: false,
     },
-    info:{price:Number}
+    info:{price:Number,quantity:Number}
 });
 
 const video = new Schema({
 
-    id: {
+    id: { // Id manual que pode ser utilizado para acessar a aula (se não quiser usar o do mongo)
         type: Number,
-        required: true,
+        unique: true,
     },
 
-    name: {
+    title: { // Nome da videoaula, também é unico e pode ser usado como chave
         type: String,
         required: true,
         trim: true,
         unique: true,
     },
 
-    difficulty: [
-    { // 1 e lol e 2 e tft
-        name: String,
-        videoaulas: [{
-            id: Number,
-            title: String,
-            thumbnail: String,
-            professor: String,
-            description: String,
-            link: String
-        }]
-    }]
+    name_game:{ // Nome do jogo, podendo ser LOL ou TFT
+        type: String,
+        trim: true,
+        required: true
+    },
+
+    difficulty:{ // Pode ser basico intermediario ou avançado
+        type: String,
+        trim: true,
+        required: true,
+    },
+
+    thumbnail: { // Url para a imagem da thumbnail
+        type: String,
+        default: "https://upload.wikimedia.org/wikipedia/commons/c/cd/Black_flag.svg"
+    },
+
+    professor:{ // Nome do professor responsavel pela aula
+        type: String,
+        trim: true,
+        required: true,
+    },
+
+    description:{ // Descrição do conteúdo da aula
+        type: String,
+        trim: true,
+        default: "Esse video ainda nao possui descricao"
+    },
+
+    link:{ // Link para o video do drive que contem a aula
+        type: String,
+        trim: true,
+        required: true,
+    },
+
+    quantity:{ // Informa quantas ja foram vendidas
+        type: Number,
+        default: "0"
+    }
+
 });
 
 const aovivo = new Schema({
-    //o id vem sozinho
 
-    nomeprof: {
+    condition: { // Booleano da confirmação da aula: falso é pendente e true e confirmada
+        type: Boolean,
+        default: false,
+    },
+
+    professor: { // Nickname do professor
         type: String,
         required: true,
         trim: true,
     },
-    nickprof: {
+
+    prof_email: { // Email do professor
+        type: String,
+    },
+
+    prof_celular: { // Telefone do professor
+        type: Number,
+    },
+
+    aluno: { // Email do aluno
         type: String,
         required: true,
-        trim: true,
     },
-    horario: {
-        type: Date,
-        required: true,
-    },
-    tipo: { // Ja implica no preco e na dificuldade
+
+    quantity:{ // Informa quantas ja foram vendidas
         type: Number,
-        required: true,
-    },
-    jogo: { // 1 e lol e 2 e tft
-        type: Number,
-        required: true,
-    },
+        default: "0"
+    }
 
 });
 
