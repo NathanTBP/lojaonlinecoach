@@ -432,8 +432,8 @@
         </div>
       </div>
     </div>
+    <br>
   </div>
-  <br>
 </template>
 
 <script>

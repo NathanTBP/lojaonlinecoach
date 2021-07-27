@@ -60,7 +60,12 @@ export default {
     return localStorage.getItem('usertype');
     },
     coachQuantities: function(){
-      return [...Array(this.cchquantity).keys()].map(i => i + 1)
+      if (this.cchquantity > 0){
+        return [...Array(this.cchquantity).keys()].map(i => i + 1)
+      }
+      else{
+        return 0
+      }
     }
   },
   mounted() {
@@ -105,15 +110,53 @@ export default {
           }
         }).then(function(){
           self.availableTeachers = teachers
-          console.log(self.availableTeachers)
         })
     },
-    submitCoachClass: function(){
+    submitCoachClass: async function(){
       let currentDate = new Date().toISOString().split('T')
       const time = currentDate[1].split(':')
       currentDate[1] = time[0] + ":" + time[1]
-      console.log(this.selectedCoachQuantity, this.selectedCoachTeacher, currentDate.join("-"))
       this.cchquantity -= parseInt(this.selectedCoachQuantity)
+
+      let url = "http://localhost:3000/usuarios";
+      let userInfo;
+      let status
+      await fetch(url + "/" + localStorage.getItem("userid"))
+      .then(function(response) {
+          status = response.ok;
+          if(status)
+            return response.json();
+          else
+            alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.');
+        })
+      .then(function(response){
+        userInfo = response
+      })
+      for(let i = 0; i < userInfo.remaining_classes.length; i++){
+        if (userInfo.remaining_classes[i].product_id == 4){
+          userInfo.remaining_classes[i].quantity = this.cchquantity
+        }
+      }
+      fetch(url + "/" + localStorage.getItem("userid"), {
+        method: 'PATCH', // or 'PUT'
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userInfo),
+      })
+        .then(function(response) {
+        status = response.ok;
+        if(status) {
+          return response.json();
+        }
+        else
+          alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.');
+        })
+          .then(function() {
+          if(status) {
+            alert('Agendamento realizado com sucesso');
+          }
+        })
     },
     getCreditsQuantity: function() {
       let idusuario = localStorage.getItem('userid');
