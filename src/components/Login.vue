@@ -117,7 +117,7 @@ export default {
                   confirmLogin = true;
                   self.tipousuario = user.type_user;
                   self.nomeusuario = user.first_name;
-                  self.idusuario = user.id;
+                  self.idusuario = user._id;
                   break;
                 }
               }

@@ -86,7 +86,7 @@ export default {
       this.cchquantity -= parseInt(this.selectedCoachQuantity)
     },
     getCreditsQuantity: function() {
-      let idusuario = parseInt(localStorage.getItem('userid'));
+      let idusuario = localStorage.getItem('userid');
       let url = "http://localhost:3000/usuarios";
       let status;
       let self = this;
