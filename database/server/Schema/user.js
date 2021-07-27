@@ -40,7 +40,7 @@ const usuarios = new Schema({
         type: Number,
         required: true,
     },
-    live_classes: [{date: Date, teacher: String}],
+    remaining_classes: [{product_id: Number, quantity: Number}],
     acquired_classes: [{
         difficulty_name: String,
         class_id: String,
