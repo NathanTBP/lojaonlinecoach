@@ -65,10 +65,11 @@ export default {
   },
   mounted() {
     this.getCreditsQuantity()
+    this.setProfessors()
   },
   data () {
     return {
-      availableTeachers: ["Matheus", "Nathan", "Kendi"],
+      availableTeachers: [],
       selectedCoachTeacher: "",
       selectedCoachQuantity: "",
       iniquantity: 0,
@@ -78,6 +79,17 @@ export default {
     }
   },
   methods: {
+    setProfessors: function(){
+      const url = "http://localhost:3000/usuarios";
+      fetch(url)
+        .then(function(response){
+          console.log(response)
+          let users = response.json()
+          for (let i = 0; i < users.length; i++){
+            console.log(users[i])
+          }
+        })
+    },
     submitCoachClass: function(){
       let currentDate = new Date().toISOString().split('T')
       const time = currentDate[1].split(':')
