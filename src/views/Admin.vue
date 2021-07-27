@@ -82,11 +82,11 @@
               <th>Cancelar</th>
             </tr>
             <tr v-for="videoaulaLolIni in videoaulasLolIniFilter" :key="videoaulaLolIni.id">
-              <td> {{videoaulaLolIni.id}} </td>
+              <td> {{videoaulaLolIni._id}} </td>
               <td> {{videoaulaLolIni.title}} </td>
               <td> {{videoaulaLolIni.professor}} </td>
               <td> {{videoaulaLolIni.quantity}} </td>
-              <td><input class="cancel" type="button" value="  X  " @click.prevent="deleteVideoAula(1, 'basico', videoaulaLolIni.id)"></td>
+              <td><input class="cancel" type="button" value="  X  " @click.prevent="deleteVideoAula('lol', 'basico', videoaulaLolIni._id)"></td>
             </tr>
           </table><br><br>
           <h4>Vídeo Aulas Intermediário</h4>
@@ -100,11 +100,11 @@
               <th>Cancelar</th>
             </tr>
             <tr v-for="videoaulaLolInt in videoaulasLolIntFilter" :key="videoaulaLolInt.id">
-              <td> {{videoaulaLolInt.id}} </td>
+              <td> {{videoaulaLolInt._id}} </td>
               <td> {{videoaulaLolInt.title}} </td>
               <td> {{videoaulaLolInt.professor}} </td>
               <td> {{videoaulaLolInt.quantity}} </td>
-              <td><input class="cancel" type="button" value="  X  " @click.prevent="deleteVideoAula(1, 'intermediario', videoaulaLolInt.id)"></td>
+              <td><input class="cancel" type="button" value="  X  " @click.prevent="deleteVideoAula('lol', 'intermediario', videoaulaLolInt._id)"></td>
             </tr>
           </table><br><br>
           <h4>Vídeo Aulas Avançado</h4>
@@ -118,11 +118,11 @@
               <th>Cancelar</th>
             </tr>
             <tr v-for="videoaulaLolAva in videoaulasLolAvaFilter" :key="videoaulaLolAva.id">
-              <td> {{videoaulaLolAva.id}} </td>
+              <td> {{videoaulaLolAva._id}} </td>
               <td> {{videoaulaLolAva.title}} </td>
               <td> {{videoaulaLolAva.professor}} </td>
               <td> {{videoaulaLolAva.quantity}} </td>
-              <td><input class="cancel" type="button" value="  X  " @click.prevent="deleteVideoAula(1, 'avancado', videoaulaLolAva.id)"></td>
+              <td><input class="cancel" type="button" value="  X  " @click.prevent="deleteVideoAula('lol', 'avancado', videoaulaLolAva._id)"></td>
             </tr>
           </table><br><br>
         </div>
@@ -140,11 +140,11 @@
               <th>Cancelar</th>
             </tr>
             <tr v-for="videoaulaTftIni in videoaulasTftIniFilter" :key="videoaulaTftIni.id">
-              <td> {{videoaulaTftIni.id}} </td>
+              <td> {{videoaulaTftIni._id}} </td>
               <td> {{videoaulaTftIni.title}} </td>
               <td> {{videoaulaTftIni.professor}} </td>
               <td> {{videoaulaTftIni.quantity}} </td>
-              <td><input class="cancel" type="button" value="  X  " @click.prevent="deleteVideoAula(2, 'basico', videoaulaTftIni.id)"></td>
+              <td><input class="cancel" type="button" value="  X  " @click.prevent="deleteVideoAula('tft', 'basico', videoaulaTftIni._id)"></td>
             </tr>
           </table><br><br>
           <h4>Vídeo Aulas Intermediário</h4>
@@ -158,11 +158,11 @@
               <th>Cancelar</th>
             </tr>
             <tr v-for="videoaulaTftInt in videoaulasTftIntFilter" :key="videoaulaTftInt.id">
-              <td> {{videoaulaTftInt.id}} </td>
+              <td> {{videoaulaTftInt._id}} </td>
               <td> {{videoaulaTftInt.title}} </td>
               <td> {{videoaulaTftInt.professor}} </td>
               <td> {{videoaulaTftInt.quantity}} </td>
-              <td><input class="cancel" type="button" value="  X  " @click.prevent="deleteVideoAula(2, 'intermediario', videoaulaTftInt.id)"></td>
+              <td><input class="cancel" type="button" value="  X  " @click.prevent="deleteVideoAula('tft', 'intermediario', videoaulaTftInt._id)"></td>
             </tr>
           </table><br><br>
           <h4>Vídeo Aulas Avançado</h4>
@@ -176,11 +176,11 @@
               <th>Cancelar</th>
             </tr>
             <tr v-for="videoaulaTftAva in videoaulasTftAvaFilter" :key="videoaulaTftAva.id">
-              <td> {{videoaulaTftAva.id}} </td>
+              <td> {{videoaulaTftAva._id}} </td>
               <td> {{videoaulaTftAva.title}} </td>
               <td> {{videoaulaTftAva.professor}} </td>
               <td> {{videoaulaTftAva.quantity}} </td>
-              <td><input class="cancel" type="button" value="  X  " @click.prevent="deleteVideoAula(2, 'avancado', videoaulaTftAva.id)"></td>
+              <td><input class="cancel" type="button" value="  X  " @click.prevent="deleteVideoAula('tft', 'avancado', videoaulaTftAva._id)"></td>
             </tr>
           </table><br><br>
         </div>
@@ -390,7 +390,7 @@
             <th>Nº Aulas Coach Dispon.</th>
           </tr>
           <tr v-for="aluno in alunosFilter" :key="aluno.id">
-            <td> {{aluno.id}} </td>
+            <td> {{aluno._id}} </td>
             <td> {{aluno.first_name}} </td>
             <td> {{aluno.last_name}} </td>
             <td> {{aluno.email}} </td>
@@ -591,36 +591,32 @@ export default {
         })
         .then(function(response) {
           if(status) {
-            for(let i = 0; i < 2; i++) {
-              let game = response[i].type_game;
-              for(let j = 0; j < 3; j++) {
-                let difficulty = response[i].difficulty[j].name;
-                for(let k = 0; k < response[i].difficulty[j].videoaulas.length; k++) {
-                  let videoaula = response[i].difficulty[j].videoaulas[k];
-                  //lol
-                  if(game === 1) {
-                    if(difficulty === "basico") {
-                      self.videoaulasLolIni.push(videoaula);
-                    }
-                    else if(difficulty === "intermediario") {
-                      self.videoaulasLolInt.push(videoaula);
-                    }
-                    else if(difficulty === "avancado") {
-                      self.videoaulasLolAva.push(videoaula);
-                    }
-                  }
-                  //tft
-                  else if(game === 2) {
-                    if(difficulty === "basico") {
-                      self.videoaulasTftIni.push(videoaula);
-                    }
-                    else if(difficulty === "intermediario") {
-                      self.videoaulasTftInt.push(videoaula);
-                    }
-                    else if(difficulty === "avancado") {
-                      self.videoaulasTftAva.push(videoaula);
-                    }
-                  }
+            for(let i = 0; i < response.length; i++) {
+              let game = response[i].name_game;
+              let difficulty = response[i].difficulty;
+              let videoaula = response[i];
+              //lol
+              if(game === "lol") {
+                if(difficulty === "basico") {
+                  self.videoaulasLolIni.push(videoaula);
+                }
+                else if(difficulty === "intermediario") {
+                  self.videoaulasLolInt.push(videoaula);
+                }
+                else if(difficulty === "avancado") {
+                  self.videoaulasLolAva.push(videoaula);
+                }
+              }
+              //tft
+              else if(game === "tft") {
+                if(difficulty === "basico") {
+                  self.videoaulasTftIni.push(videoaula);
+                }
+                else if(difficulty === "intermediario") {
+                  self.videoaulasTftInt.push(videoaula);
+                }
+                else if(difficulty === "avancado") {
+                  self.videoaulasTftAva.push(videoaula);
                 }
               }
             }
@@ -638,10 +634,10 @@ export default {
       document.getElementById('card_adic_videoaula').style.display='none';
     },
     adicVideoAula: function () {
-      /*const self = this;
+      const self = this;
       let urlProf = "http://localhost:3000/usuarios";
       let urlVideoAula = "http://localhost:3000/produtos/1"
-      let status;*/
+      let status;
 
       this.errors = [];
       if (!this.videoaulaGame) {
@@ -664,13 +660,14 @@ export default {
       }
       //tudo preenchido
       if (!this.errors.length) {
-        /*let dados = {
+        let dados = {
         name_game: self.videoaulaGame,
         difficulty: self.videoaulaDifficulty,
         title: self.videoaulaTitle,
         thumbnail: self.videoaulaThumbnail,
         description: self.videoaulaDescription,
-        link: self.videoaulaLink
+        link: self.videoaulaLink,
+        quantity: 0
         };
 
         fetch(urlProf + '/' + self.userid)
@@ -684,7 +681,7 @@ export default {
         .then(function(response) {
           if(status) {
             dados.professor = response.nickname;
-
+            console.log(response.nickname);
             //insercao da video aula
             fetch(urlVideoAula, {
               headers: {
@@ -703,8 +700,10 @@ export default {
                 alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.');
             })
             .then(function() {
-              alert('Cadastro de Video aula registrado com sucesso!');
-              self.getVideoAulas();
+              if(status) {
+                alert('Cadastro de Video aula registrado com sucesso!');
+                self.getVideoAulas();
+              }
             })
             .catch(function(error) {
               console.log('Error ' + error.message)
@@ -713,17 +712,17 @@ export default {
         })
         .catch(function(error) {
           console.log('Error ' + error.message)
-        })*/console.log(this.userid);
+        })
       }
     },
     deleteVideoAula: function (game, difficulty, id) {
       if(confirm('Deseja realmente excluir essa video aula?')) {
         console.log(game, difficulty, id);
-        /*let url = "http://localhost:3000/produtos1";
+        let url = "http://localhost:3000/produtos/1";
         let status;
         let self = this;
 
-        fetch(url + '/' + self.profid, {
+        fetch(url + '/' + id, {
           method: 'DELETE',
         })
         .then(function(response) {
@@ -738,12 +737,12 @@ export default {
         })
         .then(function() {
           if(status)
-            alert('Professor excluído com sucesso!!!');
+            alert('Video Aula excluído com sucesso!!!');
             self.getVideoAulas();
         })
         .catch(function(error) {
           console.log('Error ' + error.message)
-        })*/
+        })
         }
     },
     clearProf: function () {
@@ -1102,18 +1101,20 @@ export default {
               let user = response[i];
               if (user.type_user == 1) {
                 let quant_aulas = {ini: 0, int: 0, ava: 0, cch: 0};
-                for(let j = 0; j < user.remaining_classes.length; j++) {
-                  if(user.remaining_classes[j].product_id == 1) {
-                    quant_aulas.ini = user.remaining_classes[j].quantity;
-                  }
-                  else if(user.remaining_classes[j].product_id == 2) {
-                    quant_aulas.int = user.remaining_classes[j].quantity;
-                  }
-                  else if(user.remaining_classes[j].product_id == 3) {
-                    quant_aulas.ava = user.remaining_classes[j].quantity;
-                  }
-                  else if(user.remaining_classes[j].product_id == 4) {
-                    quant_aulas.cch = user.remaining_classes[j].quantity;
+                if(user.remaining_classes) {
+                  for(let j = 0; j < user.remaining_classes.length; j++) {
+                    if(user.remaining_classes[j].product_id == 1) {
+                      quant_aulas.ini = user.remaining_classes[j].quantity;
+                    }
+                    else if(user.remaining_classes[j].product_id == 2) {
+                      quant_aulas.int = user.remaining_classes[j].quantity;
+                    }
+                    else if(user.remaining_classes[j].product_id == 3) {
+                      quant_aulas.ava = user.remaining_classes[j].quantity;
+                    }
+                    else if(user.remaining_classes[j].product_id == 4) {
+                      quant_aulas.cch = user.remaining_classes[j].quantity;
+                    }
                   }
                 }
                 user.quant_aulas = quant_aulas;
@@ -1147,58 +1148,6 @@ export default {
       self.dados = {};
       self.errors = [];
 
-      //email
-      if (self.alunoemail) {
-        if (!self.validEmail(self.alunoemail)) {
-          self.errors.push('Email inválido.');
-          return false;
-        }
-        await fetch(url)
-        .then(function(response) {
-          status = response.ok;
-          if(status)
-            return response.json();
-          else
-            alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.');
-        })
-        .then(function(response) {
-          if(status) {
-            for(let i = 0; i < response.length; i++) {
-              let user = response[i];
-              if(self.alunoemail == user.email) {
-                if(self.alunoid == user.id) {
-                  self.errors.push('Mesmo email!');
-                  isvalidEmail = false;
-                }
-                else {
-                  self.errors.push('Email já registrado por outro usuário!');
-                  isvalidEmail = false;
-                }
-              }
-            }
-            self.dados.email = self.alunoemail;
-          }
-        })
-        .catch(function(error) {
-          console.log('Error ' + error.message)
-        })
-        if(!isvalidEmail)
-          return false;
-      }
-
-        if (self.alunonome) {
-        self.dados.first_name = self.alunonome;
-        }
-        if (self.alunosobrenome) {
-          self.dados.last_name = self.alunosobrenome;
-        }
-        if (self.alunocel) {
-          self.dados.celular = self.alunocel;
-        }
-        if (self.alunosenha) {
-          self.dados.password = self.alunosenha;
-        }
-
       //creditos
       await fetch(url + '/' + self.alunoid)
       .then(function(response) {
@@ -1210,6 +1159,7 @@ export default {
       })
       .then(function(user) {
         if(status) {
+          self.dados = user;
           user_remaining_classes = user.remaining_classes;
           for(let j = 0; j < user_remaining_classes.length; j++) {
             if(user.remaining_classes[j].product_id == 1) {
@@ -1247,6 +1197,60 @@ export default {
       .catch(function(error) {
         console.log('Error ' + error.message)
       })
+      if(!self.alunoid) {
+        self.errors.push('Id é obrigatório!');
+      }
+      if (self.alunonome) {
+        self.dados.first_name = self.alunonome;
+      }
+      if (self.alunosobrenome) {
+        self.dados.last_name = self.alunosobrenome;
+      }
+      if (self.alunocel) {
+        self.dados.celular = self.alunocel;
+      }
+      if (self.alunosenha) {
+        self.dados.password = self.alunosenha;
+      }
+
+      //email
+      if (self.alunoemail) {
+        if (!self.validEmail(self.alunoemail)) {
+          self.errors.push('Email inválido.');
+          return false;
+        }
+        await fetch(url)
+        .then(function(response) {
+          status = response.ok;
+          if(status)
+            return response.json();
+          else
+            alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.');
+        })
+        .then(function(response) {
+          if(status) {
+            for(let i = 0; i < response.length; i++) {
+              let user = response[i];
+              if(self.alunoemail == user.email) {
+                if(self.alunoid == user._id) {
+                  self.errors.push('Mesmo email!');
+                  isvalidEmail = false;
+                }
+                else {
+                  self.errors.push('Email já registrado por outro usuário!');
+                  isvalidEmail = false;
+                }
+              }
+            }
+            self.dados.email = self.alunoemail;
+          }
+        })
+        .catch(function(error) {
+          console.log('Error ' + error.message)
+        })
+        if(!isvalidEmail)
+          return false;
+      }
       return true;
     },
     editAluno: async function() {

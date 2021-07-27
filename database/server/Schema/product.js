@@ -17,11 +17,6 @@ const products = new Schema({
 
 const video = new Schema({
 
-    id: { // Id manual que pode ser utilizado para acessar a aula (se não quiser usar o do mongo)
-        type: Number,
-        unique: true,
-    },
-
     title: { // Nome da videoaula, também é unico e pode ser usado como chave
         type: String,
         required: true,

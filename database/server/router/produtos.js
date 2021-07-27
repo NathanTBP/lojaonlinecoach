@@ -51,7 +51,6 @@ router.post("/:tipo", (requisicao,resposta,proxima) => {
 
     let video = new Video();
     
-    video.id=requisicao.body.id;
     video.title=requisicao.body.title;
     video.name_game=requisicao.body.name_game;
     video.difficulty=requisicao.body.difficulty;
@@ -176,8 +175,9 @@ router.patch("/:tipo/:id", (requisicao,resposta,proxima) => {
 
 });
 
-router.delete("/:id", (requisicao,resposta,proxima) => {
+router.delete("/:tipo/:id", (requisicao,resposta,proxima) => {
 
+    const tipo = requisicao.params.tipo;
     const nome = requisicao.params.id;
 
     if (tipo==1) {
@@ -200,7 +200,7 @@ router.delete("/:id", (requisicao,resposta,proxima) => {
         })
     }
     else if (tipo==3){
-        Product.findOneAndRemove("id: " + nome)
+        Product.findOneAndRemove(nome)
             .then(x=>{
             resposta.status(200).send({message: 'Produto removido com sucesso!'});
         })
