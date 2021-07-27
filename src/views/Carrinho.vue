@@ -200,7 +200,7 @@ export default {
       return re.test(email);
     },
     buyConfirmed: function() {
-      let idusuario = parseInt(localStorage.getItem('userid'));
+      let idusuario = localStorage.getItem('userid');
       let url = "http://localhost:3000/usuarios";
       let status;
       let self = this;
@@ -222,7 +222,7 @@ export default {
           if(status) {
             for(let i = 0; i < response.length; i++) {
               let user = response[i];
-              if(idusuario == user.id) {
+              if(idusuario == user._id) {
                 user_remaining_classes = user.remaining_classes;
                 for(let i = 0; i < self.shopCart.length; i++) {
                   existclass = false;
