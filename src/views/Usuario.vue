@@ -61,16 +61,15 @@ export default {
     },
     coachQuantities: function(){
       return [...Array(this.cchquantity).keys()].map(i => i + 1)
-    },
-    availableTeachers() {
-      return this.setProfessors()
     }
   },
   mounted() {
     this.getCreditsQuantity()
+    this.setProfessors()
   },
   data () {
     return {
+      availableTeachers: [],
       selectedCoachTeacher: "",
       selectedCoachQuantity: "",
       iniquantity: 0,
@@ -80,11 +79,12 @@ export default {
     }
   },
   methods: {
-    setProfessors: function(){
+    setProfessors: async function(){
       const url = "http://localhost:3000/usuarios"
       let status;
+      let self = this
       let teachers = []
-      fetch(url)
+      await fetch(url)
         .then(function(response) {
           status = response.ok
           if(status){
@@ -99,13 +99,14 @@ export default {
             for(let i = 0; i < response.length; i++) {
               let user = response[i]
               if (user.type_user == 2){
-                //const professorName = user.first_name + " " + user.last_name
                 teachers.push(user.nickname)
               }
             }
           }
+        }).then(function(){
+          self.availableTeachers = teachers
+          console.log(self.availableTeachers)
         })
-        return teachers
     },
     submitCoachClass: function(){
       let currentDate = new Date().toISOString().split('T')
