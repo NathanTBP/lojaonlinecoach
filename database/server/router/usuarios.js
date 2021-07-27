@@ -54,13 +54,35 @@ router.post("/", (requisicao,resposta,proxima) => {
 
 });
 
-router.put("/:id", (requisicao,resposta,proxima) => {
+router.patch("/:id", (requisicao,resposta,proxima) => {
 
     const id = requisicao.params.id;
 
-    Usuario.findById(id)
-    .then(usuario=>{
-        resposta.status(200).send(usuario);
+    usuario.first_name=requisicao.body.first_name;
+    usuario.last_name=requisicao.body.last_name;
+    usuario.nickname=requisicao.body.nickname;
+    usuario.celular=requisicao.body.celular;
+    usuario.email=requisicao.body.email;
+    usuario.password=requisicao.body.password;
+    usuario.type_user=requisicao.body.type_user;
+    usuario.live_classes=requisicao.body.live_classes;
+    usuario.acquired_classes=requisicao.body.acquired_classes;
+
+    Usuario.findByIdAndUpdate(id,{
+        $set:{
+            first_name: requisicao.body.first_name,
+            last_name: requisicao.body.last_name,
+            nickname: requisicao.body.nickname,
+            celular: requisicao.body.celular,
+            email: requisicao.body.email,
+            password: requisicao.body.password,
+            type_user: requisicao.body.type_user,
+            live_classes: requisicao.body.live_classes,
+            acquired_classes: requisicao.body.acquired_classes,
+        }
+    })
+    .then(x=>{
+        resposta.status(200).send({message: 'Usuario atualizado com sucesso!'});
     })
     .catch(e=>{
         resposta.status(404).send({message: 'Não existem usuarios ', data:e})
@@ -70,7 +92,15 @@ router.put("/:id", (requisicao,resposta,proxima) => {
 
 router.delete("/:id", (requisicao,resposta,proxima) => {
 
+    const id = requisicao.params.id;
 
+    Usuario.findByIdAndRemove(id)
+    .then(x=>{
+        resposta.status(200).send({message: 'Usuario Removido com sucesso!'});
+    })
+    .catch(e=>{
+        resposta.status(404).send({message: 'Não existem usuarios ', data:e})
+    });
 
 });
 
