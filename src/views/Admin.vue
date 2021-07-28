@@ -648,6 +648,8 @@ export default {
     }
   },
   methods: {
+    // mark the selected (clicked) planned class as confirmed,
+    // sending it to the confirmed coach class list 
     markAsConfirmed: async function(index){
       let newPlannedCoachClass = this.coachClasses.planned[index]
       newPlannedCoachClass.condition = true
@@ -671,9 +673,12 @@ export default {
         }
       })
 
+      // reload page to update the new data
       this.coachClasses.planned[index] = newPlannedCoachClass
       this.getcoachClasses()
     },
+
+    // get coach classes from the DB
     getcoachClasses: async function(){
       const url = "http://localhost:3000/produtos/2"
       let status
@@ -703,14 +708,19 @@ export default {
         }
       })
     },
+
+    // get the date (day, month, year , week day) from saved date data
     getDate: function(date){
       let formatedDate = new Date(date)
       return formatedDate.toDateString()
     },
+    // get the time (Hours, minutes, seconds) from the date data
     getTime: function(date){
       let time = new Date(date)
       return time.toTimeString()
     },
+
+    // set the total ammount sold and profited from the sold classes
     getTotals: function() {
       const self = this;
       let url = "http://localhost:3000/produtos/3";
@@ -755,6 +765,8 @@ export default {
           console.log('Error ' + error.message)
         })
     },
+
+    // get all Video Aulas from the DB
     getVideoAulas: function() {
       const self = this;
       let url = "http://localhost:3000/produtos/1";
@@ -811,13 +823,20 @@ export default {
           console.log('Error ' + error.message)
         })
     },
+
+    // pop add new Video Aula card on screen
     toAdicVideoAula: function () {
       document.getElementById('card_adic_videoaula').style.display='block';
     },
+
+    // hide/close the add new Video Aula card
     closeAdicVideoAula: function () {
       this.clearProf();
       document.getElementById('card_adic_videoaula').style.display='none';
     },
+
+    // save the added Video Aula to the DB
+    // checks if every input field was properly entered
     adicVideoAula: function () {
       const self = this;
       let urlProf = "http://localhost:3000/usuarios";
@@ -843,7 +862,8 @@ export default {
       if (!this.videoaulaLink) {
         this.errors.push('O link é obrigatório.');
       }
-      //tudo preenchido
+
+      // tudo preenchido
       if (!this.errors.length) {
         let dados = {
         name_game: self.videoaulaGame,
@@ -869,7 +889,7 @@ export default {
             dados.professor = "abc";
             console.log(response.nickname);
             console.log(dados);
-            //insercao da video aula
+            // insercao da video aula
             fetch(urlVideoAula, {
               headers: {
                 'Accept': 'application/json',
@@ -902,6 +922,8 @@ export default {
         })
       }
     },
+
+    // remove Video Aula from DB
     deleteVideoAula: function (game, difficulty, id) {
       if(confirm('Deseja realmente excluir essa video aula?')) {
         console.log(game, difficulty, id);
@@ -932,6 +954,8 @@ export default {
         })
         }
     },
+
+    // clear all the Prof (professors) related info 
     clearProf: function () {
       this.errors = [];
       this.profs = [];
@@ -945,6 +969,8 @@ export default {
       this.profsenha = null;
       this.profsenha2 = null;
     },
+
+    // get prof related info from the server
     getProfs: function () {
       const self = this;
       let url = "http://localhost:3000/usuarios";
@@ -973,21 +999,28 @@ export default {
           console.log('Error ' + error.message)
         })
     },
+
+    // pop/show "add new Prof" card on screen
     toAdicProf: function () {
       document.getElementById('card_adic_prof').style.display='block';
     },
+    // close/hide "add new Prof" card
     closeAdicProf: function () {
       this.clearProf();
       document.getElementById('card_adic_prof').style.display='none';
     },
+
+    // pop/show "edit Prof" card on screen
     toEditProf: function () {
       document.getElementById('card_edit_prof').style.display='block';
     },
+    // close/hide "edit Prof" card
     closeEditProf: function () {
       this.clearProf();
       document.getElementById('card_edit_prof').style.display='none';
     },
 
+    // check if every input field was properly filled
     checkFormProf: function () {
       this.errors = [];
 
@@ -1022,6 +1055,8 @@ export default {
         return true;
       }
     },
+
+    // checks if Prof is valid
     verifyProf: function() {
       const self = this;
       let existEmail = false;
@@ -1067,6 +1102,8 @@ export default {
           console.log('Error ' + error.message)
         })
     },
+
+    // register the Proffessor if everything was right
     profregisterConfirmed: function() {
       const self = this;
       let url = "http://localhost:3000/usuarios";
@@ -1110,6 +1147,7 @@ export default {
       this.clearProf();
     },
 
+    //verify if the "edit professor" is valid
     verifyEditProf: async function () {
       let self = this;
       let url = "http://localhost:3000/usuarios";
@@ -1184,6 +1222,8 @@ export default {
       }
       return true;
     },
+
+    // edit the Proffessor if everything is valid
     editProf: async function() {
       let self = this;
       let url = "http://localhost:3000/usuarios";
@@ -1226,6 +1266,8 @@ export default {
         alert('Verifique os erros!');
       }
     },
+
+    // delete the proffessor from the DB
     deleteProf: function() {
       let url = "http://localhost:3000/usuarios";
       let status;
@@ -1254,6 +1296,8 @@ export default {
         console.log('Error ' + error.message)
       })
     },
+
+    // clear every info related to aluno
     clearAluno: function () {
       this.errors = [];
       this.dados = [];
@@ -1268,6 +1312,8 @@ export default {
       this.alunoava = 0;
       this.alunocch = 0;
     },
+
+    // get alunos from DB
     getAlunos: function () {
       const self = this;
       let url = "http://localhost:3000/usuarios";
@@ -1314,17 +1360,24 @@ export default {
           console.log('Error ' + error.message)
         })
     },
+
+    // show edit aluno screen
     toEditAluno: function () {
       document.getElementById('card_edit_aluno').style.display='block';
     },
+    // close edit aluno screen
     closeEditAluno: function () {
       this.clearAluno();
       document.getElementById('card_edit_aluno').style.display='none';
     },
+
+    //verify if email is valid
     validEmail: function (email) {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
+
+    // verify if the Edit is valid
     verifyEditAluno: async function () {
       let self = this;
       let url = "http://localhost:3000/usuarios";
@@ -1440,6 +1493,8 @@ export default {
       }
       return true;
     },
+
+    // edit Aluno if everything is right
     editAluno: async function() {
       const self = this;
       let url = "http://localhost:3000/usuarios";
@@ -1453,7 +1508,7 @@ export default {
         })
       if(result) {
         fetch(url + '/' + self.alunoid, {
-          method: 'PATCH', // or 'PUT'
+          method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
           },
@@ -1482,6 +1537,8 @@ export default {
         alert('Verifique os erros!');
       }
     },
+
+    // delete Aluno from the DB
     deleteAluno: function() {
       let url = "http://localhost:3000/usuarios";
       let status;

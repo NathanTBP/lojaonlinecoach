@@ -204,18 +204,20 @@
 
 <script>
 export default {
-  // TOFIX linkar cart (virtual) com o shopCart (localStorage)
   name: 'Produtos',
+  // get the coins from the coins (product 3) from the DB
   mounted(){
       fetch('http://localhost:3000/produtos/3')
       .then(res => res.json())
       .then(data => this.products = data)
 
+    // get the shopCart from the local storage
      if(localStorage.getItem('shopCart')){
         this.shopCart = JSON.parse(localStorage.getItem('shopCart'))
       }
   },
   updated(){
+    // updates the local storage shopCart
     if(localStorage.getItem('shopCart')){
       let parsed = JSON.stringify(this.shopCart)
       localStorage.setItem("shopCart", parsed)
@@ -223,7 +225,6 @@ export default {
       const parsed = JSON.stringify(this.shopCart)
       localStorage.setItem("shopCart", parsed)
     }
-    // this.mergeShopCart()
   },
   data: function () {
     return {
@@ -233,8 +234,11 @@ export default {
         {productId:3, quantity: 0},
         {productId:4, quantity: 0}
       ],
+
+
       products: [],
       shopCart:[],
+
 
       btn_buy_ini: false,
       btn_buy_int: false,
@@ -242,6 +246,8 @@ export default {
       btn_buy_cch: false,
       buy_nothing: false,
       buy_cart: -1,
+
+
       clear_buy_ini: -1,
       clear_buy_int: -1,
       clear_buy_ava: -1,
@@ -250,10 +256,13 @@ export default {
     }
   },
   methods: {
+    // using the product id as a parameter gets the product index
     getProductIndexById: function(productId){
       const result = this.products.find( ({id}) => id === productId )
       return result
     },
+
+    // merge the produtos shopCart with the local storage shopCart
     mergeShopCart: function(cartIndex){
 
       const res = this.shopCart.find(({productId}) => productId === this.cart[cartIndex].productId)
@@ -264,6 +273,8 @@ export default {
         this.shopCart.push(temp)
       }
     },
+
+    // verify every purchase made, and send relevant notifications if it goes through or doesn't
     buy_product: function(param) {
       if(param == 'ini' && this.cart[0].quantity > 0) {
         if(this.btn_buy_ini) {
@@ -314,6 +325,8 @@ export default {
       return;
 
     },
+
+    // close the currently openned Alerts
     closeAlert: function(param) {
       if(param == 'ini') {
         this.btn_buy_ini = false;
@@ -340,6 +353,8 @@ export default {
       }
       return;
     },
+
+    // shows notification to check cart periodically
     showCart: function() {
       setTimeout(() => this.buy_cart = 1, 3000);
       this.clear_buy_cart = setTimeout(() => this.buy_cart = 0, 9000);

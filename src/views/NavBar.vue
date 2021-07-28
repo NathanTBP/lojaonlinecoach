@@ -35,6 +35,7 @@ export default {
     Register
   },
   setup() {
+    // removes the stored user types so it has to log in again
     localStorage.removeItem('usertype');
     localStorage.setItem('usertype', '0');
     localStorage.removeItem('userid');
@@ -45,6 +46,8 @@ export default {
       tipousuario: 0,
       nomeusuario: '',
       idusuario: null,
+
+      
       usuariowidth: null
     }
   },
@@ -52,6 +55,7 @@ export default {
     toLogin() {
       document.getElementById('card_login').style.display='block';
     },
+    // checks if the user can log in, and does it if it is possible
     userLogged: function(tipousuario, nomeusuario, idusuario) {
       this.usuariowidth = null;
       this.tipousuario = tipousuario;
@@ -63,6 +67,7 @@ export default {
       localStorage.removeItem('userid');
       localStorage.setItem('userid', idusuario.toString());
     },
+    // logs the user out
     Logout: function() {
       this.tipousuario = 0;
       localStorage.removeItem('usertype');

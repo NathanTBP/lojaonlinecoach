@@ -47,6 +47,7 @@ export default {
     }
   },
   methods: {
+    // checks if the Forms were properly filled
     checkForm: function (e) {
       this.errors = [];
 

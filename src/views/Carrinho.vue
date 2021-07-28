@@ -99,6 +99,7 @@
 <script>
 export default {
   computed: {
+    // computes the cartTotal for display
     cartTotal: function() {
       let accumulator = 0
       for (let i = 0; i < this.shopCart.length; i++)
@@ -110,15 +111,18 @@ export default {
     }
   },
   mounted(){
+    // get coin (product 3) information from the DB
     fetch('http://localhost:3000/produtos/3')
       .then(res => res.json())
       .then(data => this.products = data)
 
+    // checks if there is a saved shopCart and uses it
     if(localStorage.getItem('shopCart')){
       this.shopCart = JSON.parse(localStorage.getItem('shopCart'))
     }
   },
   updated(){
+    // updates the local storage shopCart (if there is one) with the new values
     if(localStorage.getItem('shopCart')){
       let parsed = JSON.stringify(this.shopCart);
       localStorage.setItem("shopCart", parsed);
@@ -127,8 +131,13 @@ export default {
   data: function() {
     return {
       products: [],
+
       shopCart:[],
+
+
       errors: [],
+
+      // payment info
       cartname: '',
       cartemail: '',
       cartadr: '',
@@ -142,13 +151,18 @@ export default {
     }
   },
   methods:{
+    // using the product id as a parameter gets the product index
     getProductIndexById: function(productId){
       const result = this.products.find( ({id}) => id === productId );
       return result;
     },
+
+    // remove the selected item from the shopcart using its index
     removeFromList: function(index){
       this.shopCart.splice(index, 1);
     },
+
+    // checks if purchase is possible, and displays wich information were not properly filled
     checkBuy: function(e) {
       this.errors = [];
       let tipousuario;
@@ -188,6 +202,8 @@ export default {
       tipousuario = localStorage.getItem('usertype');
       if(tipousuario == '0')
         alert('Logue no site para realizar a compra! Não tem uma conta? Registre-se em Entrar');
+
+      // if everything is okay the purchase if confirmed
       if (!this.errors.length && tipousuario == '1' && localStorage.getItem('shopCart')) {
         this.buyConfirmed();
         return true;
@@ -195,10 +211,15 @@ export default {
       if(e)
         e.preventDefault();
     },
+
+    // verify if the email is valid
     validEmail: function (email) {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
+
+    // confirming and making the purchase,
+    // adding the newly bought products to the user's section on the DB
     buyConfirmed: async function() {
       let idusuario = localStorage.getItem('userid');
       let urlUser = "http://localhost:3000/usuarios";

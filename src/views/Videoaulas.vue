@@ -60,12 +60,16 @@
 <script>
 export default {
   computed: {
+    // get the user type from the local storage
     usertype() {
     return localStorage.getItem('usertype');
     },
+    // get the user id from the local storage
     userid() {
     return localStorage.getItem('userid');
     },
+
+    // filter the videoAulas to include only the ones that match the search input
     videoaulasFilter() {
       return this.videoaulas.filter(videoaula => {
       if(videoaula.title.toLowerCase().includes(this.videoaulaSearch))
@@ -76,21 +80,26 @@ export default {
     }
   },
   async mounted() {
+    // if the user is a client (type 1), gets user info
     if (this.usertype == 1)
       await this.getUserInfos();
+
     await this.getVideoAulas();
   },
   data: function () {
     return {
       videoaulas: [],
       unlockedvideoaulas: [],
+
       videoaulaSearch: "",
+
       creditini: 0,
       creditint: 0,
       creditava: 0
     }
   },
   methods: {
+    // get user informations from the DB
     getUserInfos: async function () {
       let url = "http://localhost:3000/usuarios";
       let status;
@@ -127,6 +136,7 @@ export default {
           console.log('Error ' + error.message)
         })
     },
+    // get the video Aulas list from the DB
     getVideoAulas: async function () {
       const self = this;
       let url = "http://localhost:3000/produtos/1";
@@ -161,6 +171,7 @@ export default {
           console.log('Error ' + error.message)
         })
     },
+    // unlocks the selected Video Aula
     unlockVideoAula: async function(videoaulaid, difficulty) {
       const self = this;
       let urlUser = "http://localhost:3000/usuarios";

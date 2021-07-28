@@ -120,12 +120,17 @@
 <script>
 export default {
   computed: {
+    // get the user type from the local storage
     usertype() {
       return localStorage.getItem('usertype');
     },
+    // get the user id from the local storage
     userid() {
       return localStorage.getItem('userid');
     },
+
+    // create an array with size 1...cchquantity (ammount of coach coins)
+    // for it to be used as a select option
     coachQuantities: function(){
       if (this.cchquantity > 0){
         return [...Array(this.cchquantity).keys()].map(i => i + 1)
@@ -134,6 +139,8 @@ export default {
         return 0
       }
     },
+
+    // filter the video aulas list with the search input
     videoaulasFilter() {
       return this.videoaulas.filter(videoaula => {
       if(videoaula.title.toLowerCase().includes(this.videoaulaSearch))
@@ -143,9 +150,12 @@ export default {
       });
     }
   },
+
+  // initializes all needed data if the user is properly logged in
   async mounted() {
     await this.verifyUser()
-    if (usertype == 1) {
+    // checks if the user is a client (type 1)
+    if (this.usertype == 1) {
       await this.getCreditsQuantity()
       await this.getProfessors()
       await this.getcoachClasses()
@@ -159,11 +169,18 @@ export default {
         "confirmed": []
       },
 
+
       availableTeachers: [],
+
+
       videoaulas: [],
       videoaulaSearch: "",
+
+
       selectedCoachTeacher: "",
       selectedCoachQuantity: 0,
+
+
       iniquantity: 0,
       intquantity: 0,
       avaquantity: 0,
@@ -309,7 +326,7 @@ export default {
           }
         })
       
-      // 
+      // new class template, that will be sent to the DB
       const newClass = {
         "condition": false,
         "date": currentDate,
@@ -330,17 +347,22 @@ export default {
         body: JSON.stringify(newClass)
       })
 
+      // reload the data, so the view is updated
       this.getcoachClasses()
 
     },
+
+    // get the date (day, month, year , week day) from saved date data
     getDate: function(date){
       let formatedDate = new Date(date)
       return formatedDate.toDateString()
     },
+    // get the time (Hours, minutes, seconds) from the date data
     getTime: function(date){
       let time = new Date(date)
       return time.toTimeString()
     },
+
     // get current logged in user credits from DB
     getCreditsQuantity: async function() {
       let idusuario = this.userid
@@ -381,6 +403,8 @@ export default {
           console.log('Error ' + error.message)
         })
     },
+
+    // get video aulas list from the DB
     getVideoAulas: async function() {
       let user;
       let urlVideoAula = "http://localhost:3000/produtos/1";
