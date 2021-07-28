@@ -78,6 +78,8 @@ Set-ExecutionPolicy RemoteSigned
 
 Lembrando que o site usa o framework vue.js (https://vuejs.org/)
 
+É possivel fazer acessar o site pelo seguinte url: https://loja-online-coach.herokuapp.com/#/, porém o servidor local ainda deve ser executado.
+
 * Problemas:
 
 Algumas das funcionalidades extras pensadas no início do projeto não foram implementadas para evitar demasiadas complicações que poderiam acarretar em extensão do prazo de entrega, que não podia ser feito.
@@ -87,6 +89,8 @@ Na página de contato, é feito a verificação dos inputs, entretanto, ao clica
 Ao tentar acessar páginas que exigem permissões como a página de usuário(aluno) e a página de admin(professor) sem ter feito o login, após realizar o login, o conteúdo das páginas não é completamente carregado, sendo necessário navegar entre as páginas, ou seja, ir para outra página e voltar para a desejada para poder acessar corretamente a página com os dados.
 
 Em carrinho, a verificação dos inputs do cartão de crédito são feitos de maneira simples, verificando se os inputs não são nulos e se a entrada de número de cartão possui apenas números por exemplo.
+
+Não conseguimos fazer o deploy do servidor. Embora o site esteja funcional, ele requer o servidor ligado na máquina local.
 
 * Resultado dos novos Testes:
 
