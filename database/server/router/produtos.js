@@ -74,6 +74,7 @@ router.post("/:tipo", (requisicao,resposta,proxima) => {
     let aovivo = new Aovivo();
 
     aovivo.condition=requisicao.body.condition;
+    aovivo.date=requisicao.body.date;
     aovivo.professor=requisicao.body.professor;
     aovivo.prof_email=requisicao.body.prof_email;
     aovivo.prof_celular=requisicao.body.prof_celular;
