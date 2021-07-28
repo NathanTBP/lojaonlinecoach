@@ -51,23 +51,44 @@
       </div>
 
       <div class="w3-table" id="bought-classes-div">
-      <h2>Aulas confirmadas</h2>
-      <table class="w3-table-all w3-hoverable">
-        <tr>
-          <th>Professor</th>
-          <th>Data</th>
-          <th>Horário</th>
-          <th>Quant aulas</th>
-          <th>Cancelar</th>
-        </tr>
-        <tr>
-          <td>Cadinho de Michael</td>
-          <td>29/05/2021</td>
-          <td>12:00</td>
-          <td>1</td>
-          <td><input class="cancel" type="button" value="  X  "></td>
-        </tr>
-      </table>
+        <h2>Aulas marcadas</h2>
+        <table class="w3-table-all w3-hoverable">
+          <tr>
+            <th>Professor</th>
+            <th>E-mail do professor</th>
+            <th>Celular do professor</th>
+            <th>Data do pedido</th>
+            <th>Horário</th>
+            <th>Quant aulas</th>
+          </tr>
+          <tr v-for="(item, index) in coachClasses.planned" :key="index">
+            <td>{{item.professor}}</td>
+            <td>{{item.prof_email}}</td>
+            <td>{{item.prof_celular}}</td>
+            <td>{{getDate(item.date)}}</td>
+            <td>{{getTime(item.date)}}</td>
+            <td>{{item.quantity}}</td>
+          </tr>
+        </table>
+        <h2>Aulas confirmadas</h2>
+        <table class="w3-table-all w3-hoverable">
+          <tr>
+            <th>Professor</th>
+            <th>E-mail do professor</th>
+            <th>Celular do professor</th>
+            <th>Data</th>
+            <th>Horário</th>
+            <th>Quant aulas</th>
+          </tr>
+          <tr v-for="(item, index) in coachClasses.confirmed" :key="index">
+            <td>{{item.professor}}</td>
+            <td>{{item.prof_email}}</td>
+            <td>{{item.prof_celular}}</td>
+            <td>{{getDate(item.date)}}</td>
+            <td>{{getTime(item.date)}}</td>
+            <td>{{item.quantity}}</td>
+          </tr>
+        </table>
       </div>
 
 
@@ -135,16 +156,14 @@ export default {
       .then(function(response){
         for (let i = 0; i < response.length; i++){
           let currClass = response[i]
-          if (currClass.condition){
-            self.coachClasses["planned"].push(currClass)
+          if (!currClass.condition){
+            self.coachClasses.planned.push(currClass)
           }
           else{
-            self.coachClasses["confirmed"].push(currClass)
+            self.coachClasses.confirmed.push(currClass)
           }
         }
       })
-      console.log(this.coachClasses["planned"])
-      console.log(this.coachClasses["confirmed"])
     },
     // get all the available teachers (every user with type 2 permission) from the DB
     getProfessors: async function(){
@@ -166,7 +185,7 @@ export default {
           if(status) {
             for(let i = 0; i < response.length; i++) {
               let user = response[i]
-              if (user.type_user == 2){
+              if (user.type_user == 2){ //type_user == 2 is the admin/professor permission type
                 teachers.push(user)
               }
             }
@@ -244,6 +263,8 @@ export default {
             alert('Agendamento realizado com sucesso')
           }
         })
+      
+      // 
       const newClass = {
         "condition": false,
         "date": currentDate,
@@ -263,7 +284,15 @@ export default {
         },
         body: JSON.stringify(newClass)
       })
-      this.coachClasses["planned"].push(newClass)
+      //this.coachClasses["planned"].push(newClass)
+    },
+    getDate: function(date){
+      let formatedDate = new Date(date)
+      return formatedDate.toDateString()
+    },
+    getTime: function(date){
+      let time = new Date(date)
+      return time.toTimeString()
     },
     // get current logged in user credits from DB
     getCreditsQuantity: async function() {
