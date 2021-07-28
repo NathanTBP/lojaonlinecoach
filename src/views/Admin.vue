@@ -454,6 +454,7 @@
 
 <script>
 export default {
+  // getting need information for initialization from the DB
   async mounted() {
     await this.getVideoAulas();
     await this.getProfs();
@@ -462,12 +463,17 @@ export default {
     await this.getTotals();
   },
   computed: {
+    // get the usertype (premission) from the local storage
     usertype() {
     return localStorage.getItem('usertype');
     },
+
+    // get the user id from the local storage
     userid() {
     return localStorage.getItem('userid');
     },
+
+    // filter league of legends (product 1) list using the search term from the equivalent input
     videoaulasLolIniFilter() {
       return this.videoaulasLolIni.filter(videoaula => {
       if(videoaula.title.toLowerCase().includes(this.videoaulaLolIniSearch))
@@ -492,6 +498,8 @@ export default {
         return videoaula;
       });
     },
+
+    // filter team fight tactics (product 2) list using the search term from the equivalent input
     videoaulasTftIniFilter() {
       return this.videoaulasTftIni.filter(videoaula => {
       if(videoaula.title.toLowerCase().includes(this.videoaulaTftIniSearch))
@@ -516,6 +524,8 @@ export default {
         return videoaula;
       });
     },
+
+    // filter the professors list using the search term from the equivalent input
     profsFilter() {
       return this.profs.filter(prof => {
         if(prof.first_name.toLowerCase().includes(this.profSearch))
@@ -529,6 +539,8 @@ export default {
       
       });
     },
+
+    // filter the alunos list using the search term from the equivalent input
     alunosFilter() {
       return this.alunos.filter(aluno => {
         if(aluno.first_name.toLowerCase().includes(this.alunoSearch))
@@ -539,6 +551,8 @@ export default {
           return aluno;
       });
     },
+
+    // filter the planned coach classes list using the search term from the equivalent input
     plannedCoachFilter(){
       return this.coachClasses.planned.filter(coachClass => {
         if(coachClass.aluno.toLowerCase().includes(this.plannedCoachSearch)){
@@ -548,6 +562,7 @@ export default {
         }
       })
     },
+    // filter the confirmed coach classes list using the search term from the equivalent input
     confirmedCoachFilter(){
       return this.coachClasses.confirmed.filter(coachClass => {
         if(coachClass.aluno.toLowerCase().includes(this.confirmedCoachSearch)){
@@ -568,20 +583,29 @@ export default {
       videoaulaThumbnail: null,
       videoaulaDescription: null,
       videoaulaLink: null,
+
+
       videoaulasLolIni: [],
       videoaulasLolInt: [],
       videoaulasLolAva: [],
+
+
       videoaulaLolIniSearch: "",
       videoaulaLolIntSearch: "",
       videoaulaLolAvaSearch: "",
+
       videoaulasTftIni: [],
       videoaulasTftInt: [],
       videoaulasTftAva: [],
+
       videoaulaTftIniSearch: "",
       videoaulaTftIntSearch: "",
       videoaulaTftAvaSearch: "",
+
+
       plannedCoachSearch: "",
       confirmedCoachSearch:"",
+
       profs: [],
       profSearch: "",
       profid: null,
@@ -593,6 +617,8 @@ export default {
       profcel: null,
       profsenha: null,
       profsenha2: null,
+
+
       alunos: [],
       dados: [],
       alunoSearch: "",
@@ -606,11 +632,14 @@ export default {
       alunoint: 0,
       alunoava: 0,
       alunocch: 0,
+
+
       initotal: 0,
       inttotal: 0,
       avatotal: 0,
       cchtotal: 0,
       lucrototal: 0,
+
 
       coachClasses: {
         "planned": [],
