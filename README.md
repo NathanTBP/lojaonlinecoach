@@ -71,12 +71,7 @@ Basta fazer download dos arquivos ou clone do GitHub e, na pasta principal, exec
 
 > npm install
 
-> npm run startserver
-
-Abra outro terminal e passe para o passo seguinte (para renderizar o frontend do site)
-
-> npm run serve
-
+> npm start
 
 Para windows, é necessário fornecer permissão para rodar o script não assinado, para isso basta rodar o comando na pasta com permissão de administrador
 Set-ExecutionPolicy RemoteSigned
