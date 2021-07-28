@@ -20,8 +20,7 @@ const video = new Schema({
     title: { // Nome da videoaula, também é unico e pode ser usado como chave
         type: String,
         required: true,
-        trim: true,
-        unique: true,
+        trim: true
     },
 
     name_game:{ // Nome do jogo, podendo ser LOL ou TFT
@@ -71,6 +70,11 @@ const aovivo = new Schema({
     condition: { // Booleano da confirmação da aula: falso é pendente e true e confirmada
         type: Boolean,
         default: false,
+    },
+
+    date: { //data e horario de quando usuario marca aula
+        type: Date,
+        required: true,
     },
 
     professor: { // Nickname do professor
