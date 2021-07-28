@@ -78,7 +78,10 @@
 export default {
   computed: {
     usertype() {
-    return localStorage.getItem('usertype');
+      return localStorage.getItem('usertype');
+    },
+    userid() {
+      return localStorage.getItem('userid');
     },
     coachQuantities: function(){
       if (this.cchquantity > 0){
@@ -87,7 +90,8 @@ export default {
       else{
         return 0
       }
-    }
+    },
+
   },
   mounted() {
     this.getCreditsQuantity()
@@ -139,8 +143,8 @@ export default {
           }
         }
       })
-      //console.log(this.coachClasses["planned"])
-      //console.log(this.coachClasses["confirmed"])
+      console.log(this.coachClasses["planned"])
+      console.log(this.coachClasses["confirmed"])
     },
     // get all the available teachers (every user with type 2 permission) from the DB
     getProfessors: async function(){
@@ -176,7 +180,7 @@ export default {
       let url = "http://localhost:3000/usuarios"
       let userInfo
       let status
-      await fetch(url + "/" + localStorage.getItem("userid"))
+      await fetch(url + "/" + this.userid)
       .then(function(response) {
           status = response.ok
           if(status)
@@ -200,8 +204,7 @@ export default {
           professor = this.availableTeachers[i]
         }
       }
-      console.log(professor.nickname)
-      const coinQuantity = this.cchquantity
+      const coinQuantity = this.selectedCoachQuantity
 
       if (!(coinQuantity >= 1) || !professor.nickname){
         return
@@ -216,12 +219,12 @@ export default {
       for(let i = 0; i < userInfo.remaining_classes.length; i++){
         if (userInfo.remaining_classes[i].product_id == 4){
           // update the userinfo to contain the new ammount of credits
-          userInfo.remaining_classes[i].quantity = coinQuantity
+          userInfo.remaining_classes[i].quantity = this.cchquantity
         }
       }
 
       // send a PATCH request to the DB with the updated ammount of credits
-      await fetch(url + "/" + localStorage.getItem("userid"), {
+      await fetch(url + "/" + this.userid, {
         method: 'PATCH', // or 'PUT'
         headers: {
           'Content-Type': 'application/json',
@@ -243,37 +246,33 @@ export default {
         })
       const newClass = {
         "condition": false,
+        "date": currentDate,
         "professor": professor.nickname,
         "prof_email": professor.email,
         "prof_celular": professor.celular,
         "aluno": userInfo.email,
-        "quantity": coinQuantity,
-        "date": currentDate
+        "quantity": coinQuantity
       }
-      console.log(newClass)
 
       url = "http://localhost:3000/produtos/2"
-      fetch(url, {
+      await fetch(url, {
         method: 'POST',
         headers: {
-          'Cotent-type': 'application/json',
+          'Content-type': 'application/json',
           'Accept': 'application/json',
         },
         body: JSON.stringify(newClass)
       })
-      .then(function(response){
-        console.log(response)
-      })
-        
+      this.coachClasses["planned"].push(newClass)
     },
     // get current logged in user credits from DB
-    getCreditsQuantity: function() {
-      let idusuario = localStorage.getItem('userid')
+    getCreditsQuantity: async function() {
+      let idusuario = this.userid
       let url = "http://localhost:3000/usuarios"
       let status;
       let self = this;
 
-      fetch(url + '/' + idusuario)
+      await fetch(url + '/' + idusuario)
         .then(function(response) {
           status = response.ok;
           if(status)
