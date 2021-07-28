@@ -402,33 +402,49 @@
           </tr>
         </table>
         <br>
-        <div class="w3-col s12 w3-container">
-          <h4>Aulas Confirmadas</h4>
+        <div class="w3-table" id="bought-classes-div">
+          <h4>Aulas marcadas</h4>
+          <input type="text" class="w3-margin" placeholder="Search" v-model="plannedCoachSearch">
           <table class="w3-table-all w3-hoverable">
             <tr>
-              <th>N° Pedido</th>
-              <th>Email Aluno</th>
-              <th>Data</th>
-              <th>Horário</th>
               <th>Professor</th>
-              <th>Jogo</th>
-              <th>Nível</th>
+              <th>E-mail do aluno</th>
+              <th>Data do pedido</th>
+              <th>Horário</th>
               <th>Quant aulas</th>
-              <th>Cancelar</th>
+              <th>Confirmar</th>
             </tr>
-            <tr>
-              <td>000002</td>
-              <td>will_smith123@hotmail.com</td>
-              <td>29/05/2021</td>
-              <td>12:00</td>
-              <td>Cadinho de Michael</td>
-              <td>TFT</td>
-              <td>Iniciante</td>
-              <td>1</td>
-              <td><input class="cancel" type="button" value="  X  "></td>
+            <tr v-for="(item, index) in plannedCoachFilter" :key="index">
+              <td>{{item.professor}}</td>
+              <td>{{item.aluno}}</td>
+              <td>{{getDate(item.date)}}</td>
+              <td>{{getTime(item.date)}}</td>
+              <td>{{item.quantity}}</td>
+              <td>
+                <span class="w3-bar-item w3-button w3-right w3-small" 
+                  @click.prevent="markAsConfirmed(index)">&#10003;</span>
+              </td>
             </tr>
           </table>
 
+          <h4>Aulas confirmadas</h4>
+          <input type="text" class="w3-margin" placeholder="Search" v-model="confirmedCoachSearch">
+          <table class="w3-table-all w3-hoverable">
+            <tr>
+              <th>Professor</th>
+              <th>E-mail do aluno</th>
+              <th>Data</th>
+              <th>Horário</th>
+              <th>Quant aulas</th>
+            </tr>
+            <tr v-for="(item, index) in confirmedCoachFilter" :key="index">
+              <td>{{item.professor}}</td>
+              <td>{{item.aluno}}</td>
+              <td>{{getDate(item.date)}}</td>
+              <td>{{getTime(item.date)}}</td>
+              <td>{{item.quantity}}</td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
@@ -443,6 +459,7 @@ export default {
     this.getVideoAulas();
     this.getProfs();
     this.getAlunos();
+    this.getcoachClasses();
   },
   computed: {
     usertype() {
@@ -521,7 +538,26 @@ export default {
         else if(aluno.email.toLowerCase().includes(this.alunoSearch))
           return aluno;
       });
+    },
+    plannedCoachFilter(){
+      return this.coachClasses.planned.filter(coachClass => {
+        if(coachClass.aluno.toLowerCase().includes(this.plannedCoachSearch)){
+          return coachClass
+        }else if(coachClass.professor.toLowerCase().includes(this.plannedCoachSearch)){
+          return coachClass
+        }
+      })
+    },
+    confirmedCoachFilter(){
+      return this.coachClasses.confirmed.filter(coachClass => {
+        if(coachClass.aluno.toLowerCase().includes(this.confirmedCoachSearch)){
+          return coachClass
+        }else if(coachClass.professor.toLowerCase().includes(this.confirmedCoachSearch)){
+          return coachClass
+        }
+      })
     }
+
   },
   data () {
     return {
@@ -544,6 +580,8 @@ export default {
       videoaulaTftIniSearch: "",
       videoaulaTftIntSearch: "",
       videoaulaTftAvaSearch: "",
+      plannedCoachSearch: "",
+      confirmedCoachSearch:"",
       profs: [],
       profSearch: "",
       profid: null,
@@ -567,10 +605,78 @@ export default {
       alunoini: 0,
       alunoint: 0,
       alunoava: 0,
-      alunocch: 0
+      alunocch: 0,
+
+      coachClasses: {
+        "planned": [],
+        "confirmed": []
+      },
     }
   },
   methods: {
+    markAsConfirmed: async function(index){
+      let newPlannedCoachClass = this.coachClasses.planned[index]
+      newPlannedCoachClass.condition = true
+
+      const url = "http://localhost:3000/produtos/2/" + newPlannedCoachClass._id
+      let status
+
+      await fetch(url, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newPlannedCoachClass),
+      })
+      .then(function(response){
+        status = response.ok
+        if (status){
+          return response.json()
+        }else{
+          alert("Erro de conexão")
+        }
+      })
+
+      this.coachClasses.planned[index] = newPlannedCoachClass
+      this.getcoachClasses()
+    },
+    getcoachClasses: async function(){
+      const url = "http://localhost:3000/produtos/2"
+      let status
+      let self = this
+
+      await fetch(url)
+      .then(function(response){
+        status = response.ok
+        if(status){
+          self.coachClasses.planned = []
+          self.coachClasses.confirmed = []
+          return response.json()
+        }
+        else{
+          alert("Erro de conexão")
+        }
+      })
+      .then(function(response){
+        for (let i = 0; i < response.length; i++){
+          let currClass = response[i]
+          if (!currClass.condition){
+            self.coachClasses.planned.push(currClass)
+          }
+          else{
+            self.coachClasses.confirmed.push(currClass)
+          }
+        }
+      })
+    },
+    getDate: function(date){
+      let formatedDate = new Date(date)
+      return formatedDate.toDateString()
+    },
+    getTime: function(date){
+      let time = new Date(date)
+      return time.toTimeString()
+    },
     getTotals: function() {
       const self = this;
       let url = "http://localhost:3000/produtos/3";
