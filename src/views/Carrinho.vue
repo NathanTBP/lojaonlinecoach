@@ -313,6 +313,8 @@ export default {
                 })
                 .then(function() {
                   if(status) {
+                    self.shopCart = []
+                    localStorage.shopCart = []
                     alert('Compra realizada com sucesso!!!');
                     //update products quantity
                     for(let m = 0; m < dadosProduct.length; m++) {

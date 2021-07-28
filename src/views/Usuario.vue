@@ -203,6 +203,8 @@ export default {
       let status
       let self = this
 
+      let curruser = await this.getUserInfo()
+
       await fetch(url)
       .then(function(response){
         status = response.ok
@@ -218,6 +220,7 @@ export default {
       .then(function(response){
         for (let i = 0; i < response.length; i++){
           let currClass = response[i]
+          if (currClass.aluno === curruser.email)
           if (!currClass.condition){
             self.coachClasses.planned.push(currClass)
           }
