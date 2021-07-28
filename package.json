@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node ./server/bin/server.js"
+    "start": "node ./server/bin/server.js" 
   },
   "dependencies": {
     "debug": "^4.3.2",
