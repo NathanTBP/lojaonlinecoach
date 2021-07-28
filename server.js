@@ -1,17 +1,43 @@
-const express = require('express')
-const serveStatic = require('serve-static')
-const path = require('path')
+const http = require("http");
+const debug = require("debug")("nodestr:server");
+const app = require('./server/serverapp');
 
-const app = express()
 
-//here we are configuring dist to serve app files
-app.use('/', serveStatic(path.join(__dirname, '/dist')))
+let porta = 3000;
+porta = normalizarPorta(process.env.PORT,porta);
+app.set("port",porta);
 
-// this * route is to serve project on different page routes except root `/`
-app.get(/.*/, function (req, res) {
-    res.sendFile(path.join(__dirname, '/dist/index.html'))
-})
+const servidor = http.createServer(app);
 
-const port = process.env.PORT || 8080
-app.listen(port)
-console.log(`app is listening on port: ${port}`)
+servidor.listen(porta);
+servidor.on('listening',onListening);
+console.log("Servidor Inicializado na porta " + porta);
+
+//Recebe uma porta sugerida pelo ambiente e uma porta constante e decide qual colocar no servidor
+function normalizarPorta(ambiente,porta){
+
+    const tcp = require("tcp-port-used")
+    //Tenta colocar a constante
+
+    if(tcp.check(porta)) return porta;
+
+    else{
+
+    const testavalido = parseInt(ambiente,10);
+    //Se a porta do ambiente, não é um int, retorna ela como string 
+    if (isNaN(testavalido)) return ambiente;
+    //Se e numérica, retorna ela mesmo assim
+    else if (testavalido>=0) return testavalido;
+
+    }
+    //Se deu erro, e o ambiente não retornou uma porta válida, abre numa constante
+    return false; // Deu erro
+};
+
+function onListening(){
+    const addr = servidor.address();
+    const bind = typeof addr === 'string'
+        ? 'pipe' + addr
+        : 'port' + addr.port;
+    debug('Listening on' + bind);
+}
