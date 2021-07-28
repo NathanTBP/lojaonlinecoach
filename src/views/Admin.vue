@@ -12,7 +12,7 @@
             <h6>Aulas coach total: {{ cchtotal }}</h6>
           </div>
           <footer class="w3-container w3-green">
-            <h2>Lucro total: {{ lucrototal }}</h2>
+            <h2>Lucro total: R${{ lucrototal }}</h2>
           </footer>
         </div>
         <div class="w3-col w3-container">
@@ -726,7 +726,9 @@ export default {
         .then(function(response) {
           if(status) {
             dados.professor = response.nickname;
+            dados.professor = "abc";
             console.log(response.nickname);
+            console.log(dados);
             //insercao da video aula
             fetch(urlVideoAula, {
               headers: {
