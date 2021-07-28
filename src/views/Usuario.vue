@@ -144,10 +144,13 @@ export default {
     }
   },
   async mounted() {
-    await this.getCreditsQuantity()
-    await this.getProfessors()
-    await this.getcoachClasses()
-    await this.getVideoAulas()
+    await this.verifyUser()
+    if (usertype == 1) {
+      await this.getCreditsQuantity()
+      await this.getProfessors()
+      await this.getcoachClasses()
+      await this.getVideoAulas()
+    }
   },
   data () {
     return {
@@ -168,6 +171,15 @@ export default {
     }
   },
   methods: {
+    // verify if user has permission to this page
+    verifyUser: async function() {
+      if(this.usertype == 0) {
+        alert('Faça o login para poder marcar a aula ao vivo!!');
+      }
+      else if(this.usertype == 2) {
+        alert('Pagina de aluno!');
+      }
+    },
     // get all coach classes, planned and confirmed, from DB
     getcoachClasses: async function(){
       const url = "http://localhost:3000/produtos/2"
