@@ -43,6 +43,43 @@ router.get("/:tipo", (requisicao,resposta,proxima) => {
 
 });
 
+router.get("/:tipo/:id", (requisicao,resposta,proxima) => {
+
+    const tipo = requisicao.params.tipo;
+    const id = requisicao.params.id;
+    
+    if(tipo==1){
+    Video.findById(id)
+    .then(x=>{
+        resposta.status(200).send(x);
+    })
+    .catch(e=>{
+        resposta.status(404).send({message: 'Não existem Videos', data:e})
+    });
+    }
+    else if (tipo==2){
+       Aovivo.findById(id)
+    .then(x=>{
+        resposta.status(200).send(x);
+    })
+    .catch(e=>{
+        resposta.status(404).send({message: 'Não existem Aulas', data:e})
+    });
+    } 
+    else if (tipo==3){
+        Product.findById(id)
+        .then(x=>{
+            resposta.status(200).send(x);
+        })
+        .catch(e=>{
+            resposta.status(404).send({message: 'Não existem Dados', data:e})
+        });
+        }
+    
+    else resposta.status(400).send({message: 'O identificador de tipo nao é valido'})
+
+});
+
 router.post("/:tipo", (requisicao,resposta,proxima) => {
 
     const tipo = requisicao.params.tipo;
