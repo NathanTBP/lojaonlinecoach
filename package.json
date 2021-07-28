@@ -3,21 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "startserver": "node ./database/server/bin/server.js",
-    "start": "node ./database/server/bin/server.js" 
+    "start": "node ./server/bin/server.js"
   },
   "dependencies": {
-    "core-js": "^3.6.5",
     "debug": "^4.3.2",
     "express": "^4.17.1",
     "http": "0.0.1-security",
     "mongoose": "^5.13.3",
-    "tcp-port-used": "^1.0.2",
-    "vue": "^3.0.0",
-    "vue-router": "^4.0.0-0"
+    "tcp-port-used": "^1.0.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
