@@ -454,12 +454,12 @@
 
 <script>
 export default {
-  mounted: function() {
-    this.getTotals();
-    this.getVideoAulas();
-    this.getProfs();
-    this.getAlunos();
-    this.getcoachClasses();
+  async mounted() {
+    await this.getVideoAulas();
+    await this.getProfs();
+    await this.getAlunos();
+    await this.getcoachClasses();
+    await this.getTotals();
   },
   computed: {
     usertype() {
@@ -606,6 +606,11 @@ export default {
       alunoint: 0,
       alunoava: 0,
       alunocch: 0,
+      initotal: 0,
+      inttotal: 0,
+      avatotal: 0,
+      cchtotal: 0,
+      lucrototal: 0,
 
       coachClasses: {
         "planned": [],

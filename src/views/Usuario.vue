@@ -3,6 +3,28 @@
 
       <br>
 
+      <input type="text" class="w3-margin" placeholder="Titulo ou Professor" v-model="videoaulaSearch">
+      <table class="w3-table-all w3-hoverable">
+        <tr>
+          <th></th>
+          <th>Jogo</th>
+          <th>Dificuldade</th>
+          <th>Titulo</th>
+          <th>Professor</th>
+          <th>Link</th>
+          <th>Descrição</th>
+        </tr>
+        <tr v-for="videoaula in videoaulasFilter" :key="videoaula.id">
+          <td> <img class="thumbnail" :src="videoaula.thumbnail" alt="Thumbnail"> </td>
+          <td> {{videoaula.name_game}} </td>
+          <td> {{videoaula.difficulty}} </td>
+          <td> {{videoaula.title}} </td>
+          <td> {{videoaula.professor}} </td>
+          <th> {{videoaula.link}} </th>
+          <td> {{videoaula.description}} </td>
+        </tr>
+      </table><br>
+
       <h1>Meus Créditos:</h1>
 
       <h2>Vídeo Aulas: </h2> 
@@ -112,12 +134,20 @@ export default {
         return 0
       }
     },
-
+    videoaulasFilter() {
+      return this.videoaulas.filter(videoaula => {
+      if(videoaula.title.toLowerCase().includes(this.videoaulaSearch))
+        return videoaula;
+      else if(videoaula.professor.toLowerCase().includes(this.videoaulaSearch))
+        return videoaula;
+      });
+    }
   },
-  mounted() {
-    this.getCreditsQuantity()
-    this.getProfessors()
-    this.getcoachClasses()
+  async mounted() {
+    await this.getCreditsQuantity()
+    await this.getProfessors()
+    await this.getcoachClasses()
+    await this.getVideoAulas()
   },
   data () {
     return {
@@ -127,9 +157,10 @@ export default {
       },
 
       availableTeachers: [],
+      videoaulas: [],
+      videoaulaSearch: "",
       selectedCoachTeacher: "",
       selectedCoachQuantity: 0,
-
       iniquantity: 0,
       intquantity: 0,
       avaquantity: 0,
@@ -333,6 +364,42 @@ export default {
         .catch(function(error) {
           console.log('Error ' + error.message)
         })
+    },
+    getVideoAulas: async function() {
+      let user;
+      let urlVideoAula = "http://localhost:3000/produtos/1";
+      let status;
+      let self = this;
+      let videoaula;
+      let urlUser = "http://localhost:3000/usuarios";
+
+      await fetch(urlUser + "/" + this.userid)
+      .then(function(response) {
+          status = response.ok
+          if(status)
+            return response.json()
+          else
+            alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.')
+        })
+      .then(function(response){
+        user = response
+      })
+      for(let i = 0; i < user.acquired_classes.length; i++) {
+        await fetch(urlVideoAula + '/' + user.acquired_classes[i]._id)
+        .then(function(response) {
+          status = response.ok;
+          if(status)
+            return response.json();
+          else
+            alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.');
+        })
+        .then(function(response) {
+          if(status) {
+            videoaula = response;
+            self.videoaulas.push(videoaula);
+          }
+        })
+      }
     }
   }
 }

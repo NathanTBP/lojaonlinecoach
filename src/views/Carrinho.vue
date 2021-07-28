@@ -224,7 +224,6 @@ export default {
         .then(function(response) {
             if(status) {
               dadosProduct = response;
-              console.log(dadosProduct);
             }
         })
         .catch(function(error) {
@@ -310,11 +309,6 @@ export default {
                       }
                       else
                         alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.');
-                      })
-                      .then(function(response) {
-                        if(status) {
-                          console.log(response);
-                        }
                       })
                       .catch(function(error) {
                         console.log('Error ' + error.message)
