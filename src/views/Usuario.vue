@@ -178,6 +178,8 @@ export default {
       .then(function(response){
         status = response.ok
         if(status){
+          self.coachClasses.planned = []
+          self.coachClasses.confirmed = []
           return response.json()
         }
         else{
@@ -315,7 +317,9 @@ export default {
         },
         body: JSON.stringify(newClass)
       })
-      //this.coachClasses["planned"].push(newClass)
+
+      this.getcoachClasses()
+
     },
     getDate: function(date){
       let formatedDate = new Date(date)
