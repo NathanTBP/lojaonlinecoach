@@ -42,13 +42,34 @@
                   <select class="w3-select w3-border w3-large" name="option" v-model="selectedCoachTeacher">
                       <option value="" disabled selected>selecione o professor</option>
                       <option v-for="(item, index) in availableTeachers" :key="index">
-                          {{item}}
+                          {{item.nickname}}
                       </option>
                   </select>
               </div>
           </form>
         <p><button class="w3-btn w3-cyan" @click="submitCoachClass">Marcar aula</button></p>
       </div>
+
+      <div class="w3-table" id="bought-classes-div">
+      <h2>Aulas confirmadas</h2>
+      <table class="w3-table-all w3-hoverable">
+        <tr>
+          <th>Professor</th>
+          <th>Data</th>
+          <th>Horário</th>
+          <th>Quant aulas</th>
+          <th>Cancelar</th>
+        </tr>
+        <tr>
+          <td>Cadinho de Michael</td>
+          <td>29/05/2021</td>
+          <td>12:00</td>
+          <td>1</td>
+          <td><input class="cancel" type="button" value="  X  "></td>
+        </tr>
+      </table>
+      </div>
+
 
   </div>
 </template>
@@ -57,7 +78,10 @@
 export default {
   computed: {
     usertype() {
-    return localStorage.getItem('usertype');
+      return localStorage.getItem('usertype');
+    },
+    userid() {
+      return localStorage.getItem('userid');
     },
     coachQuantities: function(){
       if (this.cchquantity > 0){
@@ -66,17 +90,25 @@ export default {
       else{
         return 0
       }
-    }
+    },
+
   },
   mounted() {
     this.getCreditsQuantity()
-    this.setProfessors()
+    this.getProfessors()
+    this.getcoachClasses()
   },
   data () {
     return {
+      coachClasses: {
+        "planned": [],
+        "confirmed": []
+      },
+
       availableTeachers: [],
       selectedCoachTeacher: "",
-      selectedCoachQuantity: "",
+      selectedCoachQuantity: 0,
+
       iniquantity: 0,
       intquantity: 0,
       avaquantity: 0,
@@ -84,19 +116,50 @@ export default {
     }
   },
   methods: {
-    setProfessors: async function(){
+    // get all coach classes, planned and confirmed, from DB
+    getcoachClasses: async function(){
+      const url = "http://localhost:3000/produtos/2"
+      let status
+      let self = this
+
+      await fetch(url)
+      .then(function(response){
+        status = response.ok
+        if(status){
+          return response.json()
+        }
+        else{
+          alert("Erro de conexão")
+        }
+      })
+      .then(function(response){
+        for (let i = 0; i < response.length; i++){
+          let currClass = response[i]
+          if (currClass.condition){
+            self.coachClasses["planned"].push(currClass)
+          }
+          else{
+            self.coachClasses["confirmed"].push(currClass)
+          }
+        }
+      })
+      console.log(this.coachClasses["planned"])
+      console.log(this.coachClasses["confirmed"])
+    },
+    // get all the available teachers (every user with type 2 permission) from the DB
+    getProfessors: async function(){
       const url = "http://localhost:3000/usuarios"
-      let status;
+      let status
       let self = this
       let teachers = []
       await fetch(url)
         .then(function(response) {
           status = response.ok
           if(status){
-            return response.json();
+            return response.json()
           }
           else{
-            alert('Erro de conexão');
+            alert('Erro de conexão')
           }
         })
         .then(function(response) {
@@ -104,7 +167,7 @@ export default {
             for(let i = 0; i < response.length; i++) {
               let user = response[i]
               if (user.type_user == 2){
-                teachers.push(user.nickname)
+                teachers.push(user)
               }
             }
           }
@@ -112,32 +175,56 @@ export default {
           self.availableTeachers = teachers
         })
     },
-    submitCoachClass: async function(){
-      let currentDate = new Date().toISOString().split('T')
-      const time = currentDate[1].split(':')
-      currentDate[1] = time[0] + ":" + time[1]
-      this.cchquantity -= parseInt(this.selectedCoachQuantity)
-
-      let url = "http://localhost:3000/usuarios";
-      let userInfo;
+    // get user info from the database using the current user id (saved on the localStorage)
+    getUserInfo: async function(){
+      let url = "http://localhost:3000/usuarios"
+      let userInfo
       let status
-      await fetch(url + "/" + localStorage.getItem("userid"))
+      await fetch(url + "/" + this.userid)
       .then(function(response) {
-          status = response.ok;
+          status = response.ok
           if(status)
-            return response.json();
+            return response.json()
           else
-            alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.');
+            alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.')
         })
       .then(function(response){
         userInfo = response
       })
+      return userInfo
+    },
+
+    // verify if the purchase of the coach class is valid,
+    // and if it is spend the wanted ammount of credits, send the purchased class info to the DB
+    submitCoachClass: async function(){
+      let currentDate = new Date()
+      let professor
+      for (let i = 0; i < this.availableTeachers.length; i++){
+        if (this.availableTeachers[i].nickname == this.selectedCoachTeacher){
+          professor = this.availableTeachers[i]
+        }
+      }
+      const coinQuantity = this.selectedCoachQuantity
+
+      if (!(coinQuantity >= 1) || !professor.nickname){
+        return
+      }
+      this.cchquantity -= parseInt(coinQuantity)
+
+      let url = "http://localhost:3000/usuarios"
+      let status
+      let userInfo = await this.getUserInfo()
+
+      // search for the current ammount of coach classes credits the user have
       for(let i = 0; i < userInfo.remaining_classes.length; i++){
         if (userInfo.remaining_classes[i].product_id == 4){
+          // update the userinfo to contain the new ammount of credits
           userInfo.remaining_classes[i].quantity = this.cchquantity
         }
       }
-      fetch(url + "/" + localStorage.getItem("userid"), {
+
+      // send a PATCH request to the DB with the updated ammount of credits
+      await fetch(url + "/" + this.userid, {
         method: 'PATCH', // or 'PUT'
         headers: {
           'Content-Type': 'application/json',
@@ -145,36 +232,57 @@ export default {
         body: JSON.stringify(userInfo),
       })
         .then(function(response) {
-        status = response.ok;
+        status = response.ok
         if(status) {
-          return response.json();
+          return response.json()
         }
         else
-          alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.');
+          alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.')
         })
           .then(function() {
           if(status) {
-            alert('Agendamento realizado com sucesso');
+            alert('Agendamento realizado com sucesso')
           }
         })
+      const newClass = {
+        "condition": false,
+        "date": currentDate,
+        "professor": professor.nickname,
+        "prof_email": professor.email,
+        "prof_celular": professor.celular,
+        "aluno": userInfo.email,
+        "quantity": coinQuantity
+      }
+
+      url = "http://localhost:3000/produtos/2"
+      await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(newClass)
+      })
+      this.coachClasses["planned"].push(newClass)
     },
-    getCreditsQuantity: function() {
-      let idusuario = localStorage.getItem('userid');
-      let url = "http://localhost:3000/usuarios";
+    // get current logged in user credits from DB
+    getCreditsQuantity: async function() {
+      let idusuario = this.userid
+      let url = "http://localhost:3000/usuarios"
       let status;
       let self = this;
 
-      fetch(url + '/' + idusuario)
+      await fetch(url + '/' + idusuario)
         .then(function(response) {
           status = response.ok;
           if(status)
-            return response.json();
+            return response.json()
           else
             alert('Erro de conexão. Verifique se o servidor da pasta /database está funcionando.');
         })
         .then(function(response) {
           if(status) {
-            let user = response;
+            let user = response
             if(user.remaining_classes) {
               for(let i = 0; i < user.remaining_classes.length; i++) {
                 if(user.remaining_classes[i].product_id == 1) {
