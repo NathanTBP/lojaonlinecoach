@@ -65,8 +65,10 @@ Nos testes de dados, foi verificado que a estrutura de banco de dados funcionava
 a primeira imagem é um print da ação feita no postman, e a segunda é a visualização do resultado no localhost json).
 
 * Como rodar?:
-* 
-Para rodar o site, é preciso ter instalado o node.js (https://nodejs.org/en/) e o gerenciador de pacotes de node (npm) https://www.npmjs.com/package/npm
+
+O site está online pelo servidor do Heroku através do link: https://loja-online-coach.herokuapp.com/
+
+Para rodar o site como desenvoldor, em um servidor local (para testes ou maior performance), é preciso ter instalado o node.js (https://nodejs.org/en/) e o gerenciador de pacotes de node (npm) https://www.npmjs.com/package/npm
 Basta fazer download dos arquivos ou clone do GitHub e, na pasta principal, executar os seguintes comandos:
 
 > npm install
@@ -79,6 +81,9 @@ Set-ExecutionPolicy RemoteSigned
 Lembrando que o site usa o framework vue.js (https://vuejs.org/)
 
 * Problemas:
+
+Os dados de cadastro não são extensamente verificados, numeros de celulares ou emails não existentes não são checados. Além disso, os termos de uso ainda não estão presentes 
+e portanto não alteram em nada o cadastro.
 
 Algumas das funcionalidades extras pensadas no início do projeto não foram implementadas para evitar demasiadas complicações que poderiam acarretar em extensão do prazo de entrega, que não podia ser feito.
 
@@ -114,4 +119,4 @@ E uma conta de aluno para teste:
 
 >senha: batata123
 
-Mas é possível realizar registro no site para executar os testes.
+Mas é possível realizar registro no site para executar os testes normalmente.
