@@ -3,7 +3,6 @@ const debug = require("debug")("nodestr:server");
 const app = require('./server/serverapp');
 
 
-let porta = 3000;
 porta = process.env.PORT || 3000;
 app.set("port",porta);
 

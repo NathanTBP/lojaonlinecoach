@@ -5,8 +5,7 @@ const debug = require("debug")("nodestr:server");
 const app = require('../serverapp');
 
 
-let porta = 3000;
-porta = normalizarPorta(process.env.PORT,porta);
+var porta = process.env.PORT || 3000;
 app.set("port",porta);
 
 const servidor = http.createServer(app);
