@@ -4,7 +4,7 @@ const app = require('./server/serverapp');
 
 
 let porta = 3000;
-porta = normalizarPorta(process.env.PORT,porta);
+porta = process.env.PORT || 3000;
 app.set("port",porta);
 
 const servidor = http.createServer(app);
