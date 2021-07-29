@@ -64,8 +64,37 @@ Nos testes de usabilidade, foram corrigidos os pontos revisados na primeira entr
 Nos testes de dados, foi verificado que a estrutura de banco de dados funcionava e as requisições http eram bem resolvidas (resultados em imagens disponíveis na pasta mockups, 
 a primeira imagem é um print da ação feita no postman, e a segunda é a visualização do resultado no localhost json).
 
+
+* Resultado dos novos Testes:
+
+O código foi constantemente testado enquanto foi desenvolvido. A cada desenvolvimento de uma função pertinente ou geração de um bloco de código em HTMl, foi verificado seu correto funcionamento para que não ocorre um efeito cascata de erros. Desse modo, apesar de trabalhoso a execução de vários testes enquanto o desenvolvimento, provavelmente se não fosse feito desta maneira, acarretaria em um efeito bola de neve de erros e seria muito mais trabalhoso para a correção de erros.
+
+Após a finalização do código, foi simulado o acesso ao site por um usuário de modo que fosse testado as possibilidades de ações que um usuário pudesse executar durante a navegação do site. Assim, foi testado todas as opções de navegação que o navbar possui, bem como suas derividas. Nesta ocasião, não é possível que o usuário, enquanto não logado no site, não possa executar a compra de moedas, nem de desbloqueamento de video aulas e acesso à marcar aulas ao vivo com o coach. Além disso, foi testado diversos inputs para o registro e login do usuário para encontrar possíveis bugs como cadastro com inputs em branco obrigatórios ou login no site com conta inexistente.
+
+Por seguinte, foi executado um cadastramento do usuário, o login do mesmo na conta criada e as fduncionalidades permitidas após o login. Assim, foi possível assegurar que as funcionalidades de compra de créditos e de desbloqueio estivessem funcionando corretamente, com o usuário podendo realizar a compra de créditos no carrinho apenas se houver produto no carrinho e se todos os dados de cartão de crédito foram preenchdidos. Além disso, foi testado se o aluno pudesse desbloquear video aulas ou marcar aulas ao vivo com coach mesmo sem moedas ou após esgotá-las, sem sucesso.
+
+Dessa forma, apesar dos testes serem manuais, foi possível assegurar o funcionamento do site desenvolvido de modo correto, mas não sendo possível o teste da capacidade de usuários simultâneos, bem como a reação do site com mais de um usuário simultâneo e o comportamento do mesmo com falhas de conexão com o usuário e/ou com o banco.
+
+* Comentários:
+
+O código foi modularizado em diferentes arquivos e pastas, para separar arquivos do servidor (presentes na pasta database) e os arquivos eo VUE, imagens e etc na pasta src.
+
+Há uma conta de admin/professor cujo login é dado a seguir: 
+
+> login: admin@usp.br
+
+> senha: 123
+
+E uma conta de aluno para teste: 
+
+> login mvellosa@usp.br
+
+>senha: batata123
+
+Mas é possível realizar registro no site para executar os testes.
+
 * Como rodar?:
-* 
+
 Para rodar o site, é preciso ter instalado o node.js (https://nodejs.org/en/) e o gerenciador de pacotes de node (npm) https://www.npmjs.com/package/npm
 Basta fazer download dos arquivos ou clone do GitHub e, na pasta principal, executar os seguintes comandos:
 
@@ -91,31 +120,3 @@ Ao tentar acessar páginas que exigem permissões como a página de usuário(alu
 Em carrinho, a verificação dos inputs do cartão de crédito são feitos de maneira simples, verificando se os inputs não são nulos e se a entrada de número de cartão possui apenas números por exemplo.
 
 Não conseguimos fazer o deploy do servidor. Embora o site esteja funcional, ele requer o servidor ligado na máquina local.
-
-* Resultado dos novos Testes:
-
-O código foi constantemente testado enquanto foi desenvolvido. A cada desenvolvimento de uma função pertinente ou geração de um bloco de código em HTMl, foi verificado seu correto funcionamento para que não ocorre um efeito cascata de erros. Desse modo, apesar de trabalhoso a execução de vários testes enquanto o desenvolvimento, provavelmente se não fosse feito desta maneira, acarretaria em um efeito bola de neve de erros e seria muito mais trabalhoso para a correção de erros.
-
-Após a finalização do código, foi simulado o acesso ao site por um usuário de modo que fosse testado as possibilidades de ações que um usuário pudesse executar durante a navegação do site. Assim, foi testado todas as opções de navegação que o navbar possui, bem como suas derividas. Nesta ocasião, não é possível que o usuário, enquanto não logado no site, não possa executar a compra de moedas, nem de desbloqueamento de video aulas e acesso à marcar aulas ao vivo com o coach. Além disso, foi testado diversos inputs para o registro e login do usuário para encontrar possíveis bugs como cadastro com inputs em branco obrigatórios ou login no site com conta inexistente.
-
-Por seguinte, foi executado um cadastramento do usuário, o login do mesmo na conta criada e as fduncionalidades permitidas após o login. Assim, foi possível assegurar que as funcionalidades de compra de créditos e de desbloqueio estivessem funcionando corretamente, com o usuário podendo realizar a compra de créditos no carrinho apenas se houver produto no carrinho e se todos os dados de cartão de crédito foram preenchdidos. Além disso, foi testado se o aluno pudesse desbloquear video aulas ou marcar aulas ao vivo com coach mesmo sem moedas ou após esgotá-las, sem sucesso.
-
-Dessa forma, apesar dos testes serem manuais, foi possível assegurar o funcionamento do site desenvolvido de modo correto, mas não sendo possível o teste da capacidade de usuários simultâneos, bem como a reação do site com mais de um usuário simultâneo e o comportamento do mesmo com falhas de conexão com o usuário e/ou com o banco.
-
-* Comentários:
-
-O código foi modularizado em diferentes arquivos e pastas, para separar arquivos do servidor (presentes na pasta database) e os arquivos eo VUE, imagens e etc na pasta src.
-
-Há uma conta de admin/professor cujo login é dadoa a seguir: 
-
-> login: admin@usp.br
-
-> senha: 123
-
-E uma conta de aluno para teste: 
-
-> login mvellosa@usp.br
-
->senha: batata123
-
-Mas é possível realizar registro no site para executar os testes.
