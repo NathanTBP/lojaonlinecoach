@@ -3,6 +3,8 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const usuario = require("../Schema/user");
 const Usuario = mongoose.model("Usuarios");
+const md5 = require("md5");
+
 
 router.get("/", (requisicao,resposta,proxima) => {
 
@@ -40,7 +42,7 @@ router.post("/", (requisicao,resposta,proxima) => {
     usuario.nickname=requisicao.body.nickname;
     usuario.celular=requisicao.body.celular;
     usuario.email=requisicao.body.email;
-    usuario.password=requisicao.body.password;
+    usuario.password=md5(requisicao.body.password + global.SALT_KEY);
     usuario.type_user=requisicao.body.type_user;
     usuario.remaining_classes=requisicao.body.remaining_classes;
     usuario.acquired_classes=requisicao.body.acquired_classes;
