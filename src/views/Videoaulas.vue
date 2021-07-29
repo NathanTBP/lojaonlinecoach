@@ -101,7 +101,7 @@ export default {
   methods: {
     // get user informations from the DB
     getUserInfos: async function () {
-      let url = "http://localhost:3000/usuarios";
+      let url = "https://server-online-coach.herokuapp.com/usuarios";
       let status;
       let self = this;
 
@@ -139,7 +139,7 @@ export default {
     // get the video Aulas list from the DB
     getVideoAulas: async function () {
       const self = this;
-      let url = "http://localhost:3000/produtos/1";
+      let url = "https://server-online-coach.herokuapp.com/produtos/1";
       let status;
       self.videoaulas = [];
 
@@ -174,8 +174,8 @@ export default {
     // unlocks the selected Video Aula
     unlockVideoAula: async function(videoaulaid, difficulty) {
       const self = this;
-      let urlUser = "http://localhost:3000/usuarios";
-      let urlVideoAula = "http://localhost:3000/produtos/1";
+      let urlUser = "https://server-online-coach.herokuapp.com/usuarios";
+      let urlVideoAula = "https://server-online-coach.herokuapp.com/produtos/1";
       let status;
       let isCredit = true;
       let credit;

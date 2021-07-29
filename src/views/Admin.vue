@@ -654,7 +654,7 @@ export default {
       let newPlannedCoachClass = this.coachClasses.planned[index]
       newPlannedCoachClass.condition = true
 
-      const url = "http://localhost:3000/produtos/2/" + newPlannedCoachClass._id
+      const url = "https://server-online-coach.herokuapp.com/produtos/2/" + newPlannedCoachClass._id
       let status
 
       await fetch(url, {
@@ -680,7 +680,7 @@ export default {
 
     // get coach classes from the DB
     getcoachClasses: async function(){
-      const url = "http://localhost:3000/produtos/2"
+      const url = "https://server-online-coach.herokuapp.com/produtos/2"
       let status
       let self = this
 
@@ -723,7 +723,7 @@ export default {
     // set the total ammount sold and profited from the sold classes
     getTotals: function() {
       const self = this;
-      let url = "http://localhost:3000/produtos/3";
+      let url = "https://server-online-coach.herokuapp.com/produtos/3";
       let status;
       let prices = [0, 0, 0, 0];
 
@@ -769,7 +769,7 @@ export default {
     // get all Video Aulas from the DB
     getVideoAulas: function() {
       const self = this;
-      let url = "http://localhost:3000/produtos/1";
+      let url = "https://server-online-coach.herokuapp.com/produtos/1";
       let status;
       self.videoaulasLolIni = [];
       self.videoaulasLolInt = [];
@@ -839,8 +839,8 @@ export default {
     // checks if every input field was properly entered
     adicVideoAula: function () {
       const self = this;
-      let urlProf = "http://localhost:3000/usuarios";
-      let urlVideoAula = "http://localhost:3000/produtos/1"
+      let urlProf = "https://server-online-coach.herokuapp.com/usuarios";
+      let urlVideoAula = "https://server-online-coach.herokuapp.com/produtos/1"
       let status;
 
       this.errors = [];
@@ -927,7 +927,7 @@ export default {
     deleteVideoAula: function (game, difficulty, id) {
       if(confirm('Deseja realmente excluir essa video aula?')) {
         console.log(game, difficulty, id);
-        let url = "http://localhost:3000/produtos/1";
+        let url = "https://server-online-coach.herokuapp.com/produtos/1";
         let status;
         let self = this;
 
@@ -973,7 +973,7 @@ export default {
     // get prof related info from the server
     getProfs: function () {
       const self = this;
-      let url = "http://localhost:3000/usuarios";
+      let url = "https://server-online-coach.herokuapp.com/usuarios";
       let status;
       self.profs = [];
 
@@ -1061,7 +1061,7 @@ export default {
       const self = this;
       let existEmail = false;
       let existNickname = false;
-      let url = "http://localhost:3000/usuarios";
+      let url = "https://server-online-coach.herokuapp.com/usuarios";
       let status;
 
       this.errors = [];
@@ -1106,7 +1106,7 @@ export default {
     // register the Proffessor if everything was right
     profregisterConfirmed: function() {
       const self = this;
-      let url = "http://localhost:3000/usuarios";
+      let url = "https://server-online-coach.herokuapp.com/usuarios";
       let status;
       let dados = {
         first_name: self.profnome,
@@ -1150,7 +1150,7 @@ export default {
     //verify if the "edit professor" is valid
     verifyEditProf: async function () {
       let self = this;
-      let url = "http://localhost:3000/usuarios";
+      let url = "https://server-online-coach.herokuapp.com/usuarios";
       let status;
       let isvalidEmail;
       self.dados = {};
@@ -1226,7 +1226,7 @@ export default {
     // edit the Proffessor if everything is valid
     editProf: async function() {
       let self = this;
-      let url = "http://localhost:3000/usuarios";
+      let url = "https://server-online-coach.herokuapp.com/usuarios";
       let status;
       this.errors = [];
 
@@ -1269,7 +1269,7 @@ export default {
 
     // delete the proffessor from the DB
     deleteProf: function() {
-      let url = "http://localhost:3000/usuarios";
+      let url = "https://server-online-coach.herokuapp.com/usuarios";
       let status;
       let self = this;
 
@@ -1316,7 +1316,7 @@ export default {
     // get alunos from DB
     getAlunos: function () {
       const self = this;
-      let url = "http://localhost:3000/usuarios";
+      let url = "https://server-online-coach.herokuapp.com/usuarios";
       let status;
       self.alunos = [];
 
@@ -1380,7 +1380,7 @@ export default {
     // verify if the Edit is valid
     verifyEditAluno: async function () {
       let self = this;
-      let url = "http://localhost:3000/usuarios";
+      let url = "https://server-online-coach.herokuapp.com/usuarios";
       let status;
       let user_remaining_classes;
       let isvalidEmail;
@@ -1497,7 +1497,7 @@ export default {
     // edit Aluno if everything is right
     editAluno: async function() {
       const self = this;
-      let url = "http://localhost:3000/usuarios";
+      let url = "https://server-online-coach.herokuapp.com/usuarios";
       let status;
       this.errors = [];
 
@@ -1540,7 +1540,7 @@ export default {
 
     // delete Aluno from the DB
     deleteAluno: function() {
-      let url = "http://localhost:3000/usuarios";
+      let url = "https://server-online-coach.herokuapp.com/usuarios";
       let status;
       let self = this;
 

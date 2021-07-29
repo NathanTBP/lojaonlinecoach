@@ -207,7 +207,7 @@ export default {
   name: 'Produtos',
   // get the coins from the coins (product 3) from the DB
   mounted(){
-      fetch('http://localhost:3000/produtos/3')
+      fetch('https://server-online-coach.herokuapp.com/produtos/3')
       .then(res => res.json())
       .then(data => this.products = data)
 

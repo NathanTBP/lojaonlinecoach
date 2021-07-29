@@ -199,7 +199,7 @@ export default {
     },
     // get all coach classes, planned and confirmed, from DB
     getcoachClasses: async function(){
-      const url = "http://localhost:3000/produtos/2"
+      const url = "https://server-online-coach.herokuapp.com/produtos/2"
       let status
       let self = this
 
@@ -232,7 +232,7 @@ export default {
     },
     // get all the available teachers (every user with type 2 permission) from the DB
     getProfessors: async function(){
-      const url = "http://localhost:3000/usuarios"
+      const url = "https://server-online-coach.herokuapp.com/usuarios"
       let status
       let self = this
       let teachers = []
@@ -261,7 +261,7 @@ export default {
     },
     // get user info from the database using the current user id (saved on the localStorage)
     getUserInfo: async function(){
-      let url = "http://localhost:3000/usuarios"
+      let url = "https://server-online-coach.herokuapp.com/usuarios"
       let userInfo
       let status
       await fetch(url + "/" + this.userid)
@@ -295,7 +295,7 @@ export default {
       }
       this.cchquantity -= parseInt(coinQuantity)
 
-      let url = "http://localhost:3000/usuarios"
+      let url = "https://server-online-coach.herokuapp.com/usuarios"
       let status
       let userInfo = await this.getUserInfo()
 
@@ -340,7 +340,7 @@ export default {
         "quantity": coinQuantity
       }
 
-      url = "http://localhost:3000/produtos/2"
+      url = "https://server-online-coach.herokuapp.com/produtos/2"
       await fetch(url, {
         method: 'POST',
         headers: {
@@ -369,7 +369,7 @@ export default {
     // get current logged in user credits from DB
     getCreditsQuantity: async function() {
       let idusuario = this.userid
-      let url = "http://localhost:3000/usuarios"
+      let url = "https://server-online-coach.herokuapp.com/usuarios"
       let status;
       let self = this;
 
@@ -410,11 +410,11 @@ export default {
     // get video aulas list from the DB
     getVideoAulas: async function() {
       let user;
-      let urlVideoAula = "http://localhost:3000/produtos/1";
+      let urlVideoAula = "https://server-online-coach.herokuapp.com/produtos/1";
       let status;
       let self = this;
       let videoaula;
-      let urlUser = "http://localhost:3000/usuarios";
+      let urlUser = "https://server-online-coach.herokuapp.com/usuarios";
 
       await fetch(urlUser + "/" + this.userid)
       .then(function(response) {

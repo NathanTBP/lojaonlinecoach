@@ -130,7 +130,7 @@ export default {
     verifyRegister: function() {
       const self = this;
       let existEmail = false;
-      let url = "http://localhost:3000/usuarios";
+      let url = "https://server-online-coach.herokuapp.com/usuarios";
       let status;
 
       this.errors = [];
@@ -166,7 +166,7 @@ export default {
     },
     registerConfirmed: function() {
       const self = this;
-      let url = "http://localhost:3000/usuarios";
+      let url = "https://server-online-coach.herokuapp.com/usuarios";
       let status;
       let dados = {
         first_name: self.nome,

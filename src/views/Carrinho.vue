@@ -112,7 +112,7 @@ export default {
   },
   mounted(){
     // get coin (product 3) information from the DB
-    fetch('http://localhost:3000/produtos/3')
+    fetch('https://server-online-coach.herokuapp.com/produtos/3')
       .then(res => res.json())
       .then(data => this.products = data)
 
@@ -222,8 +222,8 @@ export default {
     // adding the newly bought products to the user's section on the DB
     buyConfirmed: async function() {
       let idusuario = localStorage.getItem('userid');
-      let urlUser = "http://localhost:3000/usuarios";
-      let urlProduct = "http://localhost:3000/produtos/3";
+      let urlUser = "https://server-online-coach.herokuapp.com/usuarios";
+      let urlProduct = "https://server-online-coach.herokuapp.com/produtos/3";
       let status;
       let self = this;
       let user_remaining_classes;
