@@ -64,7 +64,6 @@ Nos testes de usabilidade, foram corrigidos os pontos revisados na primeira entr
 Nos testes de dados, foi verificado que a estrutura de banco de dados funcionava e as requisições http eram bem resolvidas (resultados em imagens disponíveis na pasta mockups, 
 a primeira imagem é um print da ação feita no postman, e a segunda é a visualização do resultado no localhost json).
 
-
 * Resultado dos novos Testes:
 
 O código foi constantemente testado enquanto foi desenvolvido. A cada desenvolvimento de uma função pertinente ou geração de um bloco de código em HTMl, foi verificado seu correto funcionamento para que não ocorre um efeito cascata de erros. Desse modo, apesar de trabalhoso a execução de vários testes enquanto o desenvolvimento, provavelmente se não fosse feito desta maneira, acarretaria em um efeito bola de neve de erros e seria muito mais trabalhoso para a correção de erros.
@@ -79,7 +78,7 @@ Dessa forma, apesar dos testes serem manuais, foi possível assegurar o funciona
 
 O código foi modularizado em diferentes arquivos e pastas, para separar arquivos do servidor (presentes na pasta database) e os arquivos eo VUE, imagens e etc na pasta src.
 
-Há uma conta de admin/professor cujo login é dado a seguir: 
+Há uma conta de admin/professor cujo login é dadoa a seguir: 
 
 > login: admin@usp.br
 
@@ -91,11 +90,14 @@ E uma conta de aluno para teste:
 
 >senha: batata123
 
-Mas é possível realizar registro no site para executar os testes.
+Mas é possível realizar registro no site para executar os testes normalmente.
+
 
 * Como rodar?:
 
-Para rodar o site, é preciso ter instalado o node.js (https://nodejs.org/en/) e o gerenciador de pacotes de node (npm) https://www.npmjs.com/package/npm
+O site está online pelo servidor do Heroku através do link: https://loja-online-coach.herokuapp.com/
+
+Para rodar o site como desenvoldor, em um servidor local (para testes ou maior performance), é preciso ter instalado o node.js (https://nodejs.org/en/) e o gerenciador de pacotes de node (npm) https://www.npmjs.com/package/npm
 Basta fazer download dos arquivos ou clone do GitHub e, na pasta principal, executar os seguintes comandos:
 
 > npm install
@@ -107,9 +109,10 @@ Set-ExecutionPolicy RemoteSigned
 
 Lembrando que o site usa o framework vue.js (https://vuejs.org/)
 
-É possivel fazer acessar o site pelo seguinte url: https://loja-online-coach.herokuapp.com/#/, porém o servidor local ainda deve ser executado.
-
 * Problemas:
+
+Os dados de cadastro não são extensamente verificados, numeros de celulares ou emails não existentes não são checados. Além disso, os termos de uso ainda não estão presentes 
+e portanto não alteram em nada o cadastro.
 
 Algumas das funcionalidades extras pensadas no início do projeto não foram implementadas para evitar demasiadas complicações que poderiam acarretar em extensão do prazo de entrega, que não podia ser feito.
 
@@ -119,4 +122,4 @@ Ao tentar acessar páginas que exigem permissões como a página de usuário(alu
 
 Em carrinho, a verificação dos inputs do cartão de crédito são feitos de maneira simples, verificando se os inputs não são nulos e se a entrada de número de cartão possui apenas números por exemplo.
 
-Não conseguimos fazer o deploy do servidor. Embora o site esteja funcional, ele requer o servidor ligado na máquina local.
+
